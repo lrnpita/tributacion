@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.TipoTransaccion" table="tipo_transaccion" schema="public" optimistic-lock="version">
+        <id name="codigo" type="string">
+            <column name="codigo" length="5" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="300" not-null="true" />
+        </property>
+        <property name="anno" type="int">
+            <column name="anno" />
+        </property>
+        <property name="porcentaje" type="int">
+            <column name="porcentaje" />
+        </property>  
+        <property name="bien" type="boolean">
+            <column name="bien" />
+        </property> 
+        <property name="servicio" type="boolean">
+            <column name="servicio" />
+        </property>        
+        <set name="importacions" table="importacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tipo_transaccion" length="5" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Importacion" />
+        </set>
+        <set name="detallesCompras" table="detalles_compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tipo_transaccion" length="5" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.DetallesCompra" />
+        </set>
+    </class>
+</hibernate-mapping>

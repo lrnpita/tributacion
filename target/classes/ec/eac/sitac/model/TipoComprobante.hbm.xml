@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.TipoComprobante" table="tipo_comprobante" schema="public" optimistic-lock="version">
+        <id name="codigo" type="string">
+            <column name="codigo" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="75" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+        <property name="vistaExportacion" type="boolean">
+            <column name="vista_exportacion" />
+        </property>
+        <property name="vistaImportacion" type="boolean">
+            <column name="vista_importacion" />
+        </property>
+        <property name="vistaCompra" type="boolean">
+            <column name="vista_compra" />
+        </property>
+        <property name="vistaVenta" type="boolean">
+            <column name="vista_venta" />
+        </property>
+        <property name="vistaAnulados" type="boolean">
+            <column name="vista_anulados" />
+        </property>
+        <set name="exportacions" table="exportacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="codigo" length="2" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Exportacion" />
+        </set>
+        <set name="importacions" table="importacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="codigo" length="2" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Importacion" />
+        </set>
+        <set name="ventas" table="venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tipo_comprobante" length="2" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Venta" />
+        </set>
+    </class>
+</hibernate-mapping>

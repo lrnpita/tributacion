@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+   <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Introduzca sus datos</h3>
+                    </div>
+                    <div class="panel-body">
+					    	<p th:if="${loginError}" class="error">Wrong user or password</p>
+						    <form role="form" th:action="@{/j_spring_security_check}" method="post">
+						    	<fieldset>
+						    		<div class="form-group">
+						    			<label for="j_username">Usuario</label>:
+                                    	<input class="form-control input-sm" placeholder="Usuario" id="j_username" name="j_username" type="text" autofocus="autofocus"/>
+                                	</div>
+						    		<div class="form-group">
+						    			<label for="j_password">Contrase&ntilde;a</label>:
+                                    	<input class="form-control input-sm" placeholder="Password" type="password" id="j_password" name="j_password"/>
+                                	</div>
+                                								      
+							      	<input type="hidden" id="j_enabled" name="j_enabled" value="true" />
+							      <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+						      	</fieldset>
+						    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+

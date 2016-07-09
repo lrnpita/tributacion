@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.ImpuestoRenta" table="impuesto_renta" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="fraccionBasica" type="float">
+            <column name="fraccion_basica" length="75" />
+        </property>
+        <property name="exceso" type="float">
+            <column name="exceso" />
+        </property>
+        <property name="impuestoFraccionBasica" type="float">
+            <column name="impuesto_fraccion_basica" length="75" />
+        </property>
+        <property name="impuestoFraccionExcedente" type="int">
+            <column name="impuesto_fraccion_excedente" />
+        </property>
+        <property name="anno" type="int">
+            <column name="anno" length="4" />
+        </property>        
+    </class>
+</hibernate-mapping>

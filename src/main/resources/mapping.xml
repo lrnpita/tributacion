@@ -1,0 +1,164 @@
+<mapping>
+	<class name="ec.eac.sitac.esigef.InfoAdicional">
+		<map-to xml="infoAdicional" />
+
+		<field name="campoAdicional" type="java.lang.String">
+			<bind-xml name="campoAdicional" node="element" />
+		</field>
+	</class>
+	
+	<class name="ec.eac.sitac.esigef.Comprobante">
+		<map-to xml="comprobante" />
+
+		<field name="version" type="java.lang.String">
+			<bind-xml name="version" node="attribute" />
+		</field>
+		<field name="encoding" type="java.lang.String">
+			<bind-xml name="encoding" node="attribute" />
+		</field>
+		<field name="comprobanteRetencion" type="ec.eac.sitac.esigef.ComprobanteRetencion">
+			<bind-xml name="comprobanteRetencion" node="element" />
+		</field>
+	</class>
+	
+	<class name="ec.eac.sitac.esigef.ESIGEF_XMLObject">
+		<map-to xml="autorizacion" />
+
+		<field name="estado" type="java.lang.String">
+			<bind-xml name="estado" node="element" />
+		</field>
+		<field name="numeroAutorizacion" type="java.lang.String">
+			<bind-xml name="numeroAutorizacion" node="element" />
+		</field>
+		<field name="fechaAutorizacion" type="java.lang.String">
+			<bind-xml name="fechaAutorizacion" node="element" />
+		</field>
+		<field name="ambiente" type="java.lang.String">
+			<bind-xml name="ambiente" node="element" />
+		</field>
+		<field name="comprobante" type="ec.eac.sitac.esigef.Comprobante">
+			<bind-xml name="comprobante" node="element" />
+		</field>
+	</class>
+	
+	<class name="ec.eac.sitac.esigef.Impuesto">
+		<map-to xml="impuesto" />
+
+		<field name="codigo" type="java.lang.String">
+			<bind-xml name="codigo" node="element" />
+		</field>
+		<field name="codigoRetencion" type="java.lang.String">
+			<bind-xml name="codigoRetencion" node="element" />
+		</field>
+		<field name="baseImponible" type="java.lang.String">
+			<bind-xml name="baseImponible" node="element" />
+		</field>
+		<field name="porcentajeRetener" type="java.lang.String">
+			<bind-xml name="porcentajeRetener" node="element" />
+		</field>
+		<field name="valorRetenido" type="java.lang.String">
+			<bind-xml name="valorRetenido" node="element" />
+		</field>
+		<field name="codDocSustento" type="java.lang.String">
+			<bind-xml name="codDocSustento" node="element" />
+		</field>
+		<field name="numDocSustento" type="java.lang.String">
+			<bind-xml name="numDocSustento" node="element" />
+		</field>
+		<field name="fechaEmisionDocSustento" type="java.lang.String">
+			<bind-xml name="fechaEmisionDocSustento" node="element" />
+		</field>
+	</class>
+	
+	<class name="ec.eac.sitac.esigef.InfoCompRetencion">
+		<map-to xml="infoCompRetencion" />
+
+		<field name="fechaEmision" type="java.lang.String">
+			<bind-xml name="fechaEmision" node="element" />
+		</field>
+		<field name="dirEstablecimiento" type="java.lang.String">
+			<bind-xml name="dirEstablecimiento" node="element" />
+		</field>
+		<field name="contribuyenteEspecial" type="java.lang.String">
+			<bind-xml name="contribuyenteEspecial" node="element" />
+		</field>
+		<field name="tipoIdentificacionSujetoRetenido" type="java.lang.String">
+			<bind-xml name="tipoIdentificacionSujetoRetenido" node="element" />
+		</field>
+		<field name="razonSocialSujetoRetenido" type="java.lang.String">
+			<bind-xml name="razonSocialSujetoRetenido" node="element" />
+		</field>
+		<field name="identificacionSujetoRetenido" type="java.lang.String">
+			<bind-xml name="identificacionSujetoRetenido" node="element" />
+		</field>
+		<field name="periodoFiscal" type="java.lang.String">
+			<bind-xml name="periodoFiscal" node="element" />
+		</field>
+	</class>
+	
+	<class name="ec.eac.sitac.esigef.InfoTributaria">
+		<map-to xml="infoTributaria" />
+
+		<field name="ambiente" type="java.lang.String">
+			<bind-xml name="ambiente" node="element" />
+		</field>
+		<field name="tipoEmision" type="java.lang.String">
+			<bind-xml name="tipoEmision" node="element" />
+		</field>
+		<field name="razonSocial" type="java.lang.String">
+			<bind-xml name="razonSocial" node="element" />
+		</field>
+		<field name="ruc" type="java.lang.String">
+			<bind-xml name="ruc" node="element" />
+		</field>
+		<field name="claveAcceso" type="java.lang.String">
+			<bind-xml name="claveAcceso" node="element" />
+		</field>
+		<field name="codDoc" type="java.lang.String">
+			<bind-xml name="codDoc" node="element" />
+		</field>
+		<field name="estab" type="java.lang.String">
+			<bind-xml name="estab" node="element" />
+		</field>
+		<field name="ptoEmi" type="java.lang.String">
+			<bind-xml name="ptoEmi" node="element" />
+		</field>
+		<field name="secuencial" type="java.lang.String">
+			<bind-xml name="secuencial" node="element" />
+		</field>
+		<field name="dirMatriz" type="java.lang.String">
+			<bind-xml name="dirMatriz" node="element" />
+		</field>
+	</class>
+	
+	<class name="ec.eac.sitac.esigef.ComprobanteRetencion">
+		<map-to xml="comprobanteRetencion" />
+
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute" />
+		</field>
+		<field name="version" type="java.lang.String">
+			<bind-xml name="version" node="attribute" />
+		</field>
+		<field name="infoTributaria" type="ec.eac.sitac.esigef.InfoTributaria">
+			<bind-xml name="infoTributaria" node="element" />
+		</field>
+		<field name="infoCompRetencion" type="ec.eac.sitac.esigef.InfoCompRetencion">
+			<bind-xml name="infoCompRetencion" node="element" />
+		</field>
+		<field name="impuestos" type="ec.eac.sitac.esigef.Impuestos">
+			<bind-xml name="impuestos" node="element"/>
+		</field>
+		<field name="infoAdicional" type="ec.eac.sitac.esigef.InfoAdicional">
+			<bind-xml name="infoAdicional" node="element" />
+		</field>
+	</class>
+
+	<class name="ec.eac.sitac.esigef.Impuestos">
+		<map-to xml="impuestos" />
+
+		<field name="listaImpuestos" type="ec.eac.sitac.esigef.Impuesto" collection="arraylist">
+			<bind-xml name="impuesto" />
+		</field>
+	</class>
+</mapping>

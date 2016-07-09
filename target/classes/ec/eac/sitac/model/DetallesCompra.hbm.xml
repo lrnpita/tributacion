@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.DetallesCompra" table="detalles_compra" schema="public" optimistic-lock="version">
+        <id name="idDetalleCompra" type="int">
+            <column name="id" />
+		<generator class="sequence">
+			<param name="sequence">detalles_compra_seq</param>
+		</generator>
+        </id>
+        <many-to-one name="compra" class="ec.eac.sitac.model.Compra" fetch="select">
+            <column name="id_compra" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoTransaccion" class="ec.eac.sitac.model.TipoTransaccion" fetch="select">
+            <column name="id_tipo_transaccion" length="5" not-null="true" />
+        </many-to-one>
+        <property name="baseNoObjetoIva" type="java.lang.Float">
+            <column name="base_no_objeto_iva" precision="8" scale="8" />
+        </property>
+        <property name="baseImpobible0" type="java.lang.Float">
+            <column name="base_impobible_0" precision="8" scale="8" />
+        </property>
+        <property name="baseImponible12" type="java.lang.Float">
+            <column name="base_imponible_12" precision="8" scale="8" />
+        </property>
+        <property name="porcentajeIva" type="java.lang.Float">
+            <column name="porcentaje_iva" precision="8" scale="8" />
+        </property>
+        <property name="RIRbaseNoObjIva" type="java.lang.Float">
+            <column name="rir_base_no_obj_iva" precision="8" scale="8" />
+        </property>
+        <property name="RIRbaseImp0" type="java.lang.Float">
+            <column name="rir_base_imp_0" precision="8" scale="8" />
+        </property>
+        <property name="RIRbaseImp12" type="java.lang.Float">
+            <column name="rir_base_imp_12" precision="8" scale="8" />
+        </property>
+        <property name="RIRret" type="java.lang.Float">
+            <column name="rir_ret" precision="8" scale="8" />
+        </property>
+        <property name="RIvalorIva" type="java.lang.Float">
+            <column name="ri_valor_iva" precision="8" scale="8" />
+        </property>
+        <property name="RIret" type="java.lang.Float">
+            <column name="ri_ret" precision="8" scale="8" />
+        </property> 
+    </class>
+</hibernate-mapping>

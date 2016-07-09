@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Exportacion" table="exportacion" schema="public" optimistic-lock="version">
+        <id name="idExportacion" type="int">
+            <column name="id" />
+		<generator class="sequence">
+			<param name="sequence">exportacion_seq</param>
+		</generator>
+        </id>
+        <many-to-one name="personalEmpresa" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_cliente" length="13" not-null="true" />
+        </many-to-one>
+        <many-to-one name="puntoEmision" class="ec.eac.sitac.model.PuntoEmision" fetch="select">
+            <column name="id_punto_emision" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoComprobante" class="ec.eac.sitac.model.TipoComprobante" fetch="select">
+            <column name="id_tipo_comprobante" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoExportacionImportacion" class="ec.eac.sitac.model.TipoExportacionImportacion" fetch="select">
+            <column name="id_tipo_exportacion" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empresa" class="ec.eac.sitac.model.Empresa" fetch="select">
+            <column name="id_empresa" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estado" class="ec.eac.sitac.model.EstadoSRI">
+            <column name="id_estado" not-null="true" />
+        </many-to-one>        
+        <property name="noDocumentoTransporte" type="string">
+            <column name="no_documento_transporte" length="75" />
+        </property>
+        <property name="fechaTransaccion" type="date">
+            <column name="fecha_transaccion" length="13" />
+        </property>
+        <property name="fob" type="java.lang.Float">
+            <column name="fob" precision="8" scale="8" />
+        </property>
+        <property name="devolucionIva" type="boolean">
+            <column name="devolucion_iva" not-null="true" />
+        </property>
+        <property name="valorFobComprobante" type="java.lang.Float">
+            <column name="valor_fob_comprobante" precision="8" scale="8" />
+        </property>
+        <property name="fechaRegistroContable" type="date">
+            <column name="fecha_registro_contable" length="13" />
+        </property>
+        <property name="fechaEmision" type="date">
+            <column name="fecha_emision" length="13" />
+        </property>
+        <property name="autorizacionSri" type="string">
+            <column name="autorizacion_sri" length="75" />
+        </property>
+        <property name="noRefrendoComprobante" type="int">
+            <column name="no_refrendo_comprobante" />
+        </property>
+    </class>
+</hibernate-mapping>

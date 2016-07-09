@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Created by Luis M. Teijon gdsram@gmail.com -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.EmpresaVsCliente" table="empresa_vs_cliente" schema="public" optimistic-lock="version">
+		<composite-id>
+			<key-many-to-one name="empresa" class="ec.eac.sitac.model.Empresa" column="id_empresa" />
+			<key-many-to-one name="cliente" class="ec.eac.sitac.model.PersonalEmpresa" column="id_cliente" />
+		</composite-id>
+    </class>
+</hibernate-mapping>

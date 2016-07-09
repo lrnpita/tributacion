@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit:: butonbaredit">butonbaredit</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos de la Importaci&oacute;n</h2>
+    </div>
+	<form data-toggle="validator" role="form" action="#" th:action="@{guardar}" th:object="${importacion}" method="post" id="myForm">
+    
+	    <div class="form-group col-xs-2" th:object="${identificacionCreditoGasto}"><label>*Id. Cr&eacute;d. Gasto</label>
+	    <select class="form-control input-sm" th:field="*{codigo}" >
+		    <option value="" th:each="tipos : ${identificacionesCreditoGasto}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select></div>
+		
+	    <div class="form-group col-xs-2" th:object="${tipoExportacionImportacion}"><label>*Importaci&oacute;n de:</label>
+	    <select class="form-control input-sm" th:field="*{idTipoExpImp}" >
+		    <option value="" th:each="tipos : ${tiposExportacionImportacion}" th:value="${tipos.idTipoExpImp}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+		
+        <div class="form-group col-xs-2"><label>Fecha de liquidaci&oacute;n</label>
+        <input type="text" class="form-control input-sm datePiker" th:field="*{fechaLiquidacion}" required="required"/></div>  
+
+        <div class=" form-group col-xs-2" th:object="${personalEmpresa}"><label>Id Proveedor</label>
+        <input type="number" list="listaProveedores" class="form-control input-sm" th:field="${personalEmpresa.id}" required="required" pattern="[0-9]{10}001"/>
+        </div>
+        
+ 		<datalist id="listaProveedores">
+ 		<option th:each="tipos : ${proveedores}" th:value="${tipos.id}" th:text="${tipos.id}+'-'+${tipos.nombre}">Id</option>
+ 		</datalist>         
+        
+	    <div class="form-group col-xs-2" th:object="${tipoComprobante}"><label>Tipo de Comprobante</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+		    <option value="" th:each="tipos : ${tiposComprobante}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select></div>
+        
+        <div class="form-group col-xs-2"><label>*No. Ref. Comprobante</label>
+        <input type="number" class="form-control input-sm" th:field="*{noRefrendoComprobante}" required="required"/></div>
+
+		
+        <div class="form-group col-xs-2"><label>C.I.F. (F-104)</label>
+        <input type="text" class="form-control input-sm" th:field="*{cif}" required="required"/></div>               
+
+        <div class="form-group col-xs-2"><label>Base Imp. 0%</label>
+        <input type="text" class="form-control input-sm" th:field="*{baseImponible}" required="required"/></div>    
+       
+        <div class="form-group col-xs-2"><label>Base Imp. 12%</label>
+        <input type="text" class="form-control input-sm" th:field="*{baseImponibleGravada}" required="required"/></div> 
+
+        <div class="form-group col-xs-2"><label>% Iva</label>
+        <input type="number" class="form-control input-sm porcentIva" th:field="*{porcentajeIva}" required="required" readonly="readonly"/></div> 
+        
+        <div class=" form-group col-xs-2"><label>Iva</label>
+        <!-- estos valores no se guardan en la BD / aqui se halla el % de RIR-->
+        <input type="number" class="form-control input-sm" name="iva" id="iva" th:if="${importacion.baseImponibleGravada} != null" th:with="result=${(importacion.baseImponibleGravada* importacion.porcentajeIva)/100}" th:value="${result}"/>
+        <input type="number" class="form-control input-sm" name="iva" id="iva" th:if="${importacion.baseImponibleGravada} == null"/>
+        </div>
+        
+        <div class="form-group col-xs-2"><label>Base Imp. Ice</label>
+        <input type="text" class="form-control input-sm" th:field="*{baseImponibleIce}" /></div>  
+       
+        <div class="form-group col-xs-2"><label>% Ice</label>
+        <input type="text" class="form-control input-sm" th:field="*{porcentajeIce}" /></div>  
+        
+        <div class=" form-group col-xs-2"><label>Ice</label>
+        <!-- estos valores no se guardan en la BD / aqui se halla el % de Ice-->
+        <input type="number" class="form-control input-sm" name="ice" id="ice" th:if="${importacion.baseImponibleIce} != null" th:with="result=${(importacion.baseImponibleIce * importacion.porcentajeIce)/100}" th:value="${result}"/>
+        <input type="number" class="form-control input-sm" name="ice" id="ice" th:if="${importacion.baseImponibleIce} == null"/>
+        </div> 
+        
+        <div class="well col-xs-12">       
+	        <h4>Retenci&oacute;n Impuesto a la Renta</h4>     
+	
+		    <div class="form-group col-xs-2" th:object="${tipoTransaccion}"><label>*Tipo de Transacci&oacute;n</label>
+		    <select class="form-control input-sm" th:field="*{codigo}" id="impTipoTransaccion">
+			    <option value="" th:each="tipos : ${tiposTransaccion}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+			</select></div>        
+	
+	        <div class="form-group col-xs-2"><label>Base Imp.</label>
+	        <input type="text" class="form-control input-sm" th:field="*{baseImponibleRet}" required="required"/></div>    
+	       
+	        <div class="form-group col-xs-2"><label>% Ret</label>
+	        <input type="text" class="form-control input-sm" th:field="*{porcentajeRetencion}" required="required"/></div>  
+	        
+	        <div class=" form-group col-xs-2"><label>Valor Retenido</label>
+	        <!-- estos valores no se guardan en la BD / aqui se halla el % de Ice-->
+	        <input type="number" class="form-control input-sm" name="valorRet" id="valorRet" th:if="${importacion.baseImponibleRet} != null" th:with="result=${(importacion.baseImponibleRet * importacion.porcentajeRetencion)/100}" th:value="${result}"/>
+	        <input type="number" class="form-control input-sm" name="valorRet" id="valorRet" th:if="${importacion.baseImponibleRet} == null"/>
+	        </div>   
+        </div>     
+                		
+        <div>
+    	<input type="hidden" name="editandoImportacion" id="editandoImportacion" th:value="${editandoImportacion}"/> 
+    	<input type="hidden" name="idImportacion" id="idImportacion" th:value="${importacion.idImportacion}"/>
+    	 </div>
+    	           
+    </form>
+
+	</div>
+    <div th:replace="templates/footer :: footer">footer</div>	
+
+</body>
+</html>

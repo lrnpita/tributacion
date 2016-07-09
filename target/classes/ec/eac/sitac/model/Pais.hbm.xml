@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Pais" table="pais" schema="public" optimistic-lock="version">
+        <id name="codigo" type="string">
+            <column name="codigo" length="3" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="75" not-null="true" />
+        </property>
+        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pais_a_pagar" length="3" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Compra" />
+        </set>
+        <set name="provincias" table="provincia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pais" length="3" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Provincia" />
+        </set>
+        <set name="personalEmpresas" table="personal_empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pais_residencia" length="3" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.PersonalEmpresa" />
+        </set>
+    </class>
+</hibernate-mapping>

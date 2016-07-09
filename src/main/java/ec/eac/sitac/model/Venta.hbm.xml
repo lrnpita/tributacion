@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Venta" table="venta" schema="public" optimistic-lock="version">
+        <id name="idVenta" type="int">
+            <column name="id" />
+            <generator class="sequence">
+				<param name="sequence">venta_seq</param>
+			</generator>
+        </id>
+        <many-to-one name="empresa" class="ec.eac.sitac.model.Empresa" fetch="select">
+            <column name="id_empresa" not-null="true" />
+        </many-to-one>
+        <many-to-one name="retencion" class="ec.eac.sitac.model.Retencion">
+            <column name="id_retencion"/>
+        </many-to-one>          
+        <many-to-one name="personalEmpresa" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_cliente" length="13" not-null="true" />
+        </many-to-one>
+        <many-to-one name="puntoEmision" class="ec.eac.sitac.model.PuntoEmision" fetch="select">
+            <column name="id_punto_emision" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoComprobante" class="ec.eac.sitac.model.TipoComprobante" fetch="select">
+            <column name="id_tipo_comprobante" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoVenta" class="ec.eac.sitac.model.TipoVenta" fetch="select">
+            <column name="id_tipo_venta" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoVentaSegunPago" class="ec.eac.sitac.model.TipoVentaSegunPago" fetch="select">
+            <column name="id_tipo_venta_segun_pago" length="2" />
+        </many-to-one>
+        <many-to-one name="estado" class="ec.eac.sitac.model.EstadoSRI">
+            <column name="id_estado" />
+        </many-to-one>
+        <property name="fechaEmision" type="date">
+            <column name="fecha_emision" length="13" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="date">
+            <column name="fecha_registro" length="13" not-null="true" />
+        </property>
+        <property name="descuento" type="java.lang.Float">
+            <column name="descuento" precision="8" scale="8" />
+        </property>
+        <property name="ice" type="java.lang.Float">
+            <column name="ice" precision="8" scale="8" />
+        </property>
+        <property name="montoIva" type="java.lang.Float">
+            <column name="monto_iva" precision="8" scale="8" />
+        </property> 
+        <property name="baseImpGravada" type="java.lang.Float">
+            <column name="base_imp_gravada" precision="8" scale="8" />
+        </property>
+        <property name="baseImp" type="java.lang.Float">
+            <column name="base_imp" precision="8" scale="8" />
+        </property>
+        <property name="baseImpNoGravada" type="java.lang.Float">
+            <column name="base_imp_no_gravada" precision="8" scale="8" />
+        </property>                        
+        <property name="codigoAutorizacion" type="string">
+            <column name="codigo_autorizacion" length="75" />
+        </property>
+        <property name="claveAcceso" type="string">
+            <column name="clave_acceso" length="75" />
+        </property>   
+        <property name="porcentajeIva" type="java.lang.Float">
+            <column name="porcentaje_iva" precision="8" scale="8" />
+        </property>   
+        <property name="serieFactura" type="string">
+            <column name="serie_factura" />
+        </property>  
+        <property name="secFactura" type="int">
+            <column name="sec_factura"/>
+        </property>  
+        <set name="ventaVsProductos" table="venta_vs_producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_venta" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.VentaVsProducto" />
+        </set>
+    </class>
+</hibernate-mapping>

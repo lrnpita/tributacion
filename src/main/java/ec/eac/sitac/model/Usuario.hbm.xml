@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Usuario" table="usuario" schema="public" optimistic-lock="version">
+        <id name="idUsuario" type="int">
+            <column name="id" />
+			<generator class="sequence">
+				<param name="sequence">usuario_seq</param>
+			</generator>
+        </id>
+
+        <property name="nombre" type="string">
+            <column name="nombre" length="255"/>
+        </property>
+        <property name="nombreUsuario" type="string">
+            <column name="nombre_usuario" length="150" not-null="true" />
+        </property>
+
+		<property name="email" type="string">
+			<column name="email" length="100" not-null="true" />
+		</property>
+		
+        <property name="contrasena" type="string">
+            <column name="contrasena" length="150" not-null="true" />
+        </property>		
+        
+        <property name="activado" type="boolean">
+            <column name="activado" not-null="true" />
+        </property>	        
+        
+        <property name="fechaRegistro" type="date">
+            <column name="fecha_registro" length="13"/>
+        </property>	        
+
+		<property name="activacion" type="string">
+            <column name="activacion" length="100" />
+        </property>
+
+		<property name="firmaElectronica" type="string">
+			<column name="firma_electronica" length="256"/>
+		</property>
+		<property name="claveFirma" type="string">
+			<column name="clave_firma" length="75" />
+		</property>
+	        
+        <many-to-one name="rol" class="ec.eac.sitac.model.Rol" fetch="select">
+            <column name="id_rol" not-null="true" />
+        </many-to-one>
+        
+        <set name="puntosEmision" table="punto_emision" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.PuntoEmision" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.TipoPagoVsCompra" table="tipo_pago_vs_compra" schema="public" optimistic-lock="version">
+        <composite-id>
+			<key-many-to-one name="compra" class="ec.eac.sitac.model.Compra" column="id_compra" />
+			<key-many-to-one name="tipoPago" class="ec.eac.sitac.model.TipoPago" column="id_tipo_pago" />
+		</composite-id>
+    </class>
+</hibernate-mapping>

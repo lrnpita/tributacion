@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.ComprobanteReembolso" table="comprobante_reembolso" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="compra" class="ec.eac.sitac.model.Compra" fetch="select">
+            <column name="id_compra" not-null="true" />
+        </many-to-one>
+        <property name="serie" type="string">
+            <column name="serie" length="6" not-null="true" />
+        </property>
+        <property name="secuencia" type="string">
+            <column name="secuencia" length="9" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="13" />
+        </property>
+        <property name="autorizacion" type="string">
+            <column name="autorizacion" length="100" />
+        </property>
+        <property name="baseNoObjetoIva" type="java.lang.Float">
+            <column name="base_no_objeto_iva" precision="8" scale="8" />
+        </property>
+        <property name="base0" type="java.lang.Float">
+            <column name="base_0" precision="8" scale="8" />
+        </property>
+        <property name="baseIva" type="java.lang.Float">
+            <column name="base_iva" precision="8" scale="8" />
+        </property>
+        <property name="iva" type="java.lang.Float">
+            <column name="iva" precision="8" scale="8" />
+        </property>
+        <property name="ice" type="java.lang.Float">
+            <column name="ice" precision="8" scale="8" />
+        </property>
+    </class>
+</hibernate-mapping>

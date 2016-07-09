@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit :: butonbaredit">butonbaredit</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos del Proveedor</h2>
+    </div>
+	<form data-toggle="validator" role="form" action="#" th:action="@{guardar}" th:object="${proveedor}" method="post" id="myForm">
+    
+	    <div class="form-group col-xs-2" th:object="${tipoIdentificacion}"><label>*Tipo de Id.</label>
+	    <select class="form-control input-sm" th:field="*{codigo}" id="tipoIdentificacion">
+		    <option value="" th:each="tipos : ${tiposIdentificacion}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+        
+        <div class="form-group col-xs-2"><label>*Ruc/C&eacute;dula/Pasaporte</label>
+        <input type="number" class="form-control input-sm" name="id" id="ruc" th:value="${proveedor.id}" th:if="${editandoProveedor}" readonly="readonly" maxlength="13"/>
+        <input type="number" class="form-control input-sm" name="id" id="ruc" th:value="${proveedor.id}" th:if="${!editandoProveedor}" maxlength="13"/></div>
+        
+        <div class="form-group col-xs-2"><label>*Nombre del Proveedor</label>
+        <input type="text" class="form-control input-sm" id="nombre" name="nombre" th:value="${proveedor.nombre}" required="required"/></div>
+    
+        <div class=" form-group col-xs-2"><label>*Direcci&oacute;n</label>
+        <input type="text" class="form-control input-sm" id="direccion" name="direccion" th:value="${proveedor.direccion}" required="required"/></div>
+        
+        <div class=" form-group col-xs-2"><label>Referencia</label>
+        <input type="text" class="form-control input-sm" name="numeroCasa" th:value="${proveedor.numeroCasa}"/></div>
+ 
+        <div class="form-group col-xs-2" th:object="${tipoProveedor}"><label>Tipo Proveedor</label>
+	    <select class="form-control input-sm" th:field="*{idTipoProveedorOCliente}" required="required">
+		    <option value="" th:each="tipos : ${tiposProveedor}" th:value="${tipos.idTipoProveedorOCliente}" th:text="${tipos.nombre}">ciudad</option>
+		</select></div>
+		   
+        <div class="form-group col-xs-2" th:object="${ciudad}"><label>*Ciudad</label>
+	    <select class="form-control input-sm" th:field="*{codigo}" required="required">
+		    <option value="" th:each="ciudades : ${ciudades}" th:value="${ciudades.codigo}" th:text="${ciudades.nombre}">ciudad</option>
+		</select></div>
+        
+	  	<div class="form-group col-xs-2">
+   		<label for="email">*E-mail Principal</label>
+    	<input type="email" class="form-control input-sm" id="emailproveedor" name="email" th:value="${proveedor.email}" required="required"/></div>
+        
+        <div class="form-group col-xs-2">
+   		<label for="email">E-mail Alternativo</label>
+    	<input type="email" class="form-control input-sm" id="emailproveedor" name="email2" th:value="${proveedor.email2}"/></div>
+    	
+    	<div class="form-group col-xs-2"><label>*Tel&eacute;fono</label>
+        <input type="number" class="form-control input-sm" name="telefono" maxlength="10" minlength="9" th:value="${proveedor.telefono}" required="required"/></div>
+    
+	    <div class="form-group col-xs-3"><label><input type="checkbox" th:field="*{rucExtranjero}"/>RUC de Extr./Persona Natural</label></div>
+	    <div class="form-group col-xs-3"><label><input type="checkbox" th:field="*{contribuyenteEspecial}"/>Contribuyente Especial</label></div>
+	    <div class="form-group col-xs-3"><label><input type="checkbox" th:field="*{honorarios}" />T&iacute;tulo Superior (Honorarios)</label></div>
+	    <div class="form-group col-xs-3"><label><input type="checkbox" th:field="*{llevaContabilidad}" />Lleva Contabilidad</label></div>
+	    <div class="form-group col-xs-3"><label><input type="checkbox" th:field="*{retencionIr}"/>Se retiene el Imp. a la Renta</label></div>
+	    <div class="form-group col-xs-3"><label><input type="checkbox" th:field="*{parteRelacionada}" />Es parte relacionada</label></div>
+	    
+	    <div>
+    	<input type="hidden" id="editandoProveedor" name="editandoProveedor" th:value="${editandoProveedor}"/></div>
+	    
+    </form>
+    </div>    
+	<div th:replace="templates/footer :: footer">footer</div>
+</body>
+</html>

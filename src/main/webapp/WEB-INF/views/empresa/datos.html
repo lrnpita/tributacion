@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit :: butonbaredit">butonbaredit</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos de la Empresa</h2>
+    </div>
+	<form data-toggle="validator" role="form" action="#" th:action="@{/admin/empresas/guardar}" th:object="${empresa}" method="post" id="myForm">
+	
+	    <div class="form-group col-xs-2"><label>Nombre de la Empresa</label>
+        <input type="text" class="form-control" th:field="${empresa.nombre}" id="nombre" maxlength="50" required="required"/></div>
+    
+        <div class="form-group col-xs-2"><label>Ruc Contribuyente</label>
+        <input type="number" class="form-control" th:field="*{rucContribuyente}" pattern="[0-9]{10}001" required="required" maxlength="13"/></div>
+        
+        <div class="form-group col-xs-2"><label>Nombre del Contribuyente</label>
+        <input type="text" class="form-control" th:field="*{nombreContribuyente}" id="nombre" maxlength="50" required="required"/></div>
+        
+        <div class="form-group col-xs-2"><label>Nombre Comercial</label>
+        <input type="text" class="form-control" th:field="*{nombreComercial}" id="nombre" maxlength="50"/></div>
+    
+        <div class=" form-group col-xs-2"><label>Direcci&oacute;n Matriz</label>
+        <input type="text" class="form-control" th:field="*{direccionMatriz}" id="nombre" required="required"/></div>
+        
+        <div class=" form-group col-xs-2"><label>N&uacute;mero</label>
+        <input type="text" class="form-control" th:field="*{numero}" required="required"/></div>
+    
+        <div class="form-group col-xs-2"><label>Direcci&oacute;n Sucursal</label>
+        <input type="text" class="form-control" th:field="*{direccionSucursal}" id="direccion"/></div>
+        
+	    <div class="form-group col-xs-2" th:object="${ciudad}"><label>Ciudad</label>
+		<select class="form-control" th:field="*{codigo}">
+			 <option value="" th:each="tipos : ${ciudades}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">C&eacute;dula</option>
+		</select></div>
+        
+        <div class="form-group col-xs-2"><label>Tel&eacute;fono</label>
+        <input type="number" class="form-control" maxlength="10" minlength="9" th:field="*{telefono}" required="required"/></div>
+        
+        <div class="form-group col-xs-2"><label>Correo Electr&oacute;nico</label>
+        <input type="email" class="form-control" th:field="*{email}" required="required"/></div>
+
+    	<div class="form-group col-xs-2"><label>Lleva Contabilidad</label>
+	    	<input type="checkbox" th:field="*{llevaContabilidad}"/>
+		</div>
+        
+        <div class="form-group col-xs-2" th:object="${empresa}"><label>No.Contr. Especial Res.</label>
+        <input type="number" class="form-control" th:field="*{noResolucionContribEspecial}"/></div>
+   
+	    <div class="form-group col-xs-2" th:object="${tipoAmbiente}"><label>Tipo de Ambiente</label>
+	    <select class="form-control" th:field="*{codigo}">
+		    <option th:each="tipos: ${tiposAmbiente}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">1</option>
+ 		</select></div>
+        
+        <div class="form-group col-xs-2" th:object="${tipoEmision}"><label>Tipo de Emisi&oacute;n</label>
+	    <select class="form-control" th:field="*{codigo}">
+		    <option th:each="tipos: ${tiposEmision}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">1</option>
+ 		</select></div>
+
+    	<div class="form-group col-xs-2" th:object="${empresa}"><label>Logo</label>
+    	<input type="file" class="filestyle" data-buttonName="btn-primary" data-size="sm" data-buttonText="Archivo" th:field="*{logo}" accept="image/*" placeholder="Selecciona una imagen"/>
+	  	</div>
+	  	
+    	<div class="form-group" th:object="${contador}">
+	        <div class="form-group col-xs-2"><label>Nombre del Contador</label>
+	        <input type="text" class="form-control" th:field="${contador.nombre}" maxlength="30" id="nombre"/></div>
+	        
+	        <div class="form-group col-xs-2"><label>Ruc del Contador</label>
+	        <input type="number" class="form-control"  id="cont" th:field="*{id}" pattern="[0-9]{10}001" required="required" maxlength="13"/></div>
+        </div>
+        
+        <div class="form-group" th:object="${repLegal}">
+	        <div class="form-group col-xs-2"><label>Nombre del Rep. Legal</label>
+	        <input type="text" class="form-control" th:field="${repLegal.nombre}" maxlength="30" id="nombre"/></div>
+	
+	    	<div class="form-group col-xs-2" th:object="${repLegal.tipoIdentificacion}"><label>Tipo de Id.</label>
+		    <select class="form-control" th:field="*{codigo}" id="tipoIdentificacion">
+			    <option value="" th:each="tipos : ${tiposIdentificacion}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">C&eacute;dula</option>
+			</select></div>
+	 		
+	 		<div class="form-group col-xs-2"><label>C&eacute;dula/Pasaporte</label>
+	        <input type="number" class="form-control" id="ruc" th:field="*{id}" required="required" maxlength="13"/></div>
+        </div>
+        
+    	<input type="hidden" id="editandoEmpresa" name="editandoEmpresa" th:value="${editandoEmpresa}"/>
+    	<input type="hidden" th:field="*{idEmpresa}"/>
+          
+    </form>
+    </div>
+    
+	<div th:replace="templates/footer :: footer">footer</div>   
+</body>
+ 
+    
+</html>

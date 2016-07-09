@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--  esto es el sidebar -->
+<nav class="main-menu" role="navigation" th:fragment="sidebar">
+            <ul>
+                <li>
+                    <a href="/sitac">
+                        <i class="fa fa-home fa-2x"></i>
+                    </a>
+                  
+                </li>
+                <li class="has-subnav">
+                    <a th:href="@{/admin/empresas}">
+                        <i class="fa fa-briefcase fa-2x"></i>
+                        <span class="nav-text">
+                          &nbsp;Gestionar Empresas
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/clientes'}">
+                       <i class="fa fa-user fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Clientes
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/proveedores'}">
+                       <i class="fa fa-user fa-2x"></i>
+                        <span class="nav-text">
+                          &nbsp;Gestionar Proveedores
+                        </span>
+                    </a>
+                   
+                </li>
+                <li>
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/trabajadores'}">
+                        <i class="fa fa-user fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Trabajadores
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/movimientos'}">
+                        <i class="fa fa-edit fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Movimientos
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/compras'}">
+                       <i class="fa fa-shopping-cart fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Compras
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/retenciones'}">
+                        <i class="fa fa-file fa-2x"></i>
+                        <span class="nav-text">
+                            &nbsp;Retenciones
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/ventas'}">
+                       <i class="fa fa-shopping-cart fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Ventas
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{'/admin/empresas/' + ${session.idEmpresa} + '/usuarios'}">
+                       <i class="fa fa-users fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Uruarios
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/importaciones'}">
+                       <i class="fa fa-reply fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Importaciones
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/exportaciones'}">
+                       <i class="fa fa-share fa-2x"></i>
+                        <span class="nav-text">
+                           &nbsp;Gestionar Exportaciones
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/anulados'}">
+                       <i class="fa fa-file fa-2x"></i>
+                        <span class="nav-text">
+                            &nbsp;Documentos anulados
+                        </span>
+                    </a>
+                </li>
+
+            </ul>
+
+	<!-- /.sidebar-collapse -->
+</nav>
+
+</html>

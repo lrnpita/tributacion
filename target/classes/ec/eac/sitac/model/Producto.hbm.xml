@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Producto" table="producto" schema="public" optimistic-lock="version">
+        <id name="idProducto" type="int">
+        <column name="id_producto" />
+		<generator class="sequence">
+			<param name="sequence">producto_seq</param>
+		</generator>
+        </id>
+        <many-to-one name="tarifaIva" class="ec.eac.sitac.model.TarifaIva" fetch="select">
+            <column name="id_tarifa_iva" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoProducto" class="ec.eac.sitac.model.TipoProducto" fetch="select">
+            <column name="id_tipo_producto" not-null="true" />
+        </many-to-one>
+        <property name="codigoPrincipal" type="string">
+            <column name="codigo_principal" length="75" />
+        </property>        
+        <property name="codigoAuxiliar" type="string">
+            <column name="codigo_auxiliar" length="75" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" not-null="true" />
+        </property>
+        <property name="valorUnitario" type="float">
+            <column name="valor_unitario" precision="8" scale="8" not-null="true" />
+        </property>
+        <property name="atributo1" type="string">
+            <column name="atributo1" length="75" />
+        </property>
+        <property name="descripcion1" type="string">
+            <column name="descripcion1" length="300" />
+        </property>
+        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_producto" length="75" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Compra" />
+        </set>
+        <set name="ventaVsProductos" table="venta_vs_producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_producto" length="75" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.VentaVsProducto" />
+        </set>
+        <set name="empresasVsProductos" cascade="delete" table="empresa_vs_producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_producto" length="13" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.EmpresaVsProducto" />
+        </set>        
+    </class>
+</hibernate-mapping>

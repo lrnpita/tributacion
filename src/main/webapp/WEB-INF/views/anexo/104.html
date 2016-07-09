@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div class= "col-ms-12" id="butonbar">
+	 		<button type="submit" class="btn btn-primary col-ms-1" id="myButton">Generar XML</button>
+			<a type="button" class="btn btn-primary col-ms-1" id="cancelar">Cancelar</a>
+	</div>
+		
+	<div id="page-wrapper">
+	<form role="form" action="#" th:action="@{104/generarXml}" method="post" id="myForm" th:object="${formato104}">
+         
+        <div class="form-group col-xs-3"><label>Número de formulario que sustituye 104</label><input type="text" class="form-control input-sm" value="0" name="c104" id="c104" required="required"/></div>
+       <!--  <div class="form-group col-xs-12"><label>200 Identificación del sujeto pasivo</label></div> -->
+        <div class="form-group col-xs-2"><label>RUC  201</label><input type="text" class="form-control input-sm" th:value="${rucEmpresa}" name="rucEmpresa" readonly="readonly"/></div>
+        <div class="form-group col-xs-2"><label>202</label><input type="text" class="form-control input-sm" th:value="${razonSocialEmpresa}" name="razonSocialEmpresa" readonly="readonly"/></div>
+         <div class="form-group col-xs-1"><label>102</label><input type="text" class="form-control input-sm" th:value="${c102}" name="c102" readonly="readonly"/></div>
+         <div class="form-group col-xs-1"><label>101</label><input type="text" class="form-control input-sm" th:value="${c101}" name="c101" readonly="readonly"/></div>
+<div class="col-xs-12">
+	    <table class="table">
+		<thead>
+			<tr>
+				<th>Resumen de venta y otras operaciones del período que declara</th>
+				<th>Valor Bruto</th>
+				<th>Valor Neto</th>
+				<th>Impuesto generado</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Ventas locales (excluye activos fijos) gravadas tarifa 12%</td>
+		        <td><label>401</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c401}" name="c401" required="required"/></td>
+				<td><label>411</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c411}" name="c411" required="required"/></td>
+				<td><label>421</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c421}" name="c421" required="required"/></td>
+		    </tr>
+			<tr>
+				<td>Ventas activo fijos gravadas tarifa 12%</td>
+		        <td><label>402</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c402}" name="c402" required="required"/></td>
+				<td><label>412</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c412}" name="c412" required="required"/></td>
+				<td><label>422</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c422}" name="c422" required="required"/></td>
+		    </tr>	
+			<tr>
+				<td>Ventas locales (excluye activos fijos) gravadas tarifa 0% no dan derecho a Cred. Trib.</td>
+		        <td><label>403</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c403}" name="c403" required="required"/></td>
+				<td><label>413</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c413}" name="c413" required="required"/></td>
+				<td></td>
+		    </tr>	
+			<tr>
+				<td>Ventas activo fijos gravadas tarifa 0% no dan derecho a Cred. Trib.</td>
+		        <td><label>404</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c404}" name="c404" required="required"/></td>
+				<td><label>414</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c414}" name="c414" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Ventas locales (excluye activos fijos) gravadas tarifa 0% dan derecho a Cred. Trib.</td>
+		        <td><label>405</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c405}" name="c405" required="required"/></td>
+				<td><label>415</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c415}" name="c415" required="required"/></td>
+				<td></td>
+		    </tr>	
+			<tr>
+				<td>Ventas activo fijos gravadas tarifa 0% dan derecho a Cred. Trib.</td>
+		        <td><label>406</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c406}" name="c406" required="required"/></td>
+				<td><label>416</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c416}" name="c416" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Exportaciones de bienes</td>
+		        <td><label>407</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c407}" name="c407" required="required"/></td>
+				<td><label>417</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c417}" name="c417" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Exportaciones de servicios</td>
+		        <td><label>408</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c408}" name="c408" required="required"/></td>
+				<td><label>418</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c418}" name="c418" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>TOTAL VENTAS Y OTRAS OPERACIONES</td>
+		        <td><label>409</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c409}" name="c409" required="required"/></td>
+				<td><label>419</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c419}" name="c419" required="required"/></td>
+				<td><label>429</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c429}" name="c429" required="required"/></td>
+		    </tr>
+			<tr>
+				<td>Transferencias no objeto o exentas de IVA</td>
+		        <td><label>431</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c431}" name="c431" required="required"/></td>
+				<td><label>441</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c441}" name="c441" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Notas de crédito tarifa 0% por compensar próximo mes</td>
+		        <td></td>
+				<td><label>442</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c442}" name="c442" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Notas de crédito tarifa 12% por compensar próximo mes</td>
+		        <td></td>
+				<td><label>443</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c443}" name="c443" required="required"/></td>
+				<td><label>453</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c453}" name="c453" required="required"/></td>
+		    </tr>
+			<tr>
+				<td>Ingresos por reembolso como intermediario</td>
+		        <td><label>434</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c434}" name="c434" required="required"/></td>
+				<td><label>444</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c444}" name="c444" required="required"/></td>
+				<td><label>454</label><input type="number" class="form-control input-sm col-xs-1" th:with="result=${(c444 * 12)/100}" th:value="${result}" name="c454" required="required"/></td>
+		    </tr>		    		    		    		    		    		    		    		    	    		    	    	    
+		</tbody>
+		</table>
+</div>		
+		<div class="col-xs-12"> 
+ 		<h4>Liquidaci&oacute;n de IVA en el mes</h4>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info">Total transferencias gravadas 12% a contado este mes<label class="pull-right bg-info">480</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c480" name="c480" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-info">Total transferencias gravadas 12% a crédito este mes<label class="pull-right bg-info">481</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c481" name="c481" value="0.0" required="required"/></div></div>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-danger">Total impuesto generado<label class="pull-right bg-danger">482</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c429}" name="c482" id="c482" required="required"/></div></div>	
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info">Impuesto a liquidar del es anterior<label class="pull-right bg-info">483</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c483" id="c483" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-info">Impuesto a liquidar en este mes<label class="pull-right bg-info">484</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c484" name="c484" value="0.0" required="required"/></div></div> 		
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-danger">Impuesto a liquidar en el próximo mes<label class="pull-right bg-danger">485</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c429}" name="c485" id="c485" required="required"/></div></div>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-danger">Impuesto a liquidar en este mes<label class="pull-right bg-danger">499</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c499" id="c499" value="0.0" required="required"/></div></div>
+ 		</div>
+ 	
+ 	<div class="col-xs-12">
+ 		<table class="table">
+		<thead>
+			<tr>
+				<th>Resumen adquisiciones y pagos del período que declara</th>
+				<th>Valor Bruto</th>
+				<th>Valor Neto</th>
+				<th>Impuesto generado</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Adquisiciones y pagos (excluye activos fijos) gravados tarifa 12% (Derecho a Créd. Trib.)</td>
+		        <td><label>500</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c500}" name="c500" required="required"/></td>
+				<td><label>510</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c510}" name="c510" required="required"/></td>
+				<td><label>520</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c520}" name="c520" required="required"/></td>
+		    </tr>
+			<tr>
+				<td>Adquisiciones locales de activos fijos gravados tarifa 12% (Derecho a Créd. Trib.)</td>
+		        <td><label>501</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c501}" name="c501" required="required"/></td>
+				<td><label>511</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c511}" name="c511" required="required"/></td>
+				<td><label>521</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c521}" name="c521" required="required"/></td>
+		    </tr>	
+			<tr>
+				<td>Otras adquisiciones y pagos gravados tarifa 12% (Sin derecho a Cred. Trib.)</td>
+		        <td><label>502</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c502}" name="c502" required="required"/></td>
+				<td><label>512</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c512}" name="c512" required="required"/></td>
+				<td><label>522</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c522}" name="c522" required="required"/></td>
+				<td></td>
+		    </tr>	
+			<tr>
+				<td>Importaciones de servicios gravados tarifa 12%</td>
+		        <td><label>503</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c503}" name="c503" required="required"/></td>
+				<td><label>513</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c513}" name="c513" required="required"/></td>
+				<td><label>523</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c523}" name="c523" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Importaciones de bienes (excluye activos fijos) gravadas tarifa 12%</td>
+		        <td><label>504</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c504}" name="c504" required="required"/></td>
+				<td><label>514</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c514}" name="c514" required="required"/></td>
+				<td><label>524</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c524}" name="c524" required="required"/></td>
+				<td></td>
+		    </tr>	
+			<tr>
+				<td>Importaciones de activos fijos gravados tarifa 12%</td>
+		        <td><label>505</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c505}" name="c505" required="required"/></td>
+				<td><label>515</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c515}" name="c515" required="required"/></td>
+				<td><label>525</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c525}" name="c525" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Importaciones de bienes (incluye activos fijos) gravados tarifa 0%</td>
+		        <td><label>506</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c506}" name="c506" required="required"/></td>
+				<td><label>516</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c516}" name="c516" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Adquisiciones y pagos (incluye activos fijos)gravados tarifa 0%</td>
+		        <td><label>507</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c507}" name="c507" required="required"/></td>
+				<td><label>517</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c517}" name="c517" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Adquisiciones realizadas a contribuyentes RISE</td>
+		        <td><label>508</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c508}" name="c508" required="required"/></td>
+				<td><label>518</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c518}" name="c518" required="required"/></td>
+				<td></td>
+		    </tr>		    
+			<tr>
+				<td>TOTAL ADQUISICIONES Y PAGOS</td>
+		        <td><label>509</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c509}" name="c509" required="required"/></td>
+				<td><label>519</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c519}" name="c519" required="required"/></td>
+				<td><label>529</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c529}" name="c529" required="required"/></td>
+		    </tr>
+			<tr>
+				<td>Adquisiciones no objeto de IVA</td>
+		        <td><label>531</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c531}" name="c531" required="required"/></td>
+				<td><label>541</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c541}" name="c541" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Adquisiciones exentas del pago de IVA</td>
+		        <td></td>
+		        <td><label>532</label><input type="number" class="form-control input-sm col-xs-1" value="0.0" name="c532" required="required"/></td>
+				<td><label>542</label><input type="number" class="form-control input-sm col-xs-1" value="0.0" name="c542" required="required"/></td>
+				<td></td>
+		    </tr>
+			<tr>
+				<td>Notas de crédito tarifa 0% por compensar próximo mes</td>
+		        <td></td>
+				<td></td>
+				<td><label>543</label><input type="number" class="form-control input-sm col-xs-1" name="c543" th:value="${c543}" required="required"/></td>
+		    </tr>
+			<tr>
+				<td>Notas de crédito tarifa 12% por compensar próximo mes</td>
+		        <td></td>
+				<td><label>544</label><input type="number" class="form-control input-sm col-xs-1" name="c544" th:value="${c544}" required="required"/></td>
+				<td><label>554</label><input type="number" class="form-control input-sm col-xs-1" name="c554" th:value="${c554}" required="required"/></td>
+		    </tr>		    
+			<tr>
+				<td>Pagos netos por reembolso como intermediario</td>
+		        <td><label>535</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c535}" name="c535" required="required"/></td>
+				<td><label>545</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c545}" name="c545" required="required"/></td>
+				<td><label>555</label><input type="number" class="form-control input-sm col-xs-1" th:value="${c555}" name="c555" required="required"/></td>
+		    </tr>		    		    		    		    		    		    		    		    	    		    	    	    
+		</tbody>
+		</table>
+	</div>			
+		<div class="col-xs-12"> 
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info">Factor de proporcionalidad para crédito tributario<label class="pull-right bg-info">563</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c563}" name="c563" value = "0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-info">Crédito tributario aplicable a este período<label class="pull-right bg-info">564</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c564}" name="c564" id="c564" required="required"/></div></div>
+ 		</div>	
+ 		
+		<div class="col-xs-12"> 
+ 		<h4>Resumen Impositivo: Agente de recepción del impuesto al valor agregado</h4>
+ 			<div class="form-group"><label class="col-xs-8 control-label bg-info">Impuesto causado<label class="pull-right bg-info">601</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c601" id="c601" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Crédito tributario aplicable a este período<label class="pull-right bg-info">602</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c602" id="c602" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Saldo Crédito por adquiciciones e importaciones (campo 615 declaración período anterior)<label class="pull-right bg-info">605</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c605" id="c605" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Saldo Crédito por retenciones en la fuente IVA (campo 617 decalración período enterior)<label class="pull-right bg-info">607</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm"  name="c607" id="c607" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Retenciones en la fuente de IVA en este período<label class="pull-right bg-info">609</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c609}" name="c609" id="c609" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Ajuste por Iva rechazado o devuelto imputable al Créd. Trib.  en el mes (devoluciones IVA)<label class="pull-right bg-info">611</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c611" id="c611" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Ajuste por Iva rechazado o devuelto imputable al Créd. Trib.  en el mes (retenciones IVA)<label class="pull-right bg-info">612</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c612" id="c612" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Ajuste por Iva devuelto por otras Instituciones del sector público imputable al Créd. Trib. del mes<label class="pull-right bg-info">613</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c613" id="c613" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Saldo crédito tributario para el próximo mes/Por adquisiciones e importaciones<label class="pull-right bg-info">615</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c615" id="c615" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Saldo crédito tributario para el próximo mes/Por retenciones IVA<label class="pull-right bg-info">617</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c609}" name="c617" id="c617" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">SUBTOTAL A PAGAR<label class="pull-right bg-danger">619</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c619" id="c619" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">IVA presuntivo de salas de juego y otros juegos de azar (ejercicios anteriores al 2013)<label class="pull-right bg-info">621</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c621" id="c621" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">TOTAL DE IMPUESTO A PAGAR POR PERCEPCIÓN<label class="pull-right bg-danger">619</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm"  name="c699" id="c699" value="0.0" required="required"/></div></div>
+ 		</div>	
+ 		
+ 		<div class="col-xs-12"> 
+ 		<h4>Agente de recepción del impuesto al valor agregado</h4>
+ 			<div class="form-group"><label class="col-xs-8 control-label bg-info">Retención del 10%<label class="pull-right bg-info">721</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c721}" name="c721" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Retención del 20%<label class="pull-right bg-info">723</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c723}" name="c723" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Retención del 30%<label class="pull-right bg-info">725</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c725}" name="c725" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Retención del 70%<label class="pull-right bg-info">727</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c727}" name="c727" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Retención del 100%<label class="pull-right bg-info">729</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c729}" name="c729" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">TOTAL IMPUESTO RETENIDO<label class="pull-right bg-danger">799</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c799}" name="c799" id="799" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Devolución Provisional de IVA mediante compensación<label class="pull-right bg-info">800</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="c800" id="c800" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">TOTAL DE IMPUESTO A PAGAR POR RETENCIÓN<label class="pull-right bg-danger">801</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c799}" name="c801" id="c801" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">TOTAL COSOLIDADO DE IMPUESTO AL VALOR AGREGADO<label class="pull-right bg-danger">859</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c799}" name="c859" id="c859" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Pago previo<label class="pull-right bg-info">890</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" name="890" id="890" value="0.0" required="required"/></div></div>
+ 		</div> 	
+ 		
+ 		<div class="col-xs-10"> 
+ 		<h4>Detalle de imputación al pago (Declaraciones sustitutivas)</h4>
+ 			<div class="form-group"><label class="col-xs-8 control-label bg-info">Interés<label class="pull-right bg-info">897</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c897" name="c897" value="0.0" required="required" readonly="readonly"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Impuesto<label class="pull-right bg-info">898</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c898" name="c898" value="0.0" required="required" readonly="readonly"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Multa<label class="pull-right bg-info">899</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c899" name="c899" value="0.0" required="required" readonly="readonly"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Pago directo en cuenta única del tesoro nacional<label class="pull-right bg-info">880</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c880" id="c880" value="0.0" required="required" readonly="readonly"/></div></div>
+ 		</div> 	
+ 		
+ 	 	<div class="col-xs-10"> 
+ 		<h4>Valores a pagar y forma de pago</h4>
+ 			<div class="form-group"><label class="col-xs-8 control-label bg-danger">Total de Imp. a pagar<label class="pull-right bg-danger">902</label></label><div class="col-xs-2"><input type="number" class="form-control input-sm" name="c902" id="c902" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Interés por mora<label class="pull-right bg-info">903</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" th:value="${c903}" name="c903" id="c903" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Multa<label class="pull-right bg-info">904</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c904" th:value="${c904}" id="c904" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">TOTAL PAGADO<label class="pull-right bg-danger">999</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" th:value="${c903} + ${c904}" name="c999" id="c999" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">Mediante formas de pago<label class="pull-right bg-danger">905</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c905" id="c905" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">Mediante compesaciones<label class="pull-right bg-danger">906</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c906" id="c906" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-danger">mediante notas de crédito<label class="pull-right bg-danger">907</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c907" id="c907" value="0.0" required="required"/></div></div>
+ 		</div> 		
+	
+	 	<div class="col-xs-10"> 
+ 		<h4>Detalle Notas de Créd. Cartulares</h4>
+ 			<div class="form-group"><label class="col-xs-8 control-label bg-info">N/C No.<label class="pull-right bg-info">908</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c908" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Valor USD<label class="pull-right bg-info">909</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c909" name="c909" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">N/C No.<label class="pull-right bg-info">910</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c910" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Valor USD<label class="pull-right bg-info">911</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c911" name="c911" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">N/C No.<label class="pull-right bg-info">912</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c912" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Valor USD<label class="pull-right bg-info">913</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c913" name="c913" value="0.0" required="required"/></div></div>
+ 		</div> 
+ 		
+ 		<div class="col-xs-10"> 
+ 		<h4>Detalle Notas de Créd. Desmaterializadas</h4>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Valor USD<label class="pull-right bg-info">915</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c915" name="c915" value="0.0" required="required"/></div></div>
+ 		</div>
+ 		
+ 		<div class="col-xs-10"> 
+ 		<h4>Detalle Notas de compensaciones</h4>
+ 			<div class="form-group"><label class="col-xs-8 control-label bg-info">Resolución No.<label class="pull-right bg-info">916</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c916" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Valor USD<label class="pull-right bg-info">917</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c917" name="c917" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Resolución No.<label class="pull-right bg-info">918</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" name="c918" value="0.0" required="required"/></div></div>
+			<div class="form-group"><label class="col-xs-8 control-label bg-info">Valor USD<label class="pull-right bg-info">919</label></label><div class="col-sm-2"><input type="number" class="form-control input-sm" id="c919" name="c919" value="0.0" required="required"/></div></div>
+ 		</div>
+		
+		<div class="form-group col-xs-3" th:object="${tipoPago}"><label>Tipo de Pago 921</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+	    <option th:each="tipos : ${tiposPago}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>
+		
+		<div class="form-group col-xs-3" th:object="${banco}"><label>Banco 922</label>
+	    <select class="form-control input-sm" th:field="*{idBanco}">
+	    <option th:each="tipos : ${bancos}" th:value="${tipos.idBanco}" th:text="${tipos.idBanco}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>		
+		
+		<div class="form-group col-xs-4"><label>RUC Contador 199</label><input type="text" th:value="${idContadorEmpresa}" class="form-control input-sm" readonly="readonly"/></div>
+		<div class="form-group col-xs-4"><label>RUC Rep. Legal 198</label><input type="text" th:value="${idRepLegalEmpresa}" name="idRepLegalEmpresa" class="form-control input-sm" readonly="readonly"/></div>
+		     
+    </form>
+    </div>
+	    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.DenegarPermisoControlador" table="denegar_permiso_controlador" schema="public" optimistic-lock="version">
+        <id name="idPermiso" type="int">
+            <column name="id_permiso" />
+			<generator class="sequence">
+				<param name="sequence">permiso_seq</param>
+			</generator>
+        </id>
+
+        <property name="controlador" type="string">
+            <column name="controlador" length="75"/>
+        </property>
+        
+        <property name="leer" type="java.lang.Boolean">
+            <column name="leer" not-null="true" />
+        </property>
+        
+        <property name="insertar" type="java.lang.Boolean">
+            <column name="insertar" not-null="true" />
+        </property>
+        
+        <property name="actualizar" type="java.lang.Boolean">
+            <column name="actualizar" not-null="true" />
+        </property>
+        
+                <property name="borrar" type="java.lang.Boolean">
+            <column name="borrar" not-null="true" />
+        </property>
+
+	        
+        <many-to-one name="rol" class="ec.eac.sitac.model.Rol" fetch="select">
+            <column name="id_rol" not-null="true" />
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>

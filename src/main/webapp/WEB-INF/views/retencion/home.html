@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbardireccion :: butonbardireccion">butonbardireccion</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+	
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Listado de Comprobantes de Retención</h2>
+    </div>
+    <form role="form" action="#" th:action="@{'/empresas/' + ${session.idEmpresa} + '/retenciones'}" method="POST" id="frmBuscarRetenciones">
+	    <div class="form-group form-inline col-xs-5">
+	        <label>Mes</label>
+	        <input type="text" class="form-control input-sm monthPiker" id="fecha" name="fecha"/>
+	        <input type="submit" class="btn btn-primary input-sm" id="buscarRetencion" value="Filtrar x fecha"/>
+	    </div>
+    </form>
+	<table class="table table-striped" id="paginar">
+	<thead>
+		<tr>
+			<th>Tipo de Comp.</th>
+			<th>RUC Emisor</th>
+			<th>Raz&oacute;n Social Emisor</th>
+			<th>No. Autorizacion</th>
+			<th>Id. Proveedor</th>
+			<th>Fecha Emision Ret.</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	
+	<tbody id="retenciones">
+		<tr th:each="fila : ${retenciones}">
+	        <td th:text="${fila.tipoComprobante.codigo}">tipo</td>
+	        <td th:text="${fila.empresa.rucContribuyente}">ruc</td>
+	        <td th:text="${fila.empresa.nombre}">nombre</td>
+	        <td th:text="${fila.retencion.autorizacionRetencion}">autorizacion</td>
+	        <td th:text="${fila.personalEmpresa.id}">proveedor</td>
+	        <td th:text="${fila.retencion.fechaRetencion}">Fecha de la retención</td>
+	        <td>
+            	<a class="btn btn-primary btn-xs" href="#" th:href = "@{retenciones/enviarRetencion(autorizacion=${fila.retencion.autorizacionRetencion})}" ><i class="fa fa-paper-plane"></i> Enviar</a>
+	        </td>
+	    </tr>
+
+	</tbody>
+	
+	</table>
+	</div>
+
+    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

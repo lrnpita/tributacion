@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	
+	<div class= "col-ms-12" id="butonbar">
+	 		<button type="submit" class="btn btn-primary col-ms-1" id="generarReporte" >Generar</button>
+			<a type="button" class="btn btn-primary col-ms-1" id="cancelar">Cancelar</a>
+	</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+	
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h3 class="page-header">Reportes</h3>
+    </div>
+	<form role="form" action="" method="post" id="reporteForm">
+
+	    <div class="form-group col-xs-4"><label>Tipo de Reporte</label>
+	    <select class="form-control input-sm" name="selectTipoReporte" id="selectTipoReporte">
+	    <!-- falta el value el en select para que se puedan deshabilitar y habilitar los campos -->
+			<option value="104">Ventas (104)</option>
+			<option value="103">Compras (103)</option>
+			<option value="ats">Anexo Transaccional Simplificado (ATS)</option>
+			<option value="107">Anexo Relación de Dependencia (RDEP)</option>
+		</select></div>
+		    
+        <div class="form-group col-xs-3"><label>Mes</label>
+        <input type="text" class="form-control input-sm monthPiker" name="fecha" id="fecha" required="required"/>
+        </div>
+        
+        
+    <!--     
+        <div class="form-group col-xs-4"><label>Fecha Final</label>
+        <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" value="fechaFinal" required="required"/></div>
+        
+    
+        <div class="form-group col-xs-4"><label>Ruc/C&eacute;dula/Pasaporte</label>
+        <input type="text" class="form-control" name="identidicacion" required="required"/></div>
+               
+        <div class="form-group col-xs-4"><label>*N&uacute;m. de Doc. o Fact.</label>
+        <input type="text" class="form-control" name="noDocumento" id="noDocumento" required="required"/></div>
+            
+        <div class="form-group col-xs-4" ><label>*Tipo de Retenci&oacute;n</label>
+	    <select class="form-control" id="selectTipoRetencion" >
+		    <option value="" >retencion</option>
+		</select></div>
+		
+		<div class="form-group col-xs-10">
+		  <label>
+		    <input type="radio" name="optionsRadios" id="opcion1" value="opcion1" />
+		    Todos los documentos excepto notas de cr&eacute;dito.
+		  </label>
+		  	<label>
+		    <input type="radio" name="optionsRadios" id="opcion2" value="opcion2" />
+		    Todos los documentos incluido notas de cr&eacute;dito.
+		  </label>
+		  	<label>
+		    <input type="radio" name="optionsRadios" id="opcion3" value="opcion3" />
+		    Seleccionar un tipo de documento.
+		  </label>
+		</div>
+
+        <div class="form-group col-xs-4" ><label>*Tipo de Documento</label>
+	    <select class="form-control" id="selectDocumento">
+		    <option value="" >retencion</option>
+		</select></div>	
+		
+		<div class="form-group col-xs-4"><label>Ident. Cr&eacute;dito/Gasto</label>
+	    <select class="form-control" id="selectIdentificacion" name="Ident. Credito/Gasto">
+		    <option value="">documento</option>
+		</select>
+		</div>		
+	-->	
+		    	
+    	</form>
+    	</div>
+    
+    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+		
+</html>

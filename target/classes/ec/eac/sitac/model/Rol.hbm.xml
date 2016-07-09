@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Rol" table="rol" schema="public" optimistic-lock="version">
+        <id name="idRol" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="150"/>
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" not-null="true" />
+        </property>
+
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_rol" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Usuario" />
+        </set>
+        
+        <set name="permisosAutorizados" table="autorizar_permiso_controlador" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_role" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.AutorizarPermisoControlador" />
+        </set>
+        
+        <set name="permisosDenegados" table="denegar_permiso_controlador" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_role" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.DenegarPermisoControlador" />
+        </set>
+    </class>
+</hibernate-mapping>

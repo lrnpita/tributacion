@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Compra" table="compra" schema="public" optimistic-lock="version">
+        <id name="idCompra" type="int">
+            <column name="id" />
+		<generator class="sequence">
+			<param name="sequence">compra_seq</param>
+		</generator>
+        </id>
+        <many-to-one name="empresa" class="ec.eac.sitac.model.Empresa" fetch="select">
+            <column name="id_empresa" not-null="true" />
+        </many-to-one>
+        <many-to-one name="retencion" class="ec.eac.sitac.model.Retencion">
+            <column name="id_retencion"/>
+        </many-to-one>        
+        <many-to-one name="pais" class="ec.eac.sitac.model.Pais" fetch="select">
+            <column name="id_pais_a_pagar" length="3" />
+        </many-to-one>
+        <many-to-one name="personalEmpresa" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_proveedor" length="13" not-null="true" />
+        </many-to-one>
+        <many-to-one name="puntoEmision" class="ec.eac.sitac.model.PuntoEmision" fetch="select">
+            <column name="id_punto_emision" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoCompra" class="ec.eac.sitac.model.TipoCompra" fetch="select">
+            <column name="id_tipo_compra" length="2" />
+        </many-to-one>
+        <many-to-one name="tipoPagoSegunLugar" class="ec.eac.sitac.model.TipoPagoSegunLugar" fetch="select">
+            <column name="id_tipo_pago_segun_lugar" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoComprobante" class="ec.eac.sitac.model.TipoComprobante" fetch="select">
+            <column name="id_tipo_comprobante" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoComprobanteModificado" class="ec.eac.sitac.model.TipoComprobante" fetch="select">
+            <column name="id_tipo_comprobante_modificado" length="2" not-null="false" />
+        </many-to-one>
+        <many-to-one name="estado" class="ec.eac.sitac.model.EstadoSRI">
+            <column name="id_estado" />
+        </many-to-one>        
+        <property name="fechaEmision" type="date">
+            <column name="fecha_emision" length="13" not-null="true" />
+        </property>
+        <property name="fechaEmisionModificado" type="date">
+            <column name="fecha_emision_modificado" length="13" not-null="false" />
+        </property>
+        <property name="registroContable" type="date">
+            <column name="registro_contable" length="13" not-null="true" />
+        </property>
+        <property name="concepto" type="string">
+            <column name="concepto" />
+        </property>
+        <property name="devolucionIva" type="boolean">
+            <column name="devolucion_iva" not-null="true" />
+        </property>
+        <property name="iceImpuesto" type="java.lang.Float">
+            <column name="ice_impuesto" precision="8" scale="8" />
+        </property>
+        <property name="otrosImpuestos" type="java.lang.Float">
+            <column name="otros_impuestos" precision="8" scale="8" />
+        </property>
+        <property name="convenio" type="java.lang.Boolean">
+            <column name="convenio" />
+        </property>
+        <property name="normaLegal" type="java.lang.Boolean">
+            <column name="norma_legal" />
+        </property>
+        <property name="comprobantePago" type="string">
+            <column name="comprobante_pago" />
+        </property>
+        <property name="codigoAutorizacion" type="string">
+            <column name="codigo_autorizacion" not-null="false" />
+        </property>
+        <property name="codigoAutorizacionModificado" type="string">
+            <column name="codigo_autorizacion_modificado" not-null="false" />
+        </property>
+        <property name="serieModificado" type="java.lang.Integer">
+            <column name="serie_modificado"/>
+        </property>
+         <property name="secuenciaModificado" type="java.lang.Integer">
+            <column name="secuencia_modificado" />
+        </property>    
+        <property name="archivoXMLAsociado" type="java.lang.String">
+            <column name="archivo_xml_asociado" length="255"/>
+        </property> 
+         <property name="serieFactura" type="string">
+            <column name="serie_factura" />
+        </property>  
+        <property name="secFactura" type="int">
+            <column name="sec_factura"/>
+        </property>        
+        <set name="comprobanteReembolsos" table="comprobante_reembolso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_compra" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.ComprobanteReembolso" />
+        </set>
+        <set name="detallesCompras" table="detalles_compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_compra" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.DetallesCompra" />
+        </set>
+        <set name="tiposPago" table="tipo_pago_vs_compra" fetch="select">
+            <key>
+                <column name="id_compra" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.TipoPagoVsCompra" />
+        </set>
+    </class>
+</hibernate-mapping>

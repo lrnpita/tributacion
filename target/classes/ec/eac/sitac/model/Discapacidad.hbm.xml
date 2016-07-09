@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Discapacidad" table="discapacidad" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id"/>
+            <generator class="assigned" />
+        </id>
+        <property name="porcentajeDesde" type="int">
+            <column name="porcentaje_desde" />
+        </property>
+        <property name="porcentajeHasta" type="int">
+            <column name="porcentaje_hasta" />
+        </property>
+        <property name="aplicacionBeneficio" type="int">
+            <column name="aplicacion_beneficio" />
+        </property>
+        <property name="anno" type="int">
+            <column name="anno" />
+        </property>
+                        
+    </class>
+</hibernate-mapping>

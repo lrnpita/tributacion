@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/java/recepcion/ws/sri/gob/ec/Comprobante.java=UTF-8
+encoding//src/main/java/recepcion/ws/sri/gob/ec/Mensaje.java=UTF-8
+encoding//src/main/java/recepcion/ws/sri/gob/ec/RecepcionComprobantes.java=UTF-8
+encoding//src/main/java/recepcion/ws/sri/gob/ec/RecepcionComprobantesService.java=UTF-8
+encoding//src/main/java/recepcion/ws/sri/gob/ec/RecepcionComprobantesServiceLocator.java=UTF-8
+encoding//src/main/java/recepcion/ws/sri/gob/ec/RecepcionComprobantesServiceSoapBindingStub.java=UTF-8
+encoding//src/main/java/recepcion/ws/sri/gob/ec/RespuestaSolicitud.java=UTF-8

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaropcions:: butonbaropcions">butonbaropcions</div>
+		<div th:replace="templates/alerts :: alerts">alerts</div>
+	
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Gestor de Productos</h2>
+    </div>
+	<table class="table table-striped" id="paginar">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Nombre</th>
+			<th>C&oacute;d. Principal</th>
+			<th>C&oacute;d. Auxiliar</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr th:each="fila : ${productos}">
+	        <td><input class="check" type="checkbox" th:value="${fila.idProducto}"/></td>
+	        <td>
+	        	<a href="#" th:href = "@{productos/editar(id=${fila.idProducto})}"><label th:text="${fila.nombre}"></label></a>
+	        </td>
+	        <td th:text="${fila.codigoPrincipal}">codigo principal</td>
+	        <td th:text="${fila.codigoAuxiliar}">codigo auxiliar</td>
+	        <td>
+            	<a class="btn btn-primary btn-xs" href="#" th:href = "@{productos/eliminar(id=${fila.idProducto})}" data-confirm="¿Estás seguro que deseas eliminar?"><label class="glyphicon glyphicon-trash"></label> Eliminar</a>
+	        </td>
+	    </tr>
+	</tbody>
+	
+	</table>
+	</div>
+
+    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

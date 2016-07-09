@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit :: butonbaredit">butonbaredit</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos del Trabajador</h2>
+    </div>
+	<form data-toggle="validator" role="form" action="#" th:action="@{guardar}" th:object="${trabajador}" method="post" id="myForm">
+
+	    <div class="form-group col-xs-2" th:object="${tipoIdentificacion}"><label>*Tipo de Id.</label>
+	    <select class="form-control input-sm" th:field="*{codigo}" id="tipoIdentificacion">
+		    <option value="" th:each="tipos : ${tiposIdentificacion}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+        
+        <div class="form-group col-xs-3"><label>*Ruc/C&eacute;dula/Pasaporte</label>
+        <input type="number" class="form-control input-sm" maxlength="10" th:field="*{id}" required="required" th:if="${editandoTrabajador}" readonly="readonly"/>
+        <input type="number" class="form-control input-sm" maxlength="10" th:field="*{id}" required="required" th:if="${!editandoTrabajador}"/></div>
+
+        <div class="form-group col-xs-2"><label>*C&oacute;d. de Estab.</label>
+        <input type="number" class="form-control input-sm" th:field="*{codigoEstablecimiento}" maxlength="3" required="required"/></div>
+        
+        <div class="form-group col-xs-2"><label>*Nombre</label>
+        <input type="text" class="form-control input-sm" th:field="*{nombre}" maxlength="30" required="required"/></div>
+
+        <div class="form-group col-xs-2"><label>*Apellidos</label>
+        <input type="text" class="form-control input-sm" th:field="*{apellidos}" maxlength="30" required="required"/></div>
+        		    
+		<div class="col-sm-2"><label>*Fecha Nacimiento</label>
+		<input type="text" class="form-control input-sm datePiker" th:field="*{fechaNacimiento}" required="required"/></div>
+    
+        <div class=" form-group col-xs-2"><label>*Direcci&oacute;n</label>
+        <input type="text" class="form-control input-sm" th:field="*{direccion}" required="required"/></div>
+        
+        <div class=" form-group col-xs-2" th:object="${residencia}"><label>*Residencia</label>
+	    <select class="form-control input-sm" th:field="*{id}" id="residencia">
+		    <option value="" th:each="tipos : ${residencias}" th:value="${tipos.id}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+		    
+        <div class="form-group col-xs-2" th:object="${pais}"><label>*Pa&iacute;s de residencia</label>
+	    <select class="form-control input-sm" th:field="*{codigo}" id="pais">
+		    <option value="" th:each="paises : ${paises}" th:value="${paises.codigo}" th:text="${paises.nombre}">pais</option>
+		</select></div>
+		
+		<div class="form-group col-xs-2">
+	    <label><input type="checkbox" th:field="*{convenio}"/>Convenio</label>
+	    </div>
+		
+	    <div class="form-group col-xs-2" th:object="${tipoSalario}"><label>*Tipo de Salario</label>
+	    <select class="form-control input-sm" th:field="*{id}">
+		    <option value="" th:each="tipos : ${tiposSalario}" th:value="${tipos.id}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+		
+        <div class="form-group col-xs-2" th:object="${ciudad}"><label>*Provincia</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+		    <option value="" th:each="ciudad : ${ciudades}" th:value="${ciudad.codigo}" th:text="${ciudad.nombre}">ciudad</option>
+		</select></div>		
+
+        <div class=" form-group col-xs-2" th:object="${condicionDeTrabajador}"><label >*Condici&oacute;n</label>
+	    <select class="form-control input-sm" th:field="*{id}" id="condicion">
+		    <option value="" th:each="tipos : ${condicionesDeTrabajador}" th:value="${tipos.id}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+
+    	<div class="form-group col-xs-2"><label>*Porcentaje</label>
+        <input type="text" class="form-control input-sm" th:field="*{porcentaje}" min="40" max="100"/></div>
+        
+	    <div class="form-group col-xs-2" th:object="${tipoIdentificacionNewTrabajador}"><label>*Tipo de Id.</label>
+	    <select class="form-control input-sm"  th:field="*{codigo}" id="tipoNewTrabajador">
+		    <option value="" th:each="tipos : ${tiposIdentificacion}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+        
+        <div class="form-group col-xs-3"><label>*Ruc/C&eacute;dula/Pasaporte</label>
+        <input type="text" class="form-control input-sm" th:field="*{idNewTrabajador}" id="idNewTrabajador" /></div>        
+	
+     <!-- 
+        <div class="form-group col-xs-3" th:object="${cargo}"><label for="sel1">Cargo</label>
+	    <select class="form-control" th:required="true" th:field="*{codigo}">
+		    <option value="" th:each="ciudades : ${cargos}" th:value="${ciudades.codigo}" th:text="${ciudades.nombre}">ciudad</option>
+		</select></div>    
+
+        <div class="form-group col-xs-3" th:object="${canton}"><label for="sel1">Cant&oacute;n</label>
+	    <select class="form-control" th:required="true" th:field="*{codigo}">
+		    <option value="" th:each="ciudades : ${cantons}" th:value="${ciudades.codigo}" th:text="${ciudades.nombre}">ciudad</option>
+		</select></div>		    
+     -->   
+	     <div class=" form-group col-xs-2"><label>N&uacute;mero de Casa</label>
+        <input type="text" class="form-control input-sm" th:field="*{numeroCasa}"/></div>
+
+        <div class=" form-group col-xs-2"><label>Calle</label>
+        <input type="text" class="form-control input-sm" th:field="*{calle}"/></div>
+ 
+        <div class=" form-group col-xs-2"><label>Tel&eacute;fono</label>
+        <input type="text" class="form-control input-sm" maxlength="10" minlength="9" th:field="*{telefono}"/></div>
+        
+	   	<div><input type="hidden" id="editandoTrabajador" name="editandoTrabajador" th:value="${editandoTrabajador}"/></div>
+ 
+	</form>
+	</div>
+
+	<div th:replace="templates/footer :: footer">footer</div>
+
+</body>
+</html>

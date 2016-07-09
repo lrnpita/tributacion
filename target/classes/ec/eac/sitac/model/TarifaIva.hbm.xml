@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.TarifaIva" table="tarifa_retencion_iva" schema="public" optimistic-lock="version">
+        <id name="codigo" type="short">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="porcentaje" type="int">
+            <column name="porcentaje" not-null="true" />
+        </property>
+        <set name="productos" table="producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tarifa_iva" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Producto" />
+        </set>
+    </class>
+</hibernate-mapping>

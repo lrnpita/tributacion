@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Retencion" table="retencion" schema="public" optimistic-lock="version">
+        <id name="idRetencion" type="int">
+            <column name="id_retencion" />
+		<generator class="sequence">
+			<param name="sequence">retencion_seq</param>
+		</generator>
+        </id>
+        <property name="retencionIR" type="java.lang.Float">
+            <column name="retencion_ir" not-null="true" />
+        </property>
+        <property name="retencionIVA" type="java.lang.Float">
+            <column name="retencion_iva" not-null="true" />
+        </property>        
+        <property name="totalRetencion" type="java.lang.Float">
+            <column name="total_retencion" not-null="false" />
+        </property>
+        <property name="fechaRetencion" type="date">
+            <column name="fecha_retencion" not-null="true" />
+        </property>
+        <property name="autorizacionRetencion" type="string">
+            <column name="autorizacion_retencion" />
+        </property>
+        <property name="serieRetencion" type="string">
+            <column name="serie_retencion" not-null="true" />
+        </property>
+        <property name="secuenciaRetencion" type="int">
+            <column name="secuencia_retencion" precision="8" scale="8" />
+        </property>
+        <property name="claveAcceso" type="string">
+            <column name="clave_acceso" />
+        </property>  
+    </class>
+</hibernate-mapping>

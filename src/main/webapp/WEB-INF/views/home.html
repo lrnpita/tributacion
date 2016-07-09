@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+
+<body>
+    <div th:replace="templates/navbar :: nav">navbar</div>
+	
+	<div class="home-page">
+            <div class="row">
+            
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-briefcase fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadEmpresas}">26</div>
+                                    <div>Empresas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{/admin/empresas}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Empresas</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadClientes}">12</div>
+                                    <div>Clientes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/clientes'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Clientes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-orange">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadTrabajadores}">124</div>
+                                    <div>Trabajadores</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/trabajadores'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Trabajadores</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadProveedores}">13</div>
+                                    <div>Proveedores</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/proveedores'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Proveedores</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-blue">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadUsuarios}">26</div>
+                                    <div>Usuarios</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/admin/empresas/' + ${session.idEmpresa} + '/usuarios'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Usuario</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>                
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadCompras}">26</div>
+                                    <div>Compras</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/compras'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Compras</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>  
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-plate">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-file fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadCompras}">26</div>
+                                    <div>Retenci&oacute;n</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/retenciones'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Listado de Retenciones</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadVentas}">26</div>
+                                    <div>Ventas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/ventas'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Ventas</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>                    
+ 
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-plate">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-reply fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadImportaciones}">26</div>
+                                    <div>Importaciones</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/importaciones'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Importaciones</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+ 
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-orange">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-share fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadExportaciones}">26</div>
+                                    <div>Exportaciones</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/exportaciones'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Exportaciones</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-edit fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadMovimientos}">26</div>
+                                    <div>Movimientos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/movimientos'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Movimientos</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+              <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-blue">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-archive fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" th:text="${cantidadProductos}">26</div>
+                                    <div>Productos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{'/empresas/' + ${session.idEmpresa} + '/productos'}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Gestionar Productos</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>                
+                                                          
+            </div>
+    </div>      
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<div th:replace="templates/footer :: footer">footer</div>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Empresa" table="empresa" schema="public" optimistic-lock="version">
+        <id name="idEmpresa" type="int">
+            <column name="id" />
+		<generator class="sequence">
+			<param name="sequence">compra_seq</param>
+		</generator>
+        </id>
+        <many-to-one name="personalEmpresaByIdContador" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_contador" length="13" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personalEmpresaByIdRepLegal" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_rep_legal" length="13" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoAmbiente" class="ec.eac.sitac.model.TipoAmbiente" fetch="select">
+            <column name="id_tipo_ambiente" length="1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoEmision" class="ec.eac.sitac.model.TipoEmision" fetch="select">
+            <column name="id_tipo_emision" length="1" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+        <property name="rucContribuyente" type="string">
+            <column name="ruc_contribuyente" length="13" not-null="true" />
+        </property>
+        <property name="nombreContribuyente" type="string">
+            <column name="nombre_contribuyente" length="100" not-null="true" />
+        </property>
+        <property name="nombreComercial" type="string">
+            <column name="nombre_comercial" length="300"/>
+        </property>
+        <property name="direccionMatriz" type="string">
+            <column name="direccion_matriz" length="300" not-null="true" />
+        </property>
+        <property name="numero" type="string">
+            <column name="numero" length="13" not-null="true" />
+        </property>
+        <property name="direccionSucursal" type="string">
+            <column name="direccion_sucursal" length="300" />
+        </property>
+        <many-to-one name="ciudad" class="ec.eac.sitac.model.Ciudad" fetch="select">
+            <column name="ciudad" length="13" not-null="true" />
+        </many-to-one>
+        <property name="telefono" type="string">
+            <column name="telefono" length="15" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="75" not-null="true" />
+        </property>
+        <property name="llevaContabilidad" type="java.lang.Boolean">
+            <column name="lleva_contabilidad" />
+        </property>
+        <property name="noResolucionContribEspecial" type="java.lang.String">
+            <column name="no_resolucion_contrib_especial" length="5" />
+        </property>
+        <property name="logo" type="string">
+            <column name="logo" length="256" />
+        </property>
+        <property name="partidoPolitico" type="boolean">
+            <column name="partido_politico" not-null="true" />
+        </property>
+        <property name="exportador" type="boolean">
+            <column name="exportador" not-null="true" />
+        </property>
+        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empresa" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Compra" />
+        </set>
+        <set name="movimientos" table="movimiento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empresa" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Movimiento" />
+        </set>
+        <set name="puntoEmisions" table="punto_emision" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empresa" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.PuntoEmision" />
+        </set>
+        <set name="ventas" table="venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empresa" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Venta" />
+        </set>
+        <set name="importacions" table="importacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empresa" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Importacion" />
+        </set>
+        <set name="exportaciones" table="exportacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empresa" not-null="true" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Exportacion" />
+        </set>        
+        <set name="clientes" table="empresa_vs_cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cliente" length="13" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.EmpresaVsCliente" />
+        </set>
+        <set name="proveedores" table="empresa_vs_proveedor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_proveedor" length="13" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.EmpresaVsProveedor" />
+        </set>
+        <set name="trabajadores" table="empresa_vs_trabajador" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_trabajador" length="13" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.EmpresaVsTrabajador" />
+        </set>
+        <set name="productos" table="empresa_vs_producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_producto" length="13" />
+            </key>
+            <one-to-many class="ec.eac.sitac.model.EmpresaVsProducto" />
+        </set>        
+    </class>
+</hibernate-mapping>

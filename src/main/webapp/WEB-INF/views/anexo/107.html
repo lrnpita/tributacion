@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbardireccion :: butonbardireccion">butonbardireccion</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h3 class="page-header">Formulario 107</h3>
+      <p>Comprobantes de retenciones en la fuente del impuesto a renta por ingreso del trabajador en relación de dependencia.</p>
+    </div>
+	<form role="form" action="#" th:action="@{107}" th:object="${movimiento}" method="post" id="107Form">
+         
+        <div class="form-group col-xs-12"><label>100 Identificación del Empleador(Agente de Retenci&oacute;n)</label></div>
+        <div class="form-group col-xs-4"><label>105 RUC</label><input type="text" class="form-control input-sm" th:value="${rucEmpresa}" readonly="readonly"/></div>
+        <div class="form-group col-xs-4"><label>106 Razón Social</label><input type="text" class="form-control input-sm" th:value="${razonSocialEmpresa}" readonly="readonly"/></div>
+        
+        <div class=" form-group col-xs-10 form-inline">
+        <div><label>200 Identificación Empleado Contribuyente</label></div>
+	        <label>201 C&eacute;dula/Pasaporte</label>
+	        <input type="number" list="listaTrabajadores" class="form-control input-sm" id="idTrabajador" name="idTrabajador" required="required"/>
+	        <label>Mes</label>
+	        <input type="text" class="form-control input-sm monthPiker" name="fecha" id="fecha"/>
+	        <button type="submit" class="btn btn-primary" id="buscarTrabajador">Buscar datos</button>
+        </div>
+        
+        <datalist id="listaTrabajadores">
+ 		<option th:each="tipos : ${trabajadores}" th:value="${tipos.id}">Id</option>
+ 		</datalist>
+ 		
+ 		<div class="form-group col-xs-6"><label>202 Nombre</label><input type="text" class="form-control input-sm" readonly="readonly" th:field="*{personalEmpresa.nombre}"/></div>
+ 		
+ 		<div class="col-xs-12"> 
+ 		<h4>Liquidaci&oacute;n del Impuesto</h4>
+ 			<div class="form-group"><label class="col-sm-6 control-label">Sueldos y salarios <label class="pull-right bg-info">301</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{sueldosYSalarios}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Sobre Sueldos, Comisiones, Bonos y otros Imp. Grav. <label class="pull-right bg-info">303</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{sobresueldos}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Participación de utilidades <label class="pull-right bg-info">305</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{participacionUtilidades}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Ingresos gravados generados con otros empleadores <label class="pull-right bg-info">307</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{ingresosOtrosEmpleadores}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Décimo terner sueldo <label class="pull-right bg-info">311</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{decimotercerSueldo}"/></div></div>	
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Décimo cuarto sueldo <label class="pull-right bg-info">313</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{decimocuartoSueldo}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Fondo de reserva <label class="pull-right bg-info">315</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{fondosReserva}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Otros Ing, en relación de dependencia que no constituyen renta gravada <label class="pull-right bg-info">317</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{otrosIngresosNoGravados}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Aporte personal IESS con este empleador <label class="pull-right bg-info">351</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{aportePersonalEmpleadorActual}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Aporte personal IESS con otros empeladores <label class="pull-right bg-info">353</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{iessOtrosEmpleadores}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Deducción gastos personales-Vivienda <label class="pull-right bg-info">361</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{vivienda}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Deducción gastos personales-Salud <label class="pull-right bg-info">363</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{salud}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Deducción gastos personales-Educación <label class="pull-right bg-info">365</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{educacion}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Deducción gastos personales-Alimentación <label class="pull-right bg-info">367</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{alimentacion}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Deducción gastos personales-Vestimenta <label class="pull-right bg-info">369</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{vestimenta}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Exoneración por discapacidad <label class="pull-right bg-info">371</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${exoneracionDisc}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Exoneración por tercera edad <label class="pull-right bg-info">373</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${exoneracionTercEdad}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Impuesto a la renta asumido por el empleador <label class="pull-right bg-info">381</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{irAsumidoEmpleadorActual}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Base imponible gravada <label class="pull-right bg-info">399</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${baseImponibleGrav}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Impuesto a la renta causado <label class="pull-right bg-info">401</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{impuestoRentaCausado}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Valor del Imp. retenido y asumido por otros Emp. durante el periodo declarado <label class="pull-right bg-info">403</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${movimiento.irAsumidoOtrosEmpleadores} + ${movimiento.retencionOtrosEmpleadores}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Valor del impuesto asumido por este Emp. <label class="pull-right bg-info">405</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{irAsumidoEmpleadorActual}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Valor del impuesto retenido al trabajador por este Emp. <label class="pull-right bg-info">407</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:field="*{valorRetenido}"/></div></div>
+ 		    <div class="form-group"><label class="col-sm-6 control-label">Subtotal este Emp. <label class="pull-right bg-info">349</label></label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${movimiento.sueldosYSalarios} + ${movimiento.sobresueldos} + ${movimiento.participacionUtilidades} + ${movimiento.irAsumidoEmpleadorActual}"/></div></div>
+ 		</div>
+ 		
+ 		<div class="form-group col-xs-4"><label>199 RUC Contador</label><input type="text" th:value="${idContadorEmpresa}" class="form-control input-sm" disabled="disabled"/></div>	
+    </form>   
+	</div>
+	
+	    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

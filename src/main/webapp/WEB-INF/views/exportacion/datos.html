@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit:: butonbaredit">butonbaredits</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos de la Exportaci&oacute;n</h2>
+    </div>
+	<form data-toggle="validator" role="form" action="#" th:action="@{guardar}" th:object="${exportacion}" method="post" id="myForm">
+    
+	    <div class="form-group col-xs-2" th:object="${tipoExportacionImportacion}"><label>*Exportaci&oacute;n de:</label>
+	    <select class="form-control input-sm" th:field="*{idTipoExpImp}" >
+		    <option value="" th:each="tipos : ${tiposExportacionImportacion}" th:value="${tipos.idTipoExpImp}" th:text="${tipos.nombre}">tipo</option>
+		</select></div>
+        
+	    <div class="form-group col-xs-2" th:object="${tipoComprobante}"><label>*TIpo Comprobante</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+		    <option value="" th:each="tipos : ${tiposComprobante}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select></div>
+        
+        <div class="form-group col-xs-2"><label>*No. Refrendo Comp.</label>
+        <input type="number" class="form-control input-sm" th:field="*{noRefrendoComprobante}" required="required"/></div>
+
+        <div class="form-group col-xs-2"><label>*No. Doc. transporte</label>
+        <input type="number" class="form-control input-sm" th:field="*{noDocumentoTransporte}" required="required"/></div> 
+
+        <div class="form-group col-xs-2"><label>Fecha de transacci&oacute;n</label>
+        <input type="text" class="form-control input-sm datePiker" th:field="*{fechaTransaccion}" required="required"/></div>               
+
+        <div class=" form-group col-xs-2" th:object="${personalEmpresa}"><label>Id CLiente</label>
+        <input type="number" list="listaClientes" class="form-control input-sm" th:field="${personalEmpresa.id}" required="required" pattern="[0-9]{10}001"/>
+        </div>
+        
+ 		<datalist id="listaClientes">
+ 		<option th:each="tipos : ${clientes}" th:value="${tipos.id}" th:text="${tipos.id}+'-'+${tipos.nombre}">Id</option>
+ 		</datalist>         
+		
+        <div class="form-group col-xs-2"><label>F.O.B. (F-104)</label>
+        <input type="number" class="form-control input-sm" th:field="*{fob}" required="required"/></div>               
+        
+        <div class="form-group col-xs-2"><label>Valor FOB Comprobante</label>
+        <input type="text" class="form-control input-sm" th:field="*{valorFobComprobante}" required="required"/></div>    
+        
+     <!-- Quite el punto de emision de la vista porque se puso directamente desde el contralor
+      <div class="form-group col-xs-3" th:object="${puntoEmision}"><label>*Punto de Emision</label>
+	    <select class="form-control input-sm" th:field="*{id}">
+		    <option value="" th:each="tipos : ${puntosEmision}" th:value="${tipos.id}" th:text="${tipos.serie}">tipo</option>
+		</select></div>
+	-->	           
+        		
+        <div class="form-group col-xs-4"><label>Autorizaci&oacute;n </label>
+        <input type="number" class="form-control input-sm" th:field="*{autorizacionSri}" required="required" pattern="[0-9]{10}|[0-9]{37}|[0-9]{49}"/>
+         <p class="help-block">Solo n&uacute;meros, tama&ntilde;o 10, 37 &oacute; 49.</p>
+        </div>         		
+
+        <div class="form-group col-xs-2"><label>Fecha Registro Contable</label>
+        <input type="text" class="form-control input-sm datePiker" th:field="*{fechaRegistroContable}" required="required"/></div>  
+        
+        <div class="form-group col-xs-2"><label>Fecha Emisi&oacute;n</label>
+        <input type="text" class="form-control input-sm datePiker" th:field="*{fechaEmision}" required="required"/></div> 
+        
+        <div>
+	    	<input type="hidden" name="editandoExportacion" id="editandoExportacion" th:value="${editandoExportacion}"/>
+	    	<input type="hidden" name="idExportacion" id="idExportacion" th:value="${exportacion.idExportacion}"/>
+    	</div> 
+    	
+        <div class="form-group col-xs-5"><label>Devoluci&oacute;n Iva</label>
+        <input type="checkbox" th:field="*{devolucionIva}"/>
+        </div>       
+    	      
+    </form>
+
+	</div>
+	
+    <div th:replace="templates/footer :: footer">footer</div>	
+
+</body>
+</html>

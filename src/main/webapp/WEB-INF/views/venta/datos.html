@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit :: butonbaredit">butonbaredit</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos de la Venta</h2>
+    </div>
+	<form role="form" action="#" th:action="@{guardar}" th:object="${venta}" method="post" id="myForm">
+ 		
+        <div class=" form-group col-xs-2" th:object="${cliente}"><label>Id Cliente</label>
+        <input type="number" list="listaClientes" class="form-control input-sm" th:field="${cliente.id}" id="idClienteVenta" required="required" />
+        </div>
+        
+ 		<datalist id="listaClientes">
+ 		<option th:each="tipos : ${clientes}" th:value="${tipos.id}" th:text="${tipos.id}+'-'+${tipos.nombre}">Id</option>
+ 		</datalist>
+ 		
+ 		<div class=" form-group col-xs-2"><label>Nombre Cliente</label>
+        <input type="text" class="form-control input-sm" id="nombreCliente" readonly="readonly" th:field="${cliente.nombre}"/>
+        </div>
+        
+        <div class="form-group col-xs-2" th:object="${tipoVentaSegunPago}"><label>Forma de pago</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+	    <option th:each="tipos : ${tiposVentaSegunPago}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>
+		
+		<div class="form-group col-xs-2" th:object="${tipoVenta}"><label>Tipo de venta</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+	    <option th:each="tipos : ${tiposVenta}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>
+ 
+        <div class="form-group col-xs-2" th:object="${tipoComprobante}"><label>Tipo de comprobante</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+	    <option th:each="tipos : ${tiposComprobante}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>        
+        
+        <div class=" form-group col-xs-2"><label>*Fecha Emisi&oacute;n</label>
+        <input type="text" class="form-control input-sm datePiker" th:field="*{fechaEmision}" required="required"/>
+        </div>
+        
+        <div class="form-group col-xs-4"><label>Autorizaci&oacute;n</label>
+        <input type="text" class="form-control input-sm" th:field="*{codigoAutorizacion}" required="required" pattern="[0-9]{10}|[0-9]{37}|[0-9]{49}"/>
+         <p class="help-block">Solo n&uacute;meros, tama&ntilde;o 10, 37 &oacute; 49.</p>
+        </div>
+
+        <div class="form-group col-xs-4"><label>Clave de acceso</label>
+        <input type="text" class="form-control input-sm" required="required" th:field="*{claveAcceso}"/>
+        </div>        
+        
+        <div class="form-group col-xs-3"><label>Serie/Secuencia Fac.</label>
+	    <input type="text" class="form-control input-sm" name="serieFactura" th:value="${puntoEmision.serie}" readonly="readonly"/>
+	    <input type="number" class="form-control input-sm" name="secFactura" th:value="${puntoEmision.secFactura}" readonly="readonly"/>
+		</div>
+        
+    <div class="well col-xs-12">       
+        <h4>Productos de la Venta</h4> 
+            
+        <div class="form-group form-inline col-xs-6">
+	        <label>Producto</label>
+	        <input type="text" class="form-control input-sm col-ms-2" id="codP" placeholder="código principal" list="listaProductosCP"/>
+	        <input type="text" class="form-control input-sm col-ms-2" id="codA" placeholder="código auxiliar" list="listaProductosCA"/>
+	        <a type="button" id="adicionar" class="btn btn-nuevo col-ms-2 input-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar</a>
+	    </div>
+	    
+		<!-- tabla donde va la lista de los productos comprados -->
+	    <table class="table table-striped" id="tablaVenta">
+		<thead>
+			<tr>
+				<th>Cantidad</th>
+				<th>C&oacute;d. Principal</th>
+				<th>C&oacute;d. Auxiliar</th>
+				<th>Precio Unit.</th>
+				<th>Descuento</th>
+				<th>Precio Total</th>
+				<th>Ice</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="fila-base hidden">
+		        <td><input class="form-control input-sm col-xs-1" name="cantidad" id="cantidad" value="1"/></td>
+				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoPrincipalProducto" id="codigoPrincipalProducto"/></td>
+				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoAuxiliarProducto" id="codigoAuxiliarProducto"/></td>
+				<td><input type="text" class="form-control input-sm col-xs-1 " name="precioUnitario" id="precioUnitario"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" name="tDescuento" id="tDescuento" value="0"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioTotal" id="precioTotal"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" name="tIce" id="tIce" value="0"/></td>
+				<td class="hidden"><input type="number" class="form-control input-sm col-xs-1" name="tidVP" id="tidVP" value="0"/></td>
+				<td id="eliminar-fila"><i class="btn btn-primary btn-xs"><label class="glyphicon glyphicon-trash"></label> </i></td>
+		    </tr>
+			<tr class="" th:if="${editandoVenta}" th:each="fila : ${ventaVsProductos}">
+		        <td><input class="form-control input-sm col-xs-1 " name="cantidad" id="cantidad" th:value="${fila.cantidad}"/></td>
+				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoPrincipalProducto" id="codigoPrincipalProducto" th:value="${fila.producto.codigoPrincipal}"/></td>
+				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoAuxiliarProducto" id="codigoAuxiliarProducto" th:value="${fila.producto.codigoAuxiliar}"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioUnitario" id="precioUnitario" th:value="${fila.producto.valorUnitario}"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="tDescuento" id="tDescuento" th:value="${fila.descuento}"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioTotal" id="precioTotal" th:value="${fila.cantidad} * ${fila.producto.valorUnitario}"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" name="tIce" id="tIce" th:value="${fila.ice}"/></td>
+				<td class="hidden"><input type="number" class="form-control input-sm col-xs-1" name="tidVP" id="tidVP" th:value="${fila.id}"/></td>
+				<td id="eliminar-fila"><i class="btn btn-primary btn-xs"><label class="glyphicon glyphicon-trash"></label> </i></td>
+		    </tr>
+		</tbody>
+		</table>
+
+</div>		
+		<datalist id="listaProductosCP">
+ 		<option th:each="tipos : ${productos}" th:value="${tipos.codigoPrincipal}" th:text="${tipos.codigoPrincipal}+'-'+${tipos.codigoAuxiliar}+'-'+${tipos.nombre}">Id</option>
+ 		</datalist>	
+ 		
+		<datalist id="listaProductosCA">
+ 		<option th:each="tipos : ${productos}" th:value="${tipos.codigoAuxiliar}" th:text="${tipos.codigoPrincipal}+'-'+${tipos.codigoAuxiliar}+'-'+${tipos.nombre}">Id</option>
+ 		</datalist>	 		
+ 		
+ 	    <div class="form-group col-xs-1"><label>% Iva</label>
+        <input type="number" class="form-control input-sm porcentIva" required="required" th:field="*{porcentajeIva}" readonly="readonly"/>
+        </div>
+
+  <div class="well col-xs-12" th:object="${retencion}">       
+        <h4>Comprobante de Retenci&oacute;n</h4>   
+        
+        <div class=" form-group col-xs-1"><label>Ret. IR</label>
+        <input type="number" class="form-control input-sm" th:field="*{retencionIR}" /></div>   
+             
+        <div class=" form-group col-xs-1"><label>Ret. Iva</label>
+        <input type="number" class="form-control input-sm" th:field="*{retencionIVA}" /></div>
+                    
+        <div class=" form-group col-xs-2"><label>TOTAL Ret.</label>
+        <input type="number" class="form-control input-sm" th:field="*{totalRetencion}"/>
+        </div>    
+        
+        <div class=" form-group col-xs-2"><label>Fecha Emisi&oacute;n Ret.</label>
+        <input type="text" class="form-control input-sm datePiker" th:field="*{fechaRetencion}"/>
+        </div>
+        
+        <div class=" form-group col-xs-1"><label>Serie Ret.</label>
+        <input type="number" class="form-control input-sm" th:field="*{serieRetencion}" minlength="6" maxlength="6"/>
+        </div>
+        
+        <div class=" form-group col-xs-2"><label>Secuencia Ret.</label>
+        <input type="number" class="form-control input-sm" th:field="*{secuenciaRetencion}" maxlength="9"/>
+        </div>
+        
+        <div class=" form-group col-xs-4"><label>Autorizaci&oacute;n Ret.</label>
+        <input type="text" class="form-control input-sm" th:field="*{autorizacionRetencion}" pattern="[0-9]{10}|[0-9]{37}|[0-9]{49}"/>
+         <p class="help-block">Solo n&uacute;meros, tama&ntilde;o 10, 37 &oacute; 49.</p>
+        </div>
+        
+        <input type="hidden" th:field="*{idRetencion}"/>
+ </div>
+ 
+        <input type="hidden"  id="editandoVenta" name="editandoVenta" th:value="${editandoVenta}"/>
+		<input type="hidden"  id="idVenta" name="idVenta" th:value="${venta.idVenta}"/> 		
+   </form>
+   </div>
+	<div th:replace="templates/footer :: footer">footer</div>
+</body>
+</html>

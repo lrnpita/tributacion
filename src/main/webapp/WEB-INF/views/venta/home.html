@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaropcions:: butonbaropcions">butonbaropcions</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+	
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Gestor de Ventas</h2>
+    
+    <form role="form" action="#" th:action="@{'/empresas/' + ${session.idEmpresa} + '/ventas'}" method="POST" id="frmBuscar">
+	   <div class="form-group form-inline col-xs-6">
+	        <label>Mes</label>
+	        <input type="text" class="form-control input-sm monthPiker" id="fecha" name="fecha" required="required" placeholder="Selecciona un mes"/>
+	        <input type="submit" class="btn btn-primary input-sm" value="Filtrar x fecha"/>
+	    </div>
+    </form>
+    
+    <form class="form-inline col-xs-6" enctype="multipart/form-data" action="#" th:action="@{ventas/upload}"  method="post" commandName="file" >
+	    <div class="form-group">
+	    <label>Cargar archivo .sxls</label>
+	        <input type="file" class="form-control input-sm" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+	    </div>
+	    <div class="form-group">
+		    <button class="btn btn-primary col-ms-1 input-sm" type="submit">Cargar</button>
+	    </div>
+	</form>
+    </div>
+    
+	<table class="table table-striped" id="paginar">
+	<thead>
+		<tr>
+			<th></th>
+			<th>ID</th>
+			<th>Cliente</th>
+			<th>Estado</th>
+			<th>Fecha Registro</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr th:each="fila : ${ventas}">
+	        <td><input class="check" type="checkbox" th:value="${fila.idVenta}"/></td>
+	        <td>
+	        	<a href="#" th:href="@{ventas/editar(id=${fila.idVenta})}"><label th:text="${fila.idVenta}"></label></a>
+	        </td>
+	        <td th:text="${fila.personalEmpresa.id}">cliente</td>
+	        <td th:text="${fila.estado.nombre}">estado</td>
+	        <td th:text="${fila.fechaRegistro}">tipo</td>
+	        <td>
+            	<a class="btn btn-primary btn-xs" href="#" th:href="@{ventas/eliminar(id=${fila.idVenta})}" data-confirm="¿Estás seguro que deseas eliminar?"><label class="glyphicon glyphicon-trash"></label> Eliminar</a>
+	        </td>
+	    </tr>
+	</tbody>
+	
+	</table>
+	</div>
+
+    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

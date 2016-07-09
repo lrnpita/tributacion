@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Importacion" table="importacion" schema="public" optimistic-lock="version">
+        <id name="idImportacion" type="int">
+            <column name="id" />
+		<generator class="sequence">
+			<param name="sequence">importacion_seq</param>
+		</generator>
+        </id>
+        <many-to-one name="empresa" class="ec.eac.sitac.model.Empresa" fetch="select">
+            <column name="id_empresa" not-null="true" />
+        </many-to-one>
+        <many-to-one name="identificacionCreditoGasto" class="ec.eac.sitac.model.IdentificacionCreditoGasto" fetch="select">
+            <column name="id_credito_gasto" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personalEmpresa" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_proveedor" length="13" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoComprobante" class="ec.eac.sitac.model.TipoComprobante" fetch="select">
+            <column name="codigo" length="2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoExportacionImportacion" class="ec.eac.sitac.model.TipoExportacionImportacion" fetch="select">
+            <column name="id_tipo_importacion" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoTransaccion" class="ec.eac.sitac.model.TipoTransaccion" fetch="select">
+            <column name="id_tipo_transaccion" length="5" not-null="true" />
+        </many-to-one>
+        <property name="fechaLiquidacion" type="date">
+            <column name="fecha_liquidacion"  />
+        </property>
+        <property name="cif" type="java.lang.Float">
+            <column name="cif" precision="8" scale="8" />
+        </property>
+        <property name="baseImponible" type="java.lang.Float">
+            <column name="base_imponible" precision="8" scale="8" />
+        </property>
+        <property name="baseImponibleGravada" type="java.lang.Float">
+            <column name="base_imponible_gravada" precision="8" scale="8" />
+        </property>
+        <property name="porcentajeIva" type="java.lang.Float">
+            <column name="porcentaje_iva" precision="8" scale="8" />
+        </property>
+        <property name="baseImponibleIce" type="java.lang.Float">
+            <column name="base_imponible_ice" precision="8" scale="8" />
+        </property>
+        <property name="porcentajeIce" type="java.lang.Float">
+            <column name="porcentaje_ice" precision="8" scale="8" />
+        </property>
+        <property name="baseImponibleRet" type="java.lang.Float">
+            <column name="base_imponible_ret" precision="8" scale="8" />
+        </property>
+        <property name="porcentajeRetencion" type="java.lang.Float">
+            <column name="porcentaje_retencion" precision="8" scale="8" />
+        </property>
+        <property name="noRefrendoComprobante" type="int">
+            <column name="no_refrendo_comprobante" />
+        </property>
+    </class>
+</hibernate-mapping>

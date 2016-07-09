@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaropcions:: butonbaropcions">butonbaropcions</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+	
+	
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Gestor de Exportaciones</h2>
+    </div>
+	<table class="table table-striped" id="paginar">
+	<thead>
+		<tr>
+			<th></th>
+			<th>No Exportaci&oacute;n</th>
+			<th>Cliente</th>
+			<th>Tipo</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr th:each="fila : ${exportaciones}">
+	        <td><input type="checkbox" class="check" th:value="${fila.idExportacion}"/></td>
+	        <td>
+	        	<a href="#" th:href = "@{exportaciones/editar(id=${fila.idExportacion})}"><label th:text="${fila.idExportacion}"></label></a>
+	        </td>
+	        <td th:text="${fila.personalEmpresa.id}">cliente</td>
+	        <td th:text="${fila.tipoExportacionImportacion.nombre}">tipo de exportacion</td>
+	        <td>
+            	<a class="btn btn-primary btn-xs" href="#" th:href = "@{exportaciones/eliminar(id=${fila.idExportacion})}" data-confirm="¿Estás seguro que deseas eliminar?"><label class="glyphicon glyphicon-trash"></label> Eliminar</a>
+	        </td>
+	    </tr>
+	</tbody>
+	
+	</table>
+	</div>
+
+    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

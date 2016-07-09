@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.Movimiento" table="movimiento" schema="public" optimistic-lock="version">
+        <id name="idMovimiento" type="int">
+            <column name="id" />
+         <generator class="sequence">
+			<param name="sequence">movimiento_seq</param>
+		 </generator>
+        </id>
+        <many-to-one name="empresa" class="ec.eac.sitac.model.Empresa">
+            <column name="id_empresa" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personalEmpresa" class="ec.eac.sitac.model.PersonalEmpresa" fetch="select">
+            <column name="id_trabajador" length="13" not-null="true" />
+        </many-to-one>
+        <property name="date" type="date">
+            <column name="date" length="13" not-null="true" />
+        </property>
+        <property name="baseImponibleGravada" type="java.lang.Float">
+            <column name="base_imponible_gravada" precision="8" scale="8" />
+        </property>
+        <property name="baseImponible" type="java.lang.Float">
+            <column name="base_imponible" precision="8" scale="8" />
+        </property>        
+        <property name="valorRetenido" type="java.lang.Float">
+            <column name="valor_retenido" precision="8" scale="8" />
+        </property>                
+        <property name="sueldosYSalarios" type="java.lang.Float">
+            <column name="sueldos_y_salarios" precision="8" scale="8" />
+        </property>
+        <property name="sobresueldos" type="java.lang.Float">
+            <column name="sobresueldos" precision="8" scale="8" />
+        </property>
+        <property name="participacionUtilidades" type="java.lang.Float">
+            <column name="participacion_utilidades" precision="8" scale="8" />
+        </property>
+        <property name="ingresosOtrosEmpleadores" type="java.lang.Float">
+            <column name="ingresos_otros_empleadores" precision="8" scale="8" />
+        </property>
+        <property name="irAsumidoOtrosEmpleadores" type="java.lang.Float">
+            <column name="ir_asumido_otros_empleadores" precision="8" scale="8" />
+        </property>
+        <property name="decimotercerSueldo" type="java.lang.Float">
+            <column name="decimotercer_sueldo" precision="8" scale="8" />
+        </property>
+        <property name="decimocuartoSueldo" type="string">
+            <column name="decimocuarto_sueldo" length="75" />
+        </property>
+        <property name="fondosReserva" type="java.lang.Float">
+            <column name="fondos_reserva" precision="8" scale="8" />
+        </property>
+        <property name="salarioDigno" type="java.lang.Float">
+            <column name="salario_digno" precision="8" scale="8" />
+        </property>
+        <property name="otrosIngresosNoGravados" type="java.lang.Float">
+            <column name="otros_ingresos_no_gravados" precision="8" scale="8" />
+        </property>
+        <property name="aportePersonalEmpleadorActual" type="java.lang.Float">
+            <column name="aporte_personal_empleador_actual" precision="8" scale="8" />
+        </property>
+        <property name="iessOtrosEmpleadores" type="java.lang.Float">
+            <column name="iess_otros_empleadores" precision="8" scale="8" />
+        </property>
+        <property name="impuestoRentaCausado" type="java.lang.Float">
+            <column name="impuesto_renta_causado" precision="8" scale="8" />
+        </property>
+        <property name="retencionOtrosEmpleadores" type="java.lang.Float">
+            <column name="retencion_otros_empleadores" precision="8" scale="8" />
+        </property>
+        <property name="irAsumidoEmpleadorActual" type="java.lang.Float">
+            <column name="ir_retenido_empleador_actual" precision="8" scale="8" />
+        </property>
+         <property name="vivienda" type="java.lang.Float">
+            <column name="vivienda" precision="8" scale="8" />
+        </property>
+          <property name="salud" type="java.lang.Float">
+            <column name="salud" precision="8" scale="8" />
+        </property>
+          <property name="alimentacion" type="java.lang.Float">
+            <column name="alimentacion" precision="8" scale="8" />
+        </property>
+          <property name="educacion" type="java.lang.Float">
+            <column name="educacion" precision="8" scale="8" />
+        </property>
+         <property name="vestimenta" type="java.lang.Float">
+            <column name="vestimenta" precision="8" scale="8" />
+        </property>       
+        <property name="exoneracionDiscapacidad" type="java.lang.Float">
+            <column name="exoneracion_discapacidad" precision="8" scale="8" />
+        </property> 
+        <property name="exoneracionTerceraE" type="java.lang.Float">
+            <column name="exoneracion_tercera_e" precision="8" scale="8" />
+        </property>                
+        <property name="retenciones" type="int">
+            <column name="retenciones" />
+        </property>
+        <property name="mesesTrabajados" type="int">
+            <column name="meses_trabajados" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.EstadoSRI" table="estado_sri" schema="public" optimistic-lock="version">
+        <id name="idEstado" type="int">
+            <column name="id_estado" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre_estado" length="100" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+        <set name="compras" table="compra" inverse="true" lazy="true">
+            <key>
+                <column name="id_estado"/>
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Compra" />
+        </set>
+                <set name="ventas" table="venta" inverse="true" lazy="true">
+            <key>
+                <column name="id_estado"/>
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Venta" />
+        </set>
+        <set name="exportaciones" table="exportacion" inverse="true" lazy="true">
+            <key>
+                <column name="id_estado"/>
+            </key>
+            <one-to-many class="ec.eac.sitac.model.Exportacion" />
+        </set>
+    </class>
+</hibernate-mapping>

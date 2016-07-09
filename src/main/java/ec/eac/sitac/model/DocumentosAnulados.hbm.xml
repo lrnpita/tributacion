@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/05/2015 16:52:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ec.eac.sitac.model.DocumentosAnulados" table="documentos_anulados" schema="public" optimistic-lock="version">
+        <id name="idAnulado" type="int">
+            <column name="id_anulado" />
+         <generator class="sequence">
+			<param name="sequence">anulado_seq</param>
+		 </generator>
+        </id>
+        <property name="fechaAnulacion" type="date">
+            <column name="fecha_anulacion" length="13" not-null="true" />
+        </property>
+        <property name="secuencia" type="int">
+            <column name="secuencia" />
+        </property>         
+        <property name="autorizacion" type="string">
+            <column name="autorizacion" length="75" />
+        </property>
+        <many-to-one name="empresa" class="ec.eac.sitac.model.Empresa" fetch="select">
+            <column name="id_empresa" not-null="true" />
+        </many-to-one>        
+        <many-to-one name="tipoComprobante" class="ec.eac.sitac.model.TipoComprobante" fetch="select">
+            <column name="codigo_tipo_comprobante" length="2" not-null="true" />
+        </many-to-one>    
+        <many-to-one name="puntoEmision" class="ec.eac.sitac.model.PuntoEmision" >
+            <column name="id_punto_emision" not-null="true" />
+        </many-to-one>            
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<!-- Resolves views selected for rendering by @Controllers to .html resources in the /WEB-INF/views directory -->
+    <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1"/>
+        <property name="location">
+           <value>/WEB-INF/spring-pdf-views.xml</value>
+        </property>
+    </bean>
+    
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+	</bean> 
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+    
+	<mvc:interceptors>
+	    <mvc:interceptor>
+	        <mvc:mapping path="/empresas/**"/>
+	        <mvc:mapping path="/admin/empresas/**"/>
+	        <bean class="ec.eac.sitac.config.UrlAccessInterceptor">
+	        </bean>
+	    </mvc:interceptor>
+	</mvc:interceptors>
+
+	<context:component-scan base-package="ec.eac.sitac" />
+	<context:property-placeholder />
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+	    <property name="searchSystemEnvironment" value="true" />
+
+		<property name="location">
+			<value>/WEB-INF/database.properties</value>
+		</property>
+	</bean>
+
+<!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/sitac" />
+		<property name="username" value="postgres" />
+		<property name="password" value="trad*l89s" />
+	</bean>
+ -->
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+    </bean>
+    
+    <tx:annotation-driven />
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	
+	<!-- esto lo puso la bolita cuando estab cargando el xml -->
+	<bean id="fileValidator" class="ec.eac.sitac.util.FileValidator" />
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+ 	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="prefixJson" value="false"/>
+        <property name="supportedMediaTypes" value="application/json"/>
+    </bean>
+    
+	<bean id="cargoDao" class="ec.eac.sitac.dao.CargoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="cantonDao" class="ec.eac.sitac.dao.CantonHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="ciudadDao" class="ec.eac.sitac.dao.CiudadHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="compraDao" class="ec.eac.sitac.dao.CompraHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="comprobanteReembolsoDao" class="ec.eac.sitac.dao.ComprobanteReembolsoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="condicionDeTrabajadorDao" class="ec.eac.sitac.dao.CondicionDeTrabajadorHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="detallesCompraDao" class="ec.eac.sitac.dao.DetallesCompraHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="exportacionDao" class="ec.eac.sitac.dao.ExportacionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="identificacionCreditoGastoDao" class="ec.eac.sitac.dao.IdentificacionCreditoGastoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="importacionDao" class="ec.eac.sitac.dao.ImportacionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="irpnrDao" class="ec.eac.sitac.dao.IrpnrHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="movimientoDao" class="ec.eac.sitac.dao.MovimientoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="paisDao" class="ec.eac.sitac.dao.PaisHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="productoDao" class="ec.eac.sitac.dao.ProductoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="provinciaDao" class="ec.eac.sitac.dao.ProvinciaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="puntoEmisionDao" class="ec.eac.sitac.dao.PuntoEmisionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="residenciaDao" class="ec.eac.sitac.dao.ResidenciaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tarifaIvaDao" class="ec.eac.sitac.dao.TarifaIvaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoAmbienteDao" class="ec.eac.sitac.dao.TipoAmbienteHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoCompraDao" class="ec.eac.sitac.dao.TipoCompraHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoComprobanteDao" class="ec.eac.sitac.dao.TipoComprobanteHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoEmisionDao" class="ec.eac.sitac.dao.TipoEmisionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoExportacionImportacionDao" class="ec.eac.sitac.dao.TipoExportacionImportacionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoIceDao" class="ec.eac.sitac.dao.TipoIceHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoIdentificacionDao" class="ec.eac.sitac.dao.TipoIdentificacionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoPagoDao" class="ec.eac.sitac.dao.TipoPagoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoPagoSegunLugarDao" class="ec.eac.sitac.dao.TipoPagoSegunLugarHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoPagoVsCompraDao" class="ec.eac.sitac.dao.TipoPagoVsCompraHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoProductoDao" class="ec.eac.sitac.dao.TipoProductoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoProveedorOClienteDao" class="ec.eac.sitac.dao.TipoProveedorOClienteHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoSalarioDao" class="ec.eac.sitac.dao.TipoSalarioHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoTransaccionDao" class="ec.eac.sitac.dao.TipoTransaccionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoVentaDao" class="ec.eac.sitac.dao.TipoVentaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="tipoVentaSegunPagoDao" class="ec.eac.sitac.dao.TipoVentaSegunPagoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="ventaDao" class="ec.eac.sitac.dao.VentaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="ventaVsProductoDao" class="ec.eac.sitac.dao.VentaVsProductoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="empresaDao" class="ec.eac.sitac.dao.EmpresaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="personalEmpresaDao" class="ec.eac.sitac.dao.PersonalEmpresaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="usuarioDao" class="ec.eac.sitac.dao.UsuarioHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="rolDao" class="ec.eac.sitac.dao.RolHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="empresaVsClienteDao" class="ec.eac.sitac.dao.EmpresaVsClienteHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="empresaVsProductoDao" class="ec.eac.sitac.dao.EmpresaVsProductoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="empresaVsProveedorDao" class="ec.eac.sitac.dao.EmpresaVsProveedorHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="empresaVsTrabajadorDao" class="ec.eac.sitac.dao.EmpresaVsTrabajadorHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+		
+	<bean id="estadoSRIDao" class="ec.eac.sitac.dao.EstadoSRIHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="documentosAnuladosDao" class="ec.eac.sitac.dao.DocumentosAnuladosHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>	
+
+	<bean id="discapacidadDao" class="ec.eac.sitac.dao.DiscapacidadHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="impuestoRentaDao" class="ec.eac.sitac.dao.ImpuestoRentaHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>		
+	
+	<bean id="impuestoMoraDao" class="ec.eac.sitac.dao.ImpuestoMoraHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>		
+	
+	<bean id="bancoDao" class="ec.eac.sitac.dao.BancoHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="denegarPermisoControladorDao" class="ec.eac.sitac.dao.DenegarPermisoControladorHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="autorizarPermisoControladorDao" class="ec.eac.sitac.dao.AutorizarPermisoControladorHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="terceraEdadDao" class="ec.eac.sitac.dao.TerceraEdadHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="retencionDao" class="ec.eac.sitac.dao.RetencionHome">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+		
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="lrnpita" />
+        <property name="password" value="Lorena11" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

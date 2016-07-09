@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+<div class="home-page"> </div>
+
+	<div class="modal show">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">Seleccione la empresa</h4>
+	      </div>
+	      <div class="modal-body">
+	      
+	      	<table class="table table-striped" id="paginar">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="fila : ${empresas}">
+			        <td>
+			        	<a href="#" th:href="@{'/empresas/' + ${fila.idEmpresa}}"><label th:text="${fila.nombre}"></label></a>
+			        </td>
+			    </tr>
+			</tbody>
+			</table>
+			
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div th:replace="templates/footer :: footer">footer</div> 
+</body>
+</html>

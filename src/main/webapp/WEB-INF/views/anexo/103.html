@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbardireccion :: butonbardireccion">butonbardireccion</div>
+		
+	<div id="page-wrapper">
+	<form role="form" action="#" th:action="@{103}" method="post" id="myForm" >
+         
+        <div class="form-group col-xs-3"><label>Número de formulario que rectifica 104</label><input type="text" class="form-control input-sm" name="104"/></div>
+        <div class="form-group col-xs-2"><label>Fecha 101</label><input type="text" class="form-control input-sm" th:value="${fecha}" name="fecha" readonly="readonly"/></div>
+        <div class="form-group col-xs-2"><label>RUC  201</label><input type="text" class="form-control input-sm" th:value="${rucEmpresa}" readonly="readonly"/></div>
+        <div class="form-group col-xs-2"><label>202</label><input type="text" class="form-control input-sm" th:value="${razonSocialEmpresa}" readonly="readonly"/></div>
+        <div class="form-group col-xs-10">
+        	<div class="form-group"><label class="col-sm-6 control-label">En relación de dependencia que no supere la Base Desgravada</label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${noSBD}"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label">En relación de dependencia que supere la Base Desgravada</label><div class="col-sm-4"><input type="number" class="form-control input-sm" th:value="${siSBD}"/></div></div>   
+		</div>
+		<div class="form-group col-xs-1"><label>Base Imp. 302</label><input type="text" class="form-control input-sm" th:value="${noSBD} + ${siSBD}" readonly="readonly"/></div>
+        <div class="form-group col-xs-1"><label>Valor Ret. 352</label><input type="text" class="form-control input-sm" th:value="${c352}" readonly="readonly"/></div>
+		
+	<div class="col-xs-12">	
+	    <table class="table">
+		<thead>
+			<tr>
+				<th>Tipo de retención</th>
+				<th>Base Imponible</th>
+				<th>Impuesto Retenido</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>303 Servicios-Honorarios Profesionales</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c303}" name="303"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n303}" name="353"/></td>
+		    </tr>
+			<tr>
+				<td>304 Servicios-Predomina el Intelecto</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c304}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n304}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>307 Servicios-Predomina Mano de Obra</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c307}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n307}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>308 Utilización aprovechamiento de la imagen o renombre</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c308}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n308}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>309 Servicios-Publicidad y comunicación</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c309}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n309}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>310 Servicios-Transporte privado de pasajeros o servicio público o privado de carga</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c310}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n310}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>311 A travéz de liquidaciones de compra (nivel cultural o rusticidad)</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c311}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n311}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>312 Transferencia de bienes muebles de naturaleza corporal</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c312}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n312}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>314 Por regalias, derechos de autor, marcas, patentes y similares</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c314}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n314}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>319 Arrendamiento-Mercantil</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c319}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n319}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>320 Arrendamiento-Bienes Inmuebles</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c320}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n320}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>322 Seguros y Reaseguros (Primas Cesiones)</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c322}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n322}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>323 Rendimientos Financieros</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c323}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n323}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>324 Rendimientos financieros entre instituciones del sistema financiero y entidades econo</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c324}" name="324"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${c324}" name="374"/></td>
+		    </tr>
+			<tr>
+				<td>325 Anticipo dividendos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c325}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n325}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>326 Dividendos distribuidos que correspondan al Imp. a la renta único establecido en el art. 27 de la Irti</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c326}" name="326"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n326}" name="411"/></td>
+		    </tr>		    
+			<tr>
+				<td>327 Dividendos distribuidos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c327}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n327}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>328 Dividendos distribuidos a sociedades residentes</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c328}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n328}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>329 Dividendos distribuidos a fideicomisos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c329}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n329}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>330 Dividendos gravados distribuidos en acciones</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c330}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n330}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>331 Dividendos extentos distribuidos en acciones</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c331}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n331}" name="411"/></td>
+		    </tr>		    
+			<tr>
+				<td>332 Pagos de bienes o servicios no sujetos a retención</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c332}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n332}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>333 Enajenación de derechos representativos de capital y otros derechos cotizados en bolsa</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c333}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n333}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>334 Enajenación de derechos representativos de capital y otros derechos no cotizados en bolsa</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c334}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n334}" name="411"/></td>
+		    </tr>		
+			<tr>
+				<td>335 Loterías, rifas, apuestas y similares</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c335}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n335}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>336 Ventas de combustibles a comercializadoras</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c336}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n336}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>337 Ventas de combustibles a distribuidoreas</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c337}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n337}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>338 Compra local de banano a productor</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c338}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n338}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>339 Liq. Imp. único a la venta local de banano de producción propia</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c339}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n339}" name="411"/></td>
+		    </tr>		    		    		    		    		        	    
+			<tr>
+				<td>340 Imp. único a la exportación de banano de producción propia-Comp 1</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c340}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n340}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>341 Imp. único a la exportación de banano de producción propia-Comp 2</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c341}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n341}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>342 Imp. único a la exportación de banano producidos por terceros</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c342}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n342}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>343 Otras retenciones-Aplicables el 1%</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c343}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n343}" name="411"/></td>
+		    </tr>		    
+			<tr>
+				<td>344 Otras retenciones-Aplicables el 2%</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c344}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n344}" name="411"/></td>
+		    </tr>	
+<!-- 		<tr>
+				<td>345 Otras retenciones-Aplicables el 8%</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c345}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n345}" name="411"/></td>
+		    </tr>
+-->		    
+			<tr>
+				<td>346 Otras retenciones-Aplicables a otros porcentajes</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c346}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n346}" name="411"/></td>
+		    </tr>
+<!--			<tr>
+				<td>402 C/C Intereses por financiamiento de proveedores</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c402}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n402}" name="411"/></td>
+		    </tr>		    		    		    	
+			<tr>
+				<td>403 C/C Intereses de créditos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c403}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n403}" name="411"/></td>
+		    </tr>	
+-->		    
+			<tr>
+				<td>404 C/C Anticipo de dividendos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c404}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n404}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>405 C/C Dividendos distribuidos a personas naturales</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c405}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n405}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>406 C/C Dividendos a sociendades</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c406}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n406}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>407 C/C Divendos a fideicomisos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c407}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n407}" name="411"/></td>
+		    </tr>
+<!-- 			<tr>
+				<td>408 C/C Enajenación de derechos representativos de capital y otros derechos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c408}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n408}" name="411"/></td>
+		    </tr>
+-->		    
+			<tr>
+				<td>409 C/C Seguros y reaseguros (primas y cesiones)</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c409}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n409}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>410 C/C Servicios técnicos, adminitrativos o de consultoría y regalías</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c410}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n410}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>411 C/C Otros conceptos de ingresos gravados</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c411}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n411}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>412 C/C Otros pagos a exterior no sujetos a retención</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c412}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n412}" name="411"/></td>
+		    </tr>		    		    	    	    		    		    	    		    	
+<!-- 		<tr>
+				<td>413 S/C Intereses por financiamientos de proveedores</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c413}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n413}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>414 S/C Intereses de créditos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c414}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n414}" name="411"/></td>
+		    </tr>
+-->		    
+			<tr>
+				<td>415 S/C Anticipo de dividendos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c415}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n415}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>416 S/C Dividendos distribuidos a personas naturales</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c416}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n416}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>417 S/C Dividendos distribuidos a sociedades</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c417}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n417}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>418 S/C Dividendos distribuidos a fideicomisos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c418}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n418}" name="411"/></td>
+		    </tr>
+<!--		<tr>
+				<td>419 S/C Enajenación de derechos representativos de capital y otros derechos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c419}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n419}" name="411"/></td>
+		    </tr>
+-->		    
+			<tr>
+				<td>420 C/C Seguros y reaseguros (primas y cesiones)</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c420}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n420}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>421 C/C Servicios técnicos, adminitrativos o de consultoría y regalías</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c421}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n421}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>422 C/C Otros conceptos de ingresos gravados</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c422}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n422}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>423 C/C Otros pagos a exterior no sujetos a retención</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c423}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n423}" name="411"/></td>
+		    </tr>		    
+<!--		<tr>
+				<td>424 (Paraísos fiscales) En intereses</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c424}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n424}" name="411"/></td>
+		    </tr>	
+-->		    	    		    		    		    		    		    		    		    		    		    		    
+			<tr>
+				<td>425 (Paraísos fiscales) Anticipo de dividendos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c425}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n425}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>426 (Paraísos fiscales) Dividendos distribuidos a personas naturales</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c426}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n426}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>427 (Paraísos fiscales) Dividendos distribuidos a sociedades</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c427}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n427}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>428 (Paraísos fiscales) Dividendos distribuidos de fideicomisos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c428}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n428}" name="411"/></td>
+		    </tr>	
+<!-- 		<tr>
+				<td>429 (Paraísos fiscales) Enajenación de derechos representativos de capital y otros derechos</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c429}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n429}" name="411"/></td>
+		    </tr>
+-->		    
+			<tr>
+				<td>430 (Paraísos fiscales) Seguros y reaseguros (primas y cesiones)</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c430}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n430}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>431 (Paraísos fiscales) Servicios técnicos, adminitrativos o de consultoría y regalías</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c431}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n431}" name="411"/></td>
+		    </tr>
+			<tr>
+				<td>432 (Paraísos fiscales) Otros conceptos de ingresos gravados</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c432}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n432}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td>433 (Paraísos fiscales) Otros pagos a exterior no sujetos a retención</td>
+		        <td><input type="number" class="form-control input-sm col-xs-1" th:value="${c433}" name="401"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1" th:value="${n433}" name="411"/></td>
+		    </tr>		    
+			<tr>
+				<td><label class="pull-right bg-info">Subtotal de operaciones efectuadas en el País</label></td>
+		        <td><label class="pull-right bg-info">349</label><input type="number" class="form-control input-sm col-xs-1" th:with="result=${c349} + ${noSBD} + ${siSBD}" th:value="${result}" name="401"/></td>
+				<td><label class="pull-right bg-info">399</label><input type="number" class="form-control input-sm col-xs-1" th:value="${n399}" name="411"/></td>
+		    </tr>	
+			<tr>
+				<td><label class="pull-right bg-info">Subtotal de operaciones efectuadas en el Exterior</label></td>
+		        <td><label class="pull-right bg-info">429</label><input type="number" class="form-control input-sm col-xs-1" th:value="${ct429}" name="401"/></td>
+				<td><label class="pull-right bg-info">498</label><input type="number" class="form-control input-sm col-xs-1" th:value="${n498}" name="411"/></td>
+		    </tr>
+		</tbody>
+		</table>
+		
+	</div>	
+		<div class="col-xs-12"> 
+			<div class="form-group"><label class="col-sm-6 control-label">Total de retención de impuesto a la renta <label class="pull-right bg-info">499</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c499}" id="c499"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label">Pago Previo <label class="pull-right bg-info">890</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c890" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label">Impuesto <label class="pull-right bg-info">898</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c898" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label">Interés <label class="pull-right bg-info">897</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c897" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label">Multa <label class="pull-right bg-info">899</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c899" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label">Pago directo en cuenta única del tesoro nacional <label class="pull-right bg-info">880</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="880" value="0.0"/></div></div>
+		</div>
+		
+		<div class="col-xs-12"> 
+ 		<h4>Valores a pagar y forma de pago</h4>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info">Total impuesto a pagar <label class="pull-right bg-info">902</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c902}" name="c902" id="c902"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-info">Interés <label class="pull-right bg-info">903</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c903" th:value="${c903}" value="0.0"/></div></div>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info">Multas <label class="pull-right bg-info">904</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c904" th:value="${c904}" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-danger">Total pagado <label class="pull-right bg-danger">999</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:value="${c999}" id="c999" value="0.0"/></div></div> 		
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-danger">Cheques, débitos banacarios, efectivo y otras formas de pago <label class="pull-right bg-danger">905</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c905" value="0.0"/></div></div>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-danger">Notas de crédito <label class="pull-right bg-danger">907</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c907" value="0.0"/></div></div>
+ 		</div>
+ 		
+		<div class="col-xs-12"> 
+ 		<h4>Detalle de notas de crédito</h4>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">908</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c908" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">909</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c909" value="0.0"/></div></div>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">910</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c910" value="0.0"/></div></div>	
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">911</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c911" value="0.0"/></div></div>
+			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">912</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c912" value="0.0"/></div></div> 		
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">913</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c913" value="0.0"/></div></div>
+ 			<div class="form-group"><label class="col-sm-6 control-label bg-info"><label class="pull-right bg-info">915</label></label><div class="col-sm-3"><input type="number" class="form-control input-sm" id="c915" value="0.0"/></div></div>
+ 		</div> 		
+		    
+	    <div class="form-group col-xs-3" th:object="${tipoPago}"><label>Tipo de Pago</label>
+	    <select class="form-control input-sm" th:field="*{codigo}">
+	    <option th:each="tipos : ${tiposPago}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>
+	
+		<div class="form-group col-xs-3" th:object="${banco}"><label>Banco 480</label>
+	    <select class="form-control input-sm" th:field="*{idBanco}">
+	    <option th:each="tipos : ${bancos}" th:value="${tipos.idBanco}" th:text="${tipos.idBanco}+'-'+${tipos.nombre}">tipo</option>
+		</select>
+		</div>	
+		
+		<div class="form-group col-xs-2"><label>RUC Contador</label><input type="text" th:value="${idContadorEmpresa}" class="form-control input-sm" readonly="readonly"/></div>
+		<div class="form-group col-xs-2"><label>No Empleados</label><input type="text" th:value="${noEmpleados}" class="form-control input-sm" readonly="readonly"/></div>
+		<div class="form-group col-xs-2"><label>Ret. Anuladas</label><input type="text" th:value="${retAnulados}" class="form-control input-sm" readonly="readonly"/></div>
+		 
+    </form>
+    </div>
+	    <div th:replace="templates/footer :: footer">footer</div>	
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="templates/head :: head">head</div>
+<body>
+
+	<div th:replace="templates/navbar :: nav">navbar</div>
+	<div th:replace="templates/sidebar :: sidebar">sidebar</div>
+	<div th:replace="templates/butonbaredit :: butonbaredit">butonbaredit</div>
+	<div th:replace="templates/alerts :: alerts">alerts</div>
+		
+	<div id="page-wrapper">
+	<div class="col-lg-12">
+      <h2 class="page-header">Datos del Usuario</h2>
+    </div>
+	<form role="form" data-toggle="validator" action="#" th:action="@{guardar}" th:object="${usuario}" method="post" id="myForm">
+    	
+        <div class="form-group col-xs-2"><label>Nombre</label>
+        <input type="text" class="form-control input-sm" th:field="${usuario.nombre}" maxlength="30" required="required"/>
+        </div>
+               
+        <div class="form-group col-xs-2"><label>Usuario</label>
+        <input type="text" class="form-control input-sm" th:field="*{nombreUsuario}" maxlength="15" required="required"/></div>
+    
+        <div class=" form-group col-xs-2"><label>E-mail</label>
+        <input type="email" class="form-control input-sm" th:field="*{email}" required="required"/></div>
+        
+        <div class=" form-group col-xs-2"><label>Contrase&ntilde;a</label>
+        <input type="password" class="form-control input-sm" th:field="*{contrasena}" maxlength="30" required="required"/></div>
+        
+        <div class="form-group col-xs-2" th:object="${rol}"><label>Grupo</label>
+	    <select class="form-control input-sm" th:field="*{idRol}">
+		    <option value="" th:each="fila : ${roles}" th:value="${fila.idRol}" th:text="${fila.nombre}">grupo1</option>
+		</select></div>
+		
+        <div class="form-group col-xs-1"><label>Activo</label>
+		<input type="checkbox" th:field="*{activado}"/>
+		</div>
+		   	
+ <!--    	<div class="form-group col-xs-3"><label>Firma Electrónica</label>
+    	<input type="file" class="filestyle" data-buttonName="btn-primary" data-size="sm" data-buttonText="Archivo" th:field="*{firmaElectronica}" required="required"/>
+	  	</div>
+
+	    <div class="form-group col-xs-4">
+   		<label for="password">Password de la Firma</label>
+    	<input type="password" class="form-control input-sm" name="clave" th:field="*{claveFirma}"/>
+    	</div>
+-->    	
+    	<div th:object="${puntoEmision}">
+	    	<div class=" form-group col-xs-2"><label>Punto Emisi&oacute;n</label>
+	        <input type="number" class="form-control input-sm" th:field="*{serie}" required="required" minlength="6" maxlength="6"/></div>
+	        
+	    <!--<div class=" form-group col-xs-3"><label>Secuencia</label>
+	        <input type="number" class="form-control input-sm" th:field="*{secRetencion}" required="required"/></div> -->
+	        
+	    <!--    	<div class=" form-group col-xs-2"><label>N&uacute;m. Ini. Ret.</label>
+	        <input type="number" class="form-control input-sm" th:field="*{numInicialRetencion}" required="required"/></div> -->
+	        
+	        <div class=" form-group col-xs-2"><label>N&uacute;m. Ini. Fac.</label>
+	        <input type="number" class="form-control input-sm" th:field="*{numInicialFactura}" required="required"/></div>
+	        
+	        <div class=" form-group col-xs-2"><label>N&uacute;m. Ini. Notas. Créd.</label>
+	        <input type="number" class="form-control input-sm" th:field="*{numInicialRetencion}" required="required"/></div>
+	        
+	        <input type="hidden" id="id" name="id" th:value="${puntoEmision.id}"/>
+        </div>
+    	
+        <div>
+         <input type="hidden" id="editandoUsuario" name="editandoUsuario" th:value="${editandoUsuario}"/>
+         <input type="hidden" id="idUsuario" name="idUsuario" th:value="${usuario.idUsuario}"/>
+         </div>
+    	
+    	</form>
+    	</div>
+       
+    <div th:replace="templates/footer :: footer">footer</div>	
+    
+</body>
+		
+</html>

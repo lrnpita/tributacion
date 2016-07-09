@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<div th:fragment = "alerts" id="alerts">
+		<div th:if="${error}">
+			<div class="alert alert-danger" id="alerts-error" th:value="${error}">
+			  <a class="close" data-dismiss="alert" href="#">&times;</a>
+			  <strong th:text="${error}">error</strong>
+			</div>
+		</div>
+		
+		<div th:if="${ok}">
+			<div class="alert alert-success" id="alert-guardado" th:value="${ok}">
+			  <a class="close" data-dismiss="alert" href="#">&times;</a>
+			  <strong th:text="${ok}">ok</strong>
+			</div>
+		</div>
+		
+		<div th:if="${info}">
+			<div class="alert alert-success" id="alert-info" th:value="${info}">
+			  <a class="close" data-dismiss="alert" href="#">&times;</a>
+			  <strong th:text="${info}">ok</strong>
+			</div>
+		</div>
+		
+		<div class="alert alert-success" id="alert-eliminado" style="display: none">
+		  <a class="close" data-dismiss="alert" href="#">&times;</a>
+		  <strong>OK!</strong> El elemento fue eliminado correctamente.
+		</div>
+		
+		<div class="alert alert-success" id="alert-eliminado-varios" style="display: none">
+		  <a class="close" data-dismiss="alert" href="#">&times;</a>
+		  <strong>OK!</strong> Los elementos fueron eliminados correctamente.
+		</div>
+		
+		<div class="alert alert-danger" id="alert-error-eliminado-varios" style="display: none">
+		  <a class="close" data-dismiss="alert" href="#">&times;</a>
+		  <strong>Ups!</strong> Existen elementos que no pueden ser eliminados
+		</div>
+		
+		<div class="alert alert-danger" id="alert-error-eliminar" style="display: none">
+		  <a class="close" data-dismiss="alert" href="#">&times;</a>
+		  <strong>Ups!</strong> Existe un error al eliminar el elemento.
+		</div>
+		
+		<div class="alert alert-info" id="alert-error-editar" style="display: none">
+		  <a class="close" data-dismiss="alert" href="#">&times;</a>
+		  <strong>Ups!</strong> Se debe seleccionar un elemento.
+		</div>
+
+		<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="dataConfirmLabel" class="modal-title">Por favor confirma</h3>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+					<a class="btn btn-primary" id="dataConfirmOK">Eliminar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</html>

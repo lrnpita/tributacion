@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import org.hibernate.Criteria;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
@@ -26,6 +27,7 @@ import ec.eac.sitac.model.TipoComprobante;
 import ec.eac.sitac.model.TipoPago;
 import ec.eac.sitac.model.TipoPagoSegunLugar;
 import ec.eac.sitac.model.TipoPagoVsCompra;
+import ec.eac.sitac.model.Venta;
 
 /**
  * Objeto Dao de la clase {@link Compra}
@@ -173,18 +175,15 @@ public class CompraHome {
 			Session session = sessionFactory.getCurrentSession();
 			preparandoObjetoCompra(compra, retencion, tipoComprobante, tipoComprobanteModificado, proveedor, tipoPagoSegunLugar, tiposPago, pais, tipoCompra, detallesCompra, idEmpresa);
 			
-			compra.setTiposPago(tiposPago);
 			session.persist(compra);
 			session.persist(retencion);
 			
 			for (DetallesCompra detalles : detallesCompra) {
-				detalles.setCompra(compra);
 				session.persist(detalles);
 			}
 			
 			if(tiposPago != null) {
 				for (TipoPagoVsCompra tipoPago : tiposPago) {
-					tipoPago.setCompra(compra);
 					session.persist(tipoPago);
 				}
 			}
@@ -203,31 +202,49 @@ public class CompraHome {
 	 * @since 1.0
 	 */
 	@Transactional
-	public void attachDirty(Compra compra,Retencion retencion, String tipoComprobante, String tipoComprobanteModificado, String proveedor, String tipoPagoSegunLugar, Set<TipoPagoVsCompra> tiposPago, String pais, String tipoCompra, Set<DetallesCompra> detallesCompra, int idEmpresa) {
+	public void attachDirty(Compra compra,Retencion retencion, String tipoComprobante, String tipoComprobanteModificado, String proveedor, String tipoPagoSegunLugar, Set<TipoPagoVsCompra> tiposPagoVsCompra, String pais, String tipoCompra, Set<DetallesCompra> detallesCompra, int idEmpresa) {
 		log.debug("attaching dirty Compra instance");
 		try {
 			
 			Session session = sessionFactory.getCurrentSession();
 			
-			preparandoObjetoCompra(compra, retencion, tipoComprobante, tipoComprobanteModificado, proveedor, tipoPagoSegunLugar, tiposPago, pais, tipoCompra, detallesCompra, idEmpresa);
-			
+			preparandoObjetoCompra(compra, retencion, tipoComprobante, tipoComprobanteModificado, proveedor, tipoPagoSegunLugar, tiposPagoVsCompra, pais, tipoCompra, detallesCompra, idEmpresa);
+
 			session.saveOrUpdate(compra);
 			session.saveOrUpdate(retencion);
 			
-			for (DetallesCompra detalles : detallesCompra) {
-				detalles.setCompra(compra);
-				session.saveOrUpdate(detalles);
+			for (DetallesCompra detalle : detallesCompra) {
+				session.saveOrUpdate(detalle);
 			}
-			
-			if(tiposPago != null) {
-				for (TipoPagoVsCompra tipoPago : tiposPago) {
-					tipoPago.setCompra(compra);
-					session.saveOrUpdate(tipoPago);
+				
+			if(tiposPagoVsCompra != null) {
+				for (TipoPagoVsCompra tipoPagoVsCompra : tiposPagoVsCompra) {
+					session.saveOrUpdate(tipoPagoVsCompra);
 				}
 			}
-			
-			compra.setTiposPago(tiposPago);
-			
+						
+			log.debug("attach successful");
+		} catch (RuntimeException re) {
+			log.error("attach failed", re);
+			throw re;
+		}
+	}
+	
+	
+	/**
+	 * Inserta los datos de una lista de ventas{@link Venta} en la Base de Datos, 
+	 * si el elemento a insertar ya existe entonces lo actualiza .
+	 *
+	 * @since 2015
+	 */
+	@Transactional
+	public void attachDirty(Set<Compra> comprasList) {
+		log.debug("attaching dirty Compra instance");
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			for (Compra compra: comprasList) {
+				session.saveOrUpdate(compra);
+			}
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -388,6 +405,17 @@ public class CompraHome {
  
         return result;
     }
+    @Transactional
+    public Compra FindByAutorizacion(String autorizacion) {
+    	 String queryString = "SELECT c FROM Compra c WHERE c.codigoAutorizacion = :autorizacion"; 
+         
+         Session session = sessionFactory.getCurrentSession();
+         Query query = session.createQuery(queryString).setParameter("autorizacion", autorizacion);
+         
+         Compra result = (Compra) query.uniqueResult();
+  
+         return result;
+    }
 	
 	/**
 	 * Llenado los datos de la compra. 
@@ -396,7 +424,7 @@ public class CompraHome {
 	 * @since 1.0
 	 */
 	@Transactional
-	public void preparandoObjetoCompra(Compra compra,Retencion retencion, String tipoComprobante, String tipoComprobanteModificado, String proveedor, String tipoPagoSegunLugar, Set<TipoPagoVsCompra> tiposPago, String pais, String tipoCompra, Set<DetallesCompra> detallesCompra, int idEmpresa) {
+	public void preparandoObjetoCompra(Compra compra,Retencion retencion, String tipoComprobante, String tipoComprobanteModificado, String proveedor, String tipoPagoSegunLugar, Set<TipoPagoVsCompra> tiposPagoVsCompra, String pais, String tipoCompra, Set<DetallesCompra> detallesCompra, int idEmpresa) {
 		
 		Session session = sessionFactory.getCurrentSession();
 		
@@ -427,5 +455,6 @@ public class CompraHome {
 		
 		compra.setRetencion(retencion);
 		
+		compra.setTipoPagoVsCompras(tiposPagoVsCompra);
 	}
 }

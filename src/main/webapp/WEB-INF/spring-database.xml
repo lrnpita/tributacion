@@ -8,7 +8,7 @@
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost:5432/sitac" />
 		<property name="username" value="postgres" />
-		<property name="password" value="trad*l89s" />
+		<property name="password" value="acdc1976" />
 	</bean>
 
 </beans>

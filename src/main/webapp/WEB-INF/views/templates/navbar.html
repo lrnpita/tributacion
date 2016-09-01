@@ -65,12 +65,13 @@
             </li>
  -->           
             
-            <li class = "dropdown">
+   <!--          <li class = "dropdown">
             	<a data-toggle="dropdown" class="dropdown-toggle" href="#">Anulados <b class="caret"></b></a>
             	 <ul role="menu" class="dropdown-menu">
             	    <li><a th:href="@{'/empresas/' + ${session.idEmpresa} + '/anulados'}">Gestionar Anulados</a></li>
                 </ul>
             </li>
+       -->     
 
             <li th:if="${session.isEmpty()}">
             	<a th:href="@{/login}"><b class="fa fa-sign-in"></b> Login</a>

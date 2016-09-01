@@ -244,9 +244,10 @@ public class CompraController {
 		model.addAttribute("estado", compra.getEstado());
 		model.addAttribute("puntoEmision", compra.getPuntoEmision());
 		model.addAttribute("editandoCompra", new Boolean(true));
-		model.addAttribute("tiposPago", tipoPagoDao.list());
+		model.addAttribute("tiposPago", tipoCompraDao.list());
 		
 		Set<DetallesCompra> detalles = compra.getDetallesCompras();
+		Set<String> tiposPagoSelected = new HashSet<String>();
 		float totalDocumento = 0;
 		
 		if(compra.getTipoComprobanteModificado()== null){
@@ -258,8 +259,13 @@ public class CompraController {
 		for (DetallesCompra detalleCompra : detalles) {
 			totalDocumento += detalleCompra.getBaseImpobible0() + detalleCompra.getBaseNoObjetoIva() + detalleCompra.getBaseImponible12() + detalleCompra.getRIvalorIva();
 		}
+		for (TipoPagoVsCompra tiposPagoVsCompra : compra.getTipoPagoVsCompras()) {
+			tiposPagoSelected.add(tiposPagoVsCompra.getTipoPago().getCodigo());
+		}
 		
+		model.addAttribute("tiposPagosSelected", tiposPagoSelected);
 		model.addAttribute("totalDocumento", totalDocumento);
+		model.addAttribute("valorAPagar", totalDocumento - compra.getRetencion().getTotalRetencion());
 		
 		return "compra/datos";
 	}
@@ -419,21 +425,20 @@ public class CompraController {
 		String[] RIvalorIva = request.getParameterValues("RIvalorIva");
 		String[] RIret = request.getParameterValues("RIret");
 		String[] RIretIva = request.getParameterValues("RIretIva"); //valor de la retencion total de iva
-		String[] idDetalleCompra = request.getParameterValues("idDetalleCompra"); //valor para saber la cantidad de detalles que pueden existir
-		
+		String[] idDetallesCompras = request.getParameterValues("idDetalleCompra"); //valor para saber la cantidad de detalles que pueden existir
+		// Creando las relaciones entre compras y tipos de pago
 		if(tipoPago != null){
 			for (int i = 0; i < tipoPago.length; i++) {
 				TipoPagoVsCompra tipoPagoVsCompra = new TipoPagoVsCompra(compra, tipoPagoDao.findById(tipoPago[i]));
 				tipospagoList.add(tipoPagoVsCompra);
 			}
 		}
-		
-		for (int i = 0; i < idDetalleCompra.length; i++) {
+		// Detalles de las compras
+		for (int i = 0; i < idDetallesCompras.length; i++) {
 			TipoTransaccion tipoTransaccionNew = tipoTransaccionDao.findById(tipoTransaccion[i]);
-				DetallesCompra detalle = detallesCompraDao.findById(Integer.valueOf(idDetalleCompra[i]));
+				DetallesCompra detalle = detallesCompraDao.findById(Integer.valueOf(idDetallesCompras[i]));
 				if (detalle == null) {
-					detalle = new DetallesCompra(Integer.valueOf(idDetalleCompra[i]), compra, tipoTransaccionNew, Float.valueOf(baseNoObjetoIva[i]), Float.valueOf(baseImpobible0[i]), Float.valueOf(baseImponible12[i]), Float.valueOf(iva[i]), Float.valueOf(RIRbaseNoObjIva[i]), Float.valueOf(RIRbaseImp0[i]), Float.valueOf(RIRbaseImp12[i]), Float.valueOf(RIRret[i]), Float.valueOf(RIvalorIva[i]), Float.valueOf(RIret[i]));
-					detallesList.add(detalle);
+					detalle = new DetallesCompra(Integer.valueOf(idDetallesCompras[i]), compra, tipoTransaccionNew, Float.valueOf(baseNoObjetoIva[i]), Float.valueOf(baseImpobible0[i]), Float.valueOf(baseImponible12[i]), Float.valueOf(iva[i]), Float.valueOf(RIRbaseNoObjIva[i]), Float.valueOf(RIRbaseImp0[i]), Float.valueOf(RIRbaseImp12[i]), Float.valueOf(RIRret[i]), Float.valueOf(RIvalorIva[i]), Float.valueOf(RIret[i]));
 				} else {
 					detalle.setBaseImpobible0(Float.valueOf(baseImpobible0[i]));
 					detalle.setBaseImponible12(Float.valueOf(baseImponible12[i]));
@@ -445,11 +450,14 @@ public class CompraController {
 					detalle.setRIRret(Float.valueOf(RIRret[i]));
 					detalle.setRIret(Float.valueOf(RIret[i]));
 					detalle.setRIvalorIva(Float.valueOf(RIvalorIva[i]));
+					detalle.setTipoTransaccion(tipoTransaccionNew);
+					detalle.setCompra(compra);
 				}
+			detallesList.add(detalle);
 			RIRretIrTotal += Float.valueOf(RIRretIr[i]);	
 			RIretIvaTotal += Float.valueOf(RIretIva[i]);
 		}
-		
+		// Retenciones
 		retencion.setRetencionIR(RIRretIrTotal);
 		retencion.setRetencionIVA(RIretIvaTotal);
 		
@@ -474,7 +482,8 @@ public class CompraController {
 				return Utility.goToUrl(idEmpresa, "compras");
 			}
 
-		} else {
+		} else { 
+			// Creando una nueva compra
 			try 
 			{
 				puntoEmision.setSecFactura(puntoEmision.getSecFactura()+1);
@@ -625,7 +634,7 @@ public class CompraController {
 		model.addAttribute("editandoCompra", new Boolean(true));
 		model.addAttribute("estado", compra.getEstado());
 		model.addAttribute("totalDocumento", totalDocumento);
-		model.addAttribute("totalRet", totalRet);
+		model.addAttribute("valorAPagar", totalDocumento - compra.getRetencion().getTotalRetencion());
 		model.addAttribute("retencion", compra.getRetencion());
 		model.addAttribute("detallesList", compra.getDetallesCompras());
 		model.addAttribute("tiposPago", tipoPagoDao.list());
@@ -710,12 +719,13 @@ public class CompraController {
 		
 		retencion.setClaveAcceso(infoTributaria.getClaveAcceso());
 		
-		// tipo de comprobante
-		TipoComprobante tipoComprobante = tipoComprobanteDao.findById(infoTributaria.getCodDoc());
+		// tipo de comprobante----18 de agosto de 2016 se cambió por el codDocSustento
+	/*	TipoComprobante tipoComprobante = tipoComprobanteDao.findById(infoTributaria.getCodDoc());
 		if (tipoComprobante == null) {
 			throw new Exception ("El código del tipo de comprobante del XML no existe en la BD del SITAC");
 		}
-		compra.setTipoComprobante(tipoComprobante);
+		compra.setTipoComprobante(tipoComprobante); 
+		*/
 		
 		// estado de la compra
 		EstadoSRI estadoSRI = estadoSRIDao.findByName(xmlObject.getEstado());
@@ -817,12 +827,16 @@ public class CompraController {
 		compra.setSerieFactura(numFactura.substring(0, 6));
 		compra.setSecFactura(Integer.valueOf(numFactura.substring(7, 15)));
 		
-		// tipo de compra FIXME verificar que este sea el tipo de compra
-		TipoCompra tipoCompra = tipoCompraDao.findById(listaImpuestos.get(0).getCodDocSustento());
+		// 18 de agosto de 2016 - tipo de comprobante
+	/*	TipoCompra tipoCompra = tipoCompraDao.findById(listaImpuestos.get(0).getCodDocSustento());
 		if (tipoCompra == null) 
 			throw new Exception ("No existe ningún tipo de compra con el código: " + listaImpuestos.get(1).getCodDocSustento() + " en la Base de Datos del sistema. Por favor, cambie el tipo de compra que viene en el archivo XML o agregue el nuevo tipo de compra a la Base de Datos.");
 		compra.setTipoCompra(tipoCompra);
-		
+		*/
+		TipoComprobante tipoComprobante = tipoComprobanteDao.findById(listaImpuestos.get(0).getCodDocSustento());
+		if (tipoComprobante == null) 
+			throw new Exception ("No existe ningún tipo de comprobante con el código: " + listaImpuestos.get(0).getCodDocSustento() + " en la Base de Datos del sistema. Por favor, cambie el tipo de compra que viene en el archivo XML o agregue el nuevo tipo de compra a la Base de Datos.");
+		compra.setTipoComprobante(tipoComprobante);
 		return compra;
 	}
 	
@@ -973,37 +987,38 @@ public class CompraController {
 		PersonalEmpresa proveedor = personalEmpresaDao.findById(idProveedor);
 		Empresa empresa = empresaDao.findById(idEmpresa);
 		TipoTransaccion tipoTransaccion = tipoTransaccionDao.findById(codigoTransaccion);
-		int porcentaje = tipoTransaccion.getPorcentaje();
+		//int porcentaje = tipoTransaccion.getPorcentaje(); 
+		int porcentaje = 0;
 
 		if(idProveedor.length() > 10 ){
 			// si el 3er digito del ruc es 0, 1, 2, 3, 4 o 5 es Persona natural
 			if(Integer.parseInt(idProveedor.substring(2, 3))>=0 && Integer.parseInt(idProveedor.substring(2, 3))<=5){
 				if (codigoTransaccion.equals("303") || codigoTransaccion.equals("320")) {
-					porcentaje = 100;
+				return	porcentaje = 100;
 				} else {
-					porcentaje = 70;
+					return	porcentaje = 70;
 				}
 			} 
 		} // entre especiales
 		else if(!empresa.getNoResolucionContribEspecial().equals("") && proveedor.getContribuyenteEspecial()){
 			if(tipoTransaccion.getBien()){
-				porcentaje = 10;
+				return	porcentaje = 10;
 			} else {
-				porcentaje = 20;
+				return porcentaje = 20;
 			}
 		}// especial->lleva cont->no lleva cont
 		else if (!empresa.getNoResolucionContribEspecial().equals("")) {
 			if(tipoTransaccion.getBien()){
-				porcentaje = 30;
+				return porcentaje = 30;
 			} else {
-				porcentaje = 70;
+				return porcentaje = 70;
 			}
 		} // lleva cont->no lleva cont
 		else if(empresa.getLlevaContabilidad() && !proveedor.getLlevaContabilidad()){
 			if(tipoTransaccion.getBien()){
-				porcentaje = 30;
+				return porcentaje = 30;
 			} else {
-				porcentaje = 70;
+				return porcentaje = 70;
 			}
 		} 
 

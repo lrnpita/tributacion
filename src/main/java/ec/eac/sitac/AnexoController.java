@@ -1022,23 +1022,23 @@ public class AnexoController {
 		
  		String string = rucEmpresa;
 	    String digitoDeclara = string.substring(8, 9);
-		int diaxRuc =getfechaDeclararxDigitoRuc(Integer.valueOf(digitoDeclara));
+		int diaxRuc = getfechaDeclararxDigitoRuc(Integer.valueOf(digitoDeclara));
 		
 		if(mesActual >= mesDeclara){ // se calcula el impuesto con los valores del anno q declara (anno actual)
 			if((mesActual-mesDeclara) == 1){
 				if(diaActual > diaxRuc){
-					ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, annoActual);
+					ImpuestoMora impuesto = buscarImpuestoMora(mesDeclara, annoActual);
 					valorImpuesto = impuesto.getImpuesto();
 				}
 			} else {
 				if((mesActual-mesDeclara) > 1){
 					if(diaActual <= diaxRuc){
-						ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, annoActual);
+						ImpuestoMora impuesto = buscarImpuestoMora(mesDeclara, annoActual);
 						difMes = mesActual-mesDeclara;
 						valorImpuesto = impuesto.getImpuesto() * (difMes);
 					} else {
 						difMes = (mesActual-mesDeclara) + 1;
-						ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, annoActual);
+						ImpuestoMora impuesto = buscarImpuestoMora(mesDeclara, annoActual);
 						valorImpuesto = impuesto.getImpuesto() * difMes;
 					}
 				}
@@ -1046,7 +1046,7 @@ public class AnexoController {
 		} else{ // se calcula el impuesto con los valores del anno q declara (anno anterior)
 			if((mesDeclara-mesActual) == 11){
 				if(diaActual > diaxRuc){
-					ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, annoDeclara);
+					ImpuestoMora impuesto = buscarImpuestoMora(mesDeclara, annoDeclara);
 					valorImpuesto = impuesto.getImpuesto();
 				}
 			} else {
@@ -1054,10 +1054,10 @@ public class AnexoController {
 					difMes = (12 - mesDeclara) + mesActual;
 					
 					if(diaActual <= diaxRuc){
-						ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, annoDeclara);
+						ImpuestoMora impuesto = buscarImpuestoMora(mesDeclara, annoDeclara);
 						valorImpuesto = impuesto.getImpuesto() * difMes;
 					} else {
-						ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, annoDeclara);
+						ImpuestoMora impuesto = buscarImpuestoMora(mesDeclara, annoDeclara);
 						difMes += 1;
 						valorImpuesto = impuesto.getImpuesto() * (difMes);
 					}
@@ -1067,6 +1067,15 @@ public class AnexoController {
 		
 		Float[] valores = {valorImpuesto, difMes};
 		return valores;
+	}
+	
+	private ImpuestoMora buscarImpuestoMora(int mesDeclara, int anno) {
+		ImpuestoMora impuesto = impuestoMoraDao.getImpuestoMora(mesDeclara, anno);
+		if(impuesto == null){
+			ImpuestoMora impuestoVacio = new ImpuestoMora(0, 0, 0, 0, 0);
+			return impuestoVacio;
+		}
+		return impuesto;
 	}
 	
 	private PuntoEmision puntoEmisionVSUsuario(@PathVariable int idEmpresa, HttpServletRequest request) {

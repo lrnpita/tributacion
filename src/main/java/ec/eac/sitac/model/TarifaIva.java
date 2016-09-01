@@ -31,7 +31,7 @@ public class TarifaIva implements java.io.Serializable {
 	 *
 	 * @since 2015
 	 */
-	private int porcentaje;
+	private int tarifa;
 	
 	/**
 	 * Lista de productos
@@ -45,13 +45,13 @@ public class TarifaIva implements java.io.Serializable {
 
 	public TarifaIva(short codigo, int porcentaje) {
 		this.codigo = codigo;
-		this.porcentaje = porcentaje;
+		this.tarifa = porcentaje;
 	}
 
 	public TarifaIva(short codigo, int porcentaje,
 			Set<Producto> productos) {
 		this.codigo = codigo;
-		this.porcentaje = porcentaje;
+		this.tarifa = porcentaje;
 		this.productos = productos;
 	}
 
@@ -63,12 +63,12 @@ public class TarifaIva implements java.io.Serializable {
 		this.codigo = codigo;
 	}
 
-	public int getPorcentaje() {
-		return porcentaje;
+	public int getTarifa() {
+		return tarifa;
 	}
 
-	public void setPorcentaje(int porcentaje) {
-		this.porcentaje = porcentaje;
+	public void setTarifa(int tarifa) {
+		this.tarifa = tarifa;
 	}
 
 	public Set<Producto> getProductos() {

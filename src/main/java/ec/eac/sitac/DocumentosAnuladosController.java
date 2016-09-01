@@ -2,7 +2,9 @@ package ec.eac.sitac;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ec.eac.sitac.dao.CompraHome;
 import ec.eac.sitac.dao.DocumentosAnuladosHome;
+import ec.eac.sitac.dao.EstadoSRIHome;
 import ec.eac.sitac.dao.ExportacionHome;
 import ec.eac.sitac.dao.PersonalEmpresaHome;
 import ec.eac.sitac.dao.PuntoEmisionHome;
@@ -30,7 +34,10 @@ import ec.eac.sitac.dao.TipoComprobanteHome;
 import ec.eac.sitac.dao.TipoExportacionImportacionHome;
 import ec.eac.sitac.dao.TipoProveedorOClienteHome;
 import ec.eac.sitac.dao.UsuarioHome;
+import ec.eac.sitac.dao.VentaHome;
+import ec.eac.sitac.model.Compra;
 import ec.eac.sitac.model.DocumentosAnulados;
+import ec.eac.sitac.model.EstadoSRI;
 import ec.eac.sitac.model.Exportacion;
 import ec.eac.sitac.model.PersonalEmpresa;
 import ec.eac.sitac.model.PuntoEmision;
@@ -61,6 +68,10 @@ public class DocumentosAnuladosController {
 	UsuarioHome usuarioDao;
 	@Autowired
 	PuntoEmisionHome puntoEmisionDao;
+	@Autowired
+	VentaHome ventaDao;
+	@Autowired
+	CompraHome compraDao;
 	
 	private static final Logger logger = Logger.getLogger(DocumentosAnuladosController.class);
 	
@@ -179,77 +190,29 @@ public class DocumentosAnuladosController {
 		
 		String nombreUsuario = request.getSession().getAttribute("nombreUsuario").toString();
 		Usuario usuario = usuarioDao.findByUsername(nombreUsuario);
-
+		PuntoEmision ptoEmision = puntoEmisionDao.findByUserIdAndEnterpriseId(usuario.getIdUsuario(), idEmpresa);
 		int secuenciaInicial = Integer.valueOf(secuenciaIni);
 		int secuenciaFinal = 0;
 		if(!secuenciaFin.equals(""))
 			secuenciaFinal = Integer.valueOf(secuenciaFin);
-		//si no hay secuenciaFinal enotnces se guarda un solo documento anulado
+		
+		//si no hay secuenciaFinal entonces se guarda un solo documento anulado
 		if(secuenciaFinal == 0){
-			PuntoEmision ptoEmision = puntoEmisionDao.findByUserIdAndEnterpriseId(usuario.getIdUsuario(), idEmpresa);
-			//si el tipo de comprobante es 01 Factura, 07 Retencion, 04 nota de credito 
+			//Actualizando las secuencias de las facturas en el punto de emisión
 			if(tipoComprobante.getCodigo().equals("01")){
-					if(ptoEmision.getSecFactura() == secuenciaInicial){
-						documentoAnulado.setSecuencia(Integer.valueOf(ptoEmision.getSecFactura()));
-						ptoEmision.setSecFactura(ptoEmision.getSecFactura()+1);
-					}
-				
+				if(ptoEmision.getSecFactura() == secuenciaInicial+1){
+					ptoEmision.setSecFactura(ptoEmision.getSecFactura()+1);
+				}
+
 			} else if(tipoComprobante.getCodigo().equals("07")){
-				if(ptoEmision.getSecRetencion() == secuenciaInicial){
-					documentoAnulado.setSecuencia(Integer.valueOf(ptoEmision.getSecRetencion()));
+				if(ptoEmision.getSecRetencion() == secuenciaInicial+1){
 					ptoEmision.setSecRetencion(ptoEmision.getSecRetencion()+1);
 				}
-				
-			}else if(tipoComprobante.getCodigo().equals("04")){
-				if(ptoEmision.getSecNotaCredito() == secuenciaInicial){
-					documentoAnulado.setSecuencia(Integer.valueOf(ptoEmision.getSecNotaCredito()));
-					ptoEmision.setSecNotaCredito(ptoEmision.getSecNotaCredito()+1);
-				}
-			}
-			
+			}						
 			documentoAnulado.setPuntoEmision(ptoEmision);
+			documentoAnulado.setSecuencia(secuenciaInicial);
 			try
 			{
-
-			if (editandoDocumentoAnulado) {
-				documentosAnuladosDao.attachDirty(tipoComprobante.getCodigo(), idEmpresa, documentoAnulado);
-			}
-			else
-			{
-				documentosAnuladosDao.persist(tipoComprobante.getCodigo(), idEmpresa, documentoAnulado);
-			}
-			}
-			catch (Exception ex) // error al guardar la exportacion
-			{
-				logger.error("This is Error message", ex);
-				redirectAttributes.addFlashAttribute("error", "Error al guardar el documento anulado");
-				return Utility.goToUrl(idEmpresa, "anulados");
-			}
-			
-		}else if(secuenciaFinal >0){
-			
-			for (int i = secuenciaInicial; i <= secuenciaFinal; i++) {
-				PuntoEmision puntoEmision = puntoEmisionDao.findByUserIdAndEnterpriseId(usuario.getIdUsuario(), idEmpresa);
-				//si el tipo de comprobante es 01 Factura, 07 Retencion, 04 nota de credito 
-				if(tipoComprobante.getCodigo().equals("01")){
-						if(puntoEmision.getSecFactura() == i){
-							puntoEmision.setSecFactura(puntoEmision.getSecFactura()+1);
-						}
-					
-				} else if(tipoComprobante.getCodigo().equals("07")){
-					if(puntoEmision.getSecRetencion() == i){
-						puntoEmision.setSecRetencion(puntoEmision.getSecRetencion()+1);
-					}
-					
-				}else if(tipoComprobante.getCodigo().equals("04")){
-					if(puntoEmision.getSecNotaCredito() == i){
-						puntoEmision.setSecNotaCredito(puntoEmision.getSecNotaCredito()+1);
-					}
-				}
-				
-				documentoAnulado.setPuntoEmision(puntoEmision);
-				try
-				{
 
 				if (editandoDocumentoAnulado) {
 					documentosAnuladosDao.attachDirty(tipoComprobante.getCodigo(), idEmpresa, documentoAnulado);
@@ -258,6 +221,39 @@ public class DocumentosAnuladosController {
 				{
 					documentosAnuladosDao.persist(tipoComprobante.getCodigo(), idEmpresa, documentoAnulado);
 				}
+			}
+			catch (Exception ex) // error al guardar la anulación
+			{
+				logger.error("This is Error message", ex);
+				redirectAttributes.addFlashAttribute("error", "Error al guardar el documento anulado");
+				return Utility.goToUrl(idEmpresa, "anulados");
+			}
+			
+		}else if(secuenciaFinal > 0){
+			//Actualizando las secuencias de las facturas en el punto de emisión
+			if(tipoComprobante.getCodigo().equals("01")){
+				if(ptoEmision.getSecFactura() == secuenciaFinal+1){
+					ptoEmision.setSecFactura(ptoEmision.getSecFactura()+1);
+				}
+
+			} else if(tipoComprobante.getCodigo().equals("07")){
+				if(ptoEmision.getSecRetencion() == secuenciaFinal+1){
+					ptoEmision.setSecRetencion(ptoEmision.getSecRetencion()+1);
+				}
+			}
+
+			for (int i = secuenciaInicial; i <= secuenciaFinal; i++) {
+				documentoAnulado.setPuntoEmision(ptoEmision);
+				documentoAnulado.setSecuencia(i);				
+				try
+				{
+					if (editandoDocumentoAnulado) {
+						documentosAnuladosDao.attachDirty(tipoComprobante.getCodigo(), idEmpresa, documentoAnulado);
+					}
+					else
+					{
+						documentosAnuladosDao.persist(tipoComprobante.getCodigo(), idEmpresa, documentoAnulado);
+					}
 				}
 				catch (Exception ex) // error al guardar el documento anulado
 				{
@@ -265,10 +261,10 @@ public class DocumentosAnuladosController {
 					redirectAttributes.addFlashAttribute("error", "Error al guardar el documento anulado");
 					return Utility.goToUrl(idEmpresa, "anulados");
 				}
-				
+
 				documentoAnulado.setIdAnulado(0);
 			}
-			
+
 		}
 		
 		redirectAttributes.addFlashAttribute("ok", "Los datos del documento anulado se guardaron correctamente");

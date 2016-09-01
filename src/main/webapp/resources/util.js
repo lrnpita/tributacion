@@ -20,6 +20,14 @@
  			calcularRIRbaseImp12($(this));
  			calcularTotalDocumento();
  		}); 
+ 		$(document).on("blur","#porcentajeIva",function(){
+ 			var baseImp12 = $(this).parent('td').parent('tr').find('input#baseImponible12');
+ 			var porcentajeIva = $(this);
+ 			// calcular valor IVA
+ 			var valorIva = (baseImp12.val()*porcentajeIva.val())/100;
+ 			$(this).parent('td').parent('tr').find('input#RIvalorIva').val(valorIva);
+ 		});
+ 		 		
  		$(document).on("blur","#RIret",function(){
  			var RIvalorIva = $(this).parent('td').parent('tr').find('input#RIvalorIva');
  			//calcular retncionIva
@@ -67,89 +75,50 @@
  		}).trigger('change');	
  		
  		
- 		/*	poner esto cuando el sistema no sea para la UCE(cuando no se carguen las compras del xml)
- 		 * // buscar porciento de retención de impuesto a la renta según el tipo de transacción en la compra
-		$("#tipoTransaccion1").change(function() {
-		var	codigo = $("#tipoTransaccion1").val();
-		var idProveedor = $("#idProveedorCompra").val();
-		
-			$.ajax({
-				url : window.location.pathname + "/porcentajeIR",
-				type : "POST",
-				contentType : 'application/json',
-				mimeType: 'application/json',
-				dataType : 'json',
-				data :  {codigo : codigo},
-				success : function(response) {
-					$("#RIRret1").val(response);
-				},
-				error : function(xhr, status, error) {
-					alert(xhr.responseText);
-				}
-			});
-		
-			if(idProveedor != ""){
-				// buscar porciento de retención de iva en la compra
-				$.ajax({
-					url : window.location.pathname + "/porcentajeIva",
-					type : "POST",
-					contentType : 'application/json',
-					mimeType: 'application/json',
-					dataType : 'json',
-					data :  {idProveedor : idProveedor, codigo : codigo},
-					success : function(response) {
-						$("#RIret1").val(response);
-					},
-					error : function(xhr, status, error) {
-						alert(xhr.responseText);
-					}
-				});
-			}	
-			
-		}).trigger('change');	
-		
-		$("#tipoTransaccion2").change(function() {
-			var codigo = $("#tipoTransaccion2").val();
-			var idProveedor = $("#idProveedorCompra").val();
-			
-			$.ajax({
-				url : window.location.pathname + "/porcentajeIR",
-				type : "POST",
-				contentType : 'application/json',
-				mimeType: 'application/json',
-				dataType : 'json',
-				data :  {codigo : codigo},
-
-				success : function(response) {
-					$("#RIRret2").val(response);
-				},
-				error : function(xhr, status, error) {
-					alert(xhr.responseText);
-				}
-			});
-			
-			if(idProveedor != ""){
-				// buscar porciento de retención de iva en la compra
-				$.ajax({
-					url : window.location.pathname + "/porcentajeIva",
-					type : "POST",
-					contentType : 'application/json',
-					mimeType: 'application/json',
-					dataType : 'json',
-					data :  {idProveedor : idProveedor, codigo : codigo},
-					success : function(response) {
-						$("#RIret2").val(response);
-					},
-					error : function(xhr, status, error) {
-						alert(xhr.responseText);
-					}
-				});
-			}	
-			
-		}).trigger('change');	
-	*/	
- 		
- 		// Se busca el nombre del proveedor al escribir el id en la vista compra/datos
+ 	//poner esto cuando el sistema no sea para la UCE(cuando no se carguen las compras del xml)
+ 	// buscar porciento de retención de impuesto a la renta según el tipo de transacción en la compra
+ /*		$(document).on("change","#tipoTransaccion",function(){
+ 			var	codigo = $(this).val();
+ 			var idProveedor = $("#idProveedorCompra").val();
+ 			
+ 				$.ajax({
+ 					url : window.location.pathname + "/porcentajeIR",
+ 					type : "POST",
+ 					contentType : 'application/json',
+ 					mimeType: 'application/json',
+ 					dataType : 'json',
+ 					data :  {codigo : codigo},
+ 					success : function(response) {
+ 						$(this).parent('td').parent('tr').find('input#RIRret').val(response);
+ 					},
+ 					error : function(xhr, status, error) {
+ 						alert(xhr.responseText);
+ 					}
+ 				});
+ 			
+ 				if(idProveedor != ""){
+ 					// buscar porciento de retención de iva en la compra
+ 					$.ajax({
+ 						url : window.location.pathname + "/porcentajeIva",
+ 						type : "POST",
+ 						contentType : 'application/json',
+ 						mimeType: 'application/json',
+ 						dataType : 'json',
+ 						data :  {idProveedor : idProveedor, codigo : codigo},
+ 						success : function(response) {
+ 							$(this).parent('td').parent('tr').find('input#RIret').val(response);
+ 							alert('res' + response + " " + $(this).parent('td').parent('tr').find('td input#RIret').val());
+ 							
+ 						},
+ 						error : function(xhr, status, error) {
+ 							alert(xhr.responseText);
+ 						}
+ 					});
+ 					
+ 				}	
+ 		});
+*/		
+		// Se busca el nombre del proveedor al escribir el id en la vista compra/datos
  		$("#idProveedorCompra").blur(function(){
  			idProveedor = $(this).val();
  			if(idProveedor != ""){
@@ -470,11 +439,12 @@
 		
 		// poniendo el precio total en la tabla venta 
 			$(document).on("blur","#cantidad",function(){
-	 		    calcularPrecioTotalProducto($(this))
-			}); 
+	 		    calcularSubTotalProducto($(this));
+				calcularPrecioTotalProducto($(this));
+	 		 }); 
 			
 			$(document).on("blur","#tDescuento",function(){
-	 		    calcularPrecioTotalProducto($(this))
+	 		    calcularPrecioTotalProducto($(this));
 			}); 
 		 		
 	// poniendo el monthpiker con jquery al input mes de la vista reportes   
@@ -732,56 +702,87 @@
  */
 			// calcular gastos personales
 	 		$("#vestimenta").blur(function(){
-	 			var ingresosGravados = (parseFloat($("#sueldosYSalarios").val())*12) +parseFloat($("#sobresueldos").val()) + parseFloat($("#participacionUtilidades").val()) + 
-	 			parseFloat($("#ingresosOtrosEmpleadores").val()) + parseFloat($("#irAsumidoOtrosEmpleadores").val());
-	 			
-	 			var GP1 = ingresosGravados*50/100;
-	 			var GP2 = 1.3*10800;
-	 			
 	 			$("#mvestimenta").val((parseFloat($("#vestimenta").val()))/12);
-	 			// allar el total de los gastos personales
-	 			var totalGastosPersonalesAnual = parseFloat($("#vivienda").val()) + parseFloat($("#salud").val()) + parseFloat($("#educacion").val()) + parseFloat($("#alimentacion").val()) +parseFloat($("#vestimenta").val());
-	 			var totalGastosPersonalesMensual = parseFloat($("#mvivienda").val()) + parseFloat($("#msalud").val()) + parseFloat($("#meducacion").val()) + parseFloat($("#malimentacion").val()) +parseFloat($("#mvestimenta").val());
-	 			
-	 			if(GP1 < GP2){
-	 				$("#totalAnual").attr('max',GP1).val('');
-	 			} else {
-	 				$("#totalAnual").attr('max',GP2).val('');
-	 			}
-	 			$("#totalAnual").val(totalGastosPersonalesAnual);
-	 			$("#totalMensual").val(totalGastosPersonalesMensual);
-	 			
+	 			totalGastosPersonales();
 	 			calcularImpuestoRentaCausado();
-
 	 		});
 	 			
 	 	 	$("#vivienda").blur(function(){
 	 	 		$("#mvivienda").val((parseFloat($("#vivienda").val()))/12);
+	 	 		totalGastosPersonales();
+	 	 		calcularImpuestoRentaCausado();
 	 	 		});
 	 			
 	 	 	$("#salud").blur(function(){
 	 	 		$("#msalud").val((parseFloat($("#salud").val()))/12);
+	 	 		totalGastosPersonales();
+	 	 		calcularImpuestoRentaCausado();
 	 	 		});
 	 	 	
 	 	 	$("#educacion").blur(function(){
 	 	 		$("#meducacion").val((parseFloat($("#educacion").val()))/12);
+	 	 		totalGastosPersonales();
+	 	 		calcularImpuestoRentaCausado();
 	 	 		});
 	 	 	
 	 	 	$("#alimentacion").blur(function(){
 	 	 		$("#malimentacion").val((parseFloat($("#alimentacion").val()))/12);
+	 	 		totalGastosPersonales();
+	 	 		calcularImpuestoRentaCausado();
 	 	 		});	
 	 	 	
-	 		$("#iessOtrosEmpleadores").blur(function(){
+	 	 	$("#sueldosYSalarios").blur(function(){
 	 			calcularImpuestoRentaCausado();
 	 		});
-	 	 	
+	 	 	$("#sobresueldos").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#participacionUtilidades").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#ingresosOtrosEmpleadores").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#irAsumidoOtrosEmpleadores").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#decimotercerSueldo").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#decimocuartoSueldo").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#fondosReserva").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#salarioDigno").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#otrosIngresosNoGravados").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#IngGravadosEmpleador").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 	 	$("#iessOtrosEmpleadores").blur(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
 	 	 	$("#aportePersonalEmpleadorActual").blur(function(){
 	 			calcularImpuestoRentaCausado();
 	 		});
-	 		
 	 		$("#mesesTrabajados").change(function(){
 	 			calcularImpuestoRentaCausado();
 	 		});
+	 		$("#mesesTrabajados").change(function(){
+	 			calcularImpuestoRentaCausado();
+	 		});
+	 		$("#retencionOtrosEmpleadores").blur(function(){
+	 			calcularRetencionMensual();
+	 		});
+	 		$("#irAsumidoEmpleadorActual").blur(function(){
+	 			calcularRetencionMensual();
+	 		});
+	 		
 	 		
 	 	// Calculando exoneraciones en el movimiento de trabajadores via AJAX, buscando valor retenido y base imponible
 	 	 	$('#idTrabajadorMov').change(function(event) {
@@ -792,6 +793,30 @@
 	 	 	});
 
 });
+ 	
+ 	function calcularRetencionMensual() {
+ 		var impRentaCausado = parseFloat($("#impuestoRentaCausado").val());
+			var retenciones = parseFloat($("#retencionOtrosEmpleadores").val()) + parseFloat($("#irAsumidoEmpleadorActual").val());
+			var rentencionMensual = (impRentaCausado - retenciones)/parseFloat($("#mesesTrabajados").val());
+			$("#retenciones").val(rentencionMensual);
+	}
+ 	
+ 	function totalGastosPersonales() {
+ 		var ingresosGravados = (parseFloat($("#sueldosYSalarios").val())*12) +parseFloat($("#sobresueldos").val()) + parseFloat($("#participacionUtilidades").val()) + 
+			parseFloat($("#ingresosOtrosEmpleadores").val()) + parseFloat($("#irAsumidoOtrosEmpleadores").val());
+		var GP1 = ingresosGravados*50/100;
+		var GP2 = 1.3*10800;
+ 		var totalGastosPersonalesAnual = parseFloat($("#vivienda").val()) + parseFloat($("#salud").val()) + parseFloat($("#educacion").val()) + parseFloat($("#alimentacion").val()) +parseFloat($("#vestimenta").val());
+		var totalGastosPersonalesMensual = parseFloat($("#mvivienda").val()) + parseFloat($("#msalud").val()) + parseFloat($("#meducacion").val()) + parseFloat($("#malimentacion").val()) +parseFloat($("#mvestimenta").val());
+			
+			if(GP1 < GP2){
+				$("#totalAnual").attr('max',GP1).val('');
+			} else {
+				$("#totalAnual").attr('max',GP2).val('');
+			}
+			$("#totalAnual").val(totalGastosPersonalesAnual);
+			$("#totalMensual").val(totalGastosPersonalesMensual);
+	}
  	
 	 function calcularExoneracion() {
 		 var idtrabajador =  $('#idTrabajadorMov').val();
@@ -855,7 +880,6 @@
 	
 				success : function(response) {
 					$("#impuestoRentaCausado").val(response);
-					$("#irAsumidoEmpleadorActual").val(response);
 				},
 				error : function(xhr, status, error) {
 					alert(xhr.responseText);
@@ -865,7 +889,7 @@
 	}
  
 	// calcular porcentaje iva para la vista compra
-	function calcularPorcentajeIva() {
+/*	function calcularPorcentajeIva() {
 		// buscar porciento de retención de iva en la compra
 			var idProveedor = $("#idProveedorCompra").val();
 		$.ajax({
@@ -877,15 +901,15 @@
 			data :  {idProveedor : idProveedor, idTipoCompra : idTipoCompra},
 	
 			success : function(response) {
-				$("#RIret1").val(response);
-				$("#RIret2").val(response);
+				$("#RIret").val(response);
+				
 			},
 			error : function(xhr, status, error) {
 				alert(xhr.responseText);
 			}
 		});
 	}
-	
+*/	
 	
 	// buscar el nombre del proveedor para la vista compra
 	function BuscarNombreProveedor() {
@@ -942,12 +966,32 @@
 	}
 	
 	function calcularPrecioTotalProducto(campo) {
-		var precioUnitario = campo.parent('td').parent('tr').find('input#precioUnitario');
+		var subtotal = campo.parent('td').parent('tr').find('input#subTotal');
 		var descuento = campo.parent('td').parent('tr').find('input#tDescuento');
-		var cantidad = campo.parent('td').parent('tr').find('input#cantidad');
+		//var cantidad = campo.parent('td').parent('tr').find('input#cantidad');
 
-		var total =	(precioUnitario.val() * cantidad.val()) - (descuento.val() * cantidad.val());
+		var descontar = (subtotal.val() * descuento.val())/100;
+		var total = parseFloat(subtotal.val()) - parseFloat(descontar);
 		campo.parent('td').parent('tr').find('input#precioTotal').val(parseFloat(total).toFixed(3));
+		calcularPrecioTotalVenta();
+	}
+	
+	function calcularPrecioTotalVenta() {
+		//poniendo el valor del campo subtotal de la fila base oculta
+	//	$(".fila-base input#precioTotal").val(0);
+		var totalVenta = 0;
+		$('.precioTotal').each(function(){
+			totalVenta += parseFloat($(this).val());
+	     });
+		$("#totalVenta").val(parseFloat(totalVenta).toFixed(3));
+		
+	}
+	
+	function calcularSubTotalProducto(campo) {
+		var precioUnitario = campo.parent('td').parent('tr').find('input#precioUnitario');
+		var cantidad = campo.parent('td').parent('tr').find('input#cantidad');
+		var subtotal =	precioUnitario.val() * cantidad.val();
+		campo.parent('td').parent('tr').find('input#subTotal').val(parseFloat(subtotal).toFixed(3));
 	}
 
 	function ButtonAdicionarProductosVenta() {
@@ -970,6 +1014,8 @@
 					$(".fila-base input#codigoPrincipalProducto").val(codP);
 					$(".fila-base input#codigoAuxiliarProducto").val(codA);
 					$(".fila-base input#precioTotal").val(response);
+					$(".fila-base input#subTotal").val(response);
+					calcularPrecioTotalVenta();
 
 					$("#tablaVenta tbody tr:eq(0)").clone().removeClass('fila-base hidden').appendTo("#tablaVenta tbody");
 					setTimeout("setup.bindEvents();",300);
@@ -978,6 +1024,7 @@
 					alert("No se encontró el precio del producto agregado");
 				}
 			});
+			
 		});
 	}
 	
@@ -1096,7 +1143,7 @@
 	}
 
 	function calcularValorAPagar(totalDocumento) {
-		var valorPagar = totalDocumento + parseFloat($("#totalRet").val());
+		var valorPagar = totalDocumento - parseFloat($("#totalRet").val());
 		$("#valorAPagar").val(valorPagar);
 	}
 	

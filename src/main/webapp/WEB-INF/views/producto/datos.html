@@ -33,7 +33,7 @@
  		
 	    <div class="form-group col-xs-2" th:object="${tarifaIva}"><label>*IVA</label>
 	    <select class="form-control input-sm" th:field="*{codigo}">
-		    <option value="" th:each="tipos : ${tarifasIva}" th:value="${tipos.codigo}" th:text="${tipos.porcentaje}">tipo</option>
+		    <option value="" th:each="tipos : ${tarifasIva}" th:value="${tipos.codigo}" th:text="${tipos.tarifa}">tipo</option>
 		</select></div>
  		
  		<div class="well col-xs-12">

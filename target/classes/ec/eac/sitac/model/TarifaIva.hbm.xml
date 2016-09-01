@@ -8,8 +8,8 @@
             <column name="codigo" />
             <generator class="assigned" />
         </id>
-        <property name="porcentaje" type="int">
-            <column name="porcentaje" not-null="true" />
+        <property name="tarifa" type="int">
+            <column name="tarifa" not-null="true" />
         </property>
         <set name="productos" table="producto" inverse="true" lazy="true" fetch="select">
             <key>

@@ -659,6 +659,7 @@ public class VentaController {
 	private Venta mapearVenta(List<Map<Integer, String>> listaMapas, int idEmpresa) throws Exception {
 		Venta venta = new Venta();
 		VentaVsProducto ventaVsProducto = new VentaVsProducto();
+		Retencion retencion = new Retencion();
 		
 		int contador = 0;
 		StringBuilder detallesVenta = new StringBuilder(" Datos de la venta: serie del comprobante = ");
@@ -721,7 +722,8 @@ public class VentaController {
 					venta.setFechaRegistro(fechaRegistro);
 
 					Date fechaComprobanteRetencion = parseador.parse(mapColumnaValor.get(VentaMappingEnum.FECHA_RETENCION.getValue()));
-					venta.getRetencion().setFechaRetencion(fechaComprobanteRetencion);
+					//venta.getRetencion().setFechaRetencion(fechaComprobanteRetencion);
+					retencion.setFechaRetencion(fechaComprobanteRetencion);
 
 				} 
 				catch (ParseException e) 
@@ -740,9 +742,9 @@ public class VentaController {
 					venta.setPorcentajeIva(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.PORCENTAJE_IVA.getValue()))); // valor de IVA
 				
 				if (mapColumnaValor.containsKey(VentaMappingEnum.SECUENCIA_COMPROBANTE_VENTA.getValue())) {
-					Integer valor = Integer.valueOf(mapColumnaValor.get(VentaMappingEnum.SECUENCIA_COMPROBANTE_VENTA.getValue()));
-					venta.getPuntoEmision().setSecFactura(valor);
-					venta.setSecFactura(valor);
+					float valor = Float.valueOf(mapColumnaValor.get(VentaMappingEnum.SECUENCIA_COMPROBANTE_VENTA.getValue()));
+					venta.getPuntoEmision().setSecFactura((int)valor);
+					venta.setSecFactura((int)valor);
 				}
 				
 				if (mapColumnaValor.containsKey(VentaMappingEnum.CLAVE_ACCESO.getValue()))
@@ -752,14 +754,22 @@ public class VentaController {
 					venta.setCodigoAutorizacion(mapColumnaValor.get(VentaMappingEnum.AUTORIZACION_COMPROBANTE_VENTA.getValue()));
 				
 				if (mapColumnaValor.containsKey(VentaMappingEnum.RETENCION_IMPUESTO_A_LA_RENTA.getValue()))
-					venta.getRetencion().setRetencionIR(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.RETENCION_IMPUESTO_A_LA_RENTA.getValue())));
+					//venta.getRetencion().setRetencionIR(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.RETENCION_IMPUESTO_A_LA_RENTA.getValue())));
+					retencion.setRetencionIR(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.RETENCION_IMPUESTO_A_LA_RENTA.getValue())));
 			
 				if (mapColumnaValor.containsKey(VentaMappingEnum.RETENCION_IVA.getValue()))
-					venta.getRetencion().setRetencionIVA(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.RETENCION_IVA.getValue()))); 
+					//venta.getRetencion().setRetencionIVA(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.RETENCION_IVA.getValue()))); 
+					retencion.setRetencionIVA(Float.valueOf(mapColumnaValor.get(VentaMappingEnum.RETENCION_IVA.getValue())));
 
 				// serie de la retencion
+				retencion.setSerieRetencion(String.valueOf(mapColumnaValor.get(VentaMappingEnum.SERIE_RETENCION.getValue())));
 				// secuencia de la retencion
+				float secRetencion = Float.valueOf(mapColumnaValor.get(VentaMappingEnum.SECUENCIA_RETENCION.getValue()));
+				retencion.setSecuenciaRetencion((int)secRetencion);
 				//autorizacion de la retencion
+				retencion.setAutorizacionRetencion(String.valueOf(mapColumnaValor.get(VentaMappingEnum.AUTORIZACION_RETENCION.getValue())));
+				venta.setRetencion(retencion);
+				retencionDao.persist(retencion);
 				// Buscar forma de pago
 				Float valorTipoDatoFloat = Float.valueOf(mapColumnaValor.get(VentaMappingEnum.FORMA_PAGO.getValue())); 
 				TipoVentaSegunPago formaPago = tipoVentaSegunPagoDao.findById(String.valueOf(valorTipoDatoFloat.intValue()));

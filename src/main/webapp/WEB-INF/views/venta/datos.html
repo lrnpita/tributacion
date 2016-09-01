@@ -57,14 +57,15 @@
         <input type="text" class="form-control input-sm" required="required" th:field="*{claveAcceso}"/>
         </div>        
         
-        <div class="form-group col-xs-3"><label>Serie/Secuencia Fac.</label>
-	    <input type="text" class="form-control input-sm" name="serieFactura" th:value="${puntoEmision.serie}" readonly="readonly"/>
-	    <input type="number" class="form-control input-sm" name="secFactura" th:value="${puntoEmision.secFactura}" readonly="readonly"/>
+        <div class="form-group form-inline col-xs-6">
+        <label>Serie/Secuencia Fac.</label>
+	    <input type="text" class="form-control input-sm col-ms-2" name="serieFactura" th:value="${puntoEmision.serie}" readonly="readonly"/>
+	    <input type="number" class="form-control input-sm col-ms-2" name="secFactura" th:value="${puntoEmision.secFactura}" readonly="readonly"/>
 		</div>
         
     <div class="well col-xs-12">       
         <h4>Productos de la Venta</h4> 
-            
+        <div class="table-responsive">    
         <div class="form-group form-inline col-xs-6">
 	        <label>Producto</label>
 	        <input type="text" class="form-control input-sm col-ms-2" id="codP" placeholder="código principal" list="listaProductosCP"/>
@@ -73,6 +74,7 @@
 	    </div>
 	    
 		<!-- tabla donde va la lista de los productos comprados -->
+		
 	    <table class="table table-striped" id="tablaVenta">
 		<thead>
 			<tr>
@@ -80,7 +82,8 @@
 				<th>C&oacute;d. Principal</th>
 				<th>C&oacute;d. Auxiliar</th>
 				<th>Precio Unit.</th>
-				<th>Descuento</th>
+				<th>SubTotal</th>
+				<th>Descuento(%)</th>
 				<th>Precio Total</th>
 				<th>Ice</th>
 				<th></th>
@@ -91,9 +94,10 @@
 		        <td><input class="form-control input-sm col-xs-1" name="cantidad" id="cantidad" value="1"/></td>
 				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoPrincipalProducto" id="codigoPrincipalProducto"/></td>
 				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoAuxiliarProducto" id="codigoAuxiliarProducto"/></td>
-				<td><input type="text" class="form-control input-sm col-xs-1 " name="precioUnitario" id="precioUnitario"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioUnitario" id="precioUnitario"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="subTotal" id="subTotal"/></td>
 				<td><input type="number" class="form-control input-sm col-xs-1" name="tDescuento" id="tDescuento" value="0"/></td>
-				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioTotal" id="precioTotal"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 precioTotal" name="precioTotal" id="precioTotal" value="0"/></td>
 				<td><input type="number" class="form-control input-sm col-xs-1" name="tIce" id="tIce" value="0"/></td>
 				<td class="hidden"><input type="number" class="form-control input-sm col-xs-1" name="tidVP" id="tidVP" value="0"/></td>
 				<td id="eliminar-fila"><i class="btn btn-primary btn-xs"><label class="glyphicon glyphicon-trash"></label> </i></td>
@@ -103,14 +107,23 @@
 				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoPrincipalProducto" id="codigoPrincipalProducto" th:value="${fila.producto.codigoPrincipal}"/></td>
 				<td><input type="text" class="form-control input-sm col-xs-2" name="codigoAuxiliarProducto" id="codigoAuxiliarProducto" th:value="${fila.producto.codigoAuxiliar}"/></td>
 				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioUnitario" id="precioUnitario" th:value="${fila.producto.valorUnitario}"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 " name="subTotal" id="subTotal" th:value="${fila.cantidad} * ${fila.producto.valorUnitario}"/></td>
 				<td><input type="number" class="form-control input-sm col-xs-1 " name="tDescuento" id="tDescuento" th:value="${fila.descuento}"/></td>
-				<td><input type="number" class="form-control input-sm col-xs-1 " name="precioTotal" id="precioTotal" th:value="${fila.cantidad} * ${fila.producto.valorUnitario}"/></td>
+				<td><input type="number" class="form-control input-sm col-xs-1 precioTotal" name="precioTotal" id="precioTotal" th:value="${(fila.cantidad * fila.producto.valorUnitario) - (((fila.producto.valorUnitario * fila.cantidad) * fila.descuento) / 100)}"/></td>
 				<td><input type="number" class="form-control input-sm col-xs-1" name="tIce" id="tIce" th:value="${fila.ice}"/></td>
 				<td class="hidden"><input type="number" class="form-control input-sm col-xs-1" name="tidVP" id="tidVP" th:value="${fila.id}"/></td>
 				<td id="eliminar-fila"><i class="btn btn-primary btn-xs"><label class="glyphicon glyphicon-trash"></label> </i></td>
 		    </tr>
 		</tbody>
 		</table>
+		
+		 <div class="form-group form-inline col-xs-10">
+	        <label>SUBTOTAL</label><input type="text" class="form-control input-sm col-ms-2" id="subTotalVenta"/>
+	        <label>DESCUENTO</label><input type="text" class="form-control input-sm col-ms-2" id="descuentoVenta"/>
+	        <label>TOTAL VENTA</label><input type="text" class="form-control input-sm col-ms-2" id="totalVenta"/>
+	    </div>
+	    
+		</div>
 
 </div>		
 		<datalist id="listaProductosCP">

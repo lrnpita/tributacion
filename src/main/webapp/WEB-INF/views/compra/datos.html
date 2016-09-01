@@ -66,6 +66,7 @@
 	    </div>
 	    
 		<!-- tabla donde van los detalles de la compra -->
+		<div class="table-responsive">
 	    <table class="table table-striped" id="tablaDetallesCompra">
 		<thead>
 			<tr>
@@ -73,17 +74,17 @@
 				<th>B.N.Obj.IVA</th>
 				<th>B.Imp.0%</th>
 				<th>B.Imp.12%</th>
-				<th>%IVA</th>
+				<th>Porcentaje(%)IVA</th>
 				<!-- valores de retención impuesto a la renta -->
 				<th class="text-info">B.N.Obj.IVA</th>
 				<th class="text-info">B.Imp.0%</th>
 				<th class="text-info">B.Imp.12%</th>
 				<th class="text-info">%Reten.</th>
-				<th class="text-info">Reten. I.R</th>
+				<th class="text-info">Reten.I.R</th>
 				<!-- valores de retención iva -->
-				<th class="text-success">Valor IVA</th>
+				<th class="text-success">Valor.IVA</th>
 				<th class="text-success">%Reten.</th>
-				<th class="text-success">Reten. IVA</th>
+				<th class="text-success">Reten.IVA</th>
 				
 				<th></th>
 			</tr>
@@ -115,8 +116,8 @@
 		    
 			<tr class="fila-base" th:if="${editandoCompra}" th:each="fila : ${detallesList}">
 				<td class="form-group col-sm-2">
-		    		<select class="form-control input-sm " th:value="${fila.tipoTransaccion.codigo}" id="tipoTransaccion" name="codigo">
-			    		<option value="" th:each="tipos : ${tiposTransaccion}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		    		<select class="form-control input-sm " th:value="${{fila.tipoTransaccion.codigo}}" id="tipoTransaccion" name="codigo">
+			    		<option th:each="tipos : ${tiposTransaccion}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}" th:selected="${fila.tipoTransaccion.codigo == tipos.codigo}">tipo</option>
 					</select></td>
 				<td><input type="number" class="form-control input-sm " name="baseNoObjetoIva" id="baseNoObjetoIva" th:value="${fila.baseNoObjetoIva}" required="required"/></td>
 				<td><input type="number" class="form-control input-sm " name="baseImpobible0" id="baseImpobible0" th:value="${fila.baseImpobible0}" required="required"/></td>
@@ -127,11 +128,11 @@
 				<td><input type="number" class="form-control input-sm " name="RIRbaseImp0" id="RIRbaseImp0" th:value="${fila.RIRbaseImp0}" required="required"/></td>
 				<td><input type="number" class="form-control input-sm " name="RIRbaseImp12" id="RIRbaseImp12" th:value="${fila.RIRbaseImp12}" required="required"/></td>
 				<td><input type="number" class="form-control input-sm " name="RIRret" id="RIRret" th:value="${fila.RIRret}" required="required"/></td>
-				<td><input type="number" class="form-control input-sm " name="RIRretIr" id="RIRretIr" required="required"/></td>
+				<td><input type="number" class="form-control input-sm " name="RIRretIr" id="RIRretIr" required="required" th:value="${(fila.RIRbaseImp12 * fila.RIRret)/100}"/></td>
 				
 				<td><input type="number" class="form-control input-sm " name="RIvalorIva" id="RIvalorIva" th:value="${fila.RIvalorIva}" required="required"/></td>
 				<td><input type="number" class="form-control input-sm " name="RIret" id="RIret" th:value="${fila.RIret}" required="required"/></td>
-				<td><input type="number" class="form-control input-sm " name="RIretIva" id="RIretIva" required="required"/></td>
+				<td><input type="number" class="form-control input-sm " name="RIretIva" id="RIretIva" required="required" th:value="${(fila.RIvalorIva * fila.RIret)/100}"/></td>
 				
 				<td class="hidden"><input type="number" name="idDetalleCompra" id="idDetalleCompra" th:value="${fila.idDetalleCompra}"/></td>
 				<td id="eliminar-fila"><i class="btn btn-primary btn-xs"><label class="glyphicon glyphicon-trash"></label> </i></td>
@@ -139,6 +140,7 @@
 
 		</tbody>
 		</table>
+		</div>
 	</div>
 	
 		    <div class=" form-group col-xs-1"><label>Ice</label>
@@ -153,7 +155,7 @@
 			</div>  
 	        <!-- Este campo se calcula pero no se guarda en la BD -->
 	        <div class=" form-group col-xs-2"><label>Valor a pagar</label>
-	        <input type="number" class="form-control input-sm" name="valorAPagar" id="valorAPagar"/>
+	        <input type="number" class="form-control input-sm" name="valorAPagar" id="valorAPagar" th:value="${valorAPagar}"/>
 	      	</div>
         
 		<div class="form-group col-xs-2"><label>Sustento Cr&eacute;d. Tributario</label>
@@ -167,7 +169,7 @@
 		<div class=" form-group col-xs-3">
         <input type="checkbox" th:field="*{devolucionIva}"/><label>Derecho a devoluci&oacute;n Iva</label></div>        
         
-		<div class="form-group col-xs-2"><label>Serie/Secuencia Fac.</label>
+		<div class="form-group form-inline col-xs-4"><label>Serie/Secuencia Fac.</label>
 	    <input type="text" class="form-control input-sm" th:field="*{serieFactura}" required="required" minlength="6" maxlength="6"/>
 	    <input type="number" class="form-control input-sm" th:field="*{secFactura}" required="required" maxlength="9" />
 		</div>   
@@ -212,7 +214,8 @@
 	</div>		
 		<div class="form-group col-xs-3"><label>Forma de Pago</label>
 	    <select class="form-control input-sm" name="tipoPago" id="tipoPago" multiple="multiple" >
-		<option value="" th:each="tipos : ${tiposPago}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}">tipo</option>
+		<option value="" th:each="tipos : ${tiposPago}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}" th:if="${tiposPagosSelected != null}" th:selected="${tiposPagosSelected.contains(tipos.codigo)}">tipo</option>
+		<option value="" th:each="tipos : ${tiposPago}" th:value="${tipos.codigo}" th:text="${tipos.codigo}+'-'+${tipos.nombre}" th:if="${tiposPagosSelected == null}">tipo</option>
 		</select></div> 
 		
 		

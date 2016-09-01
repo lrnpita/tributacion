@@ -19,7 +19,7 @@
 		    <option value="" th:each="tipos : ${tiposIdentificacion}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">tipo</option>
 		</select></div>
         
-        <div class="form-group col-xs-3"><label>*Ruc/C&eacute;dula/Pasaporte</label>
+        <div class="form-group col-xs-2"><label>*C&eacute;dula/Pasaporte</label>
         <input type="number" class="form-control input-sm" maxlength="10" th:field="*{id}" required="required" th:if="${editandoTrabajador}" readonly="readonly"/>
         <input type="number" class="form-control input-sm" maxlength="10" th:field="*{id}" required="required" th:if="${!editandoTrabajador}"/></div>
 
@@ -57,7 +57,7 @@
 		    <option value="" th:each="tipos : ${tiposSalario}" th:value="${tipos.id}" th:text="${tipos.nombre}">tipo</option>
 		</select></div>
 		
-        <div class="form-group col-xs-2" th:object="${ciudad}"><label>*Provincia</label>
+        <div class="form-group col-xs-2" th:object="${ciudad}"><label>*Cant&oacute;n</label>
 	    <select class="form-control input-sm" th:field="*{codigo}">
 		    <option value="" th:each="ciudad : ${ciudades}" th:value="${ciudad.codigo}" th:text="${ciudad.nombre}">ciudad</option>
 		</select></div>		
@@ -75,7 +75,7 @@
 		    <option value="" th:each="tipos : ${tiposIdentificacion}" th:value="${tipos.codigo}" th:text="${tipos.nombre}">tipo</option>
 		</select></div>
         
-        <div class="form-group col-xs-3"><label>*Ruc/C&eacute;dula/Pasaporte</label>
+        <div class="form-group col-xs-3"><label>*C&eacute;dula/Pasaporte</label>
         <input type="text" class="form-control input-sm" th:field="*{idNewTrabajador}" id="idNewTrabajador" /></div>        
 	
      <!-- 

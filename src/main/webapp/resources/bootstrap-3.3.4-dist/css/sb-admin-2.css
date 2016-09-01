@@ -100,7 +100,7 @@ body {
 .sidebar .nav-third-level li a {
     padding-left: 52px;
 }
-
+*/
 @media(min-width:768px) {
     .sidebar {
         z-index: 1;
@@ -117,7 +117,7 @@ body {
         margin-left: auto;
     }
 }
-*/
+
 .btn-outline {
     color: inherit;
     background-color: transparent;
@@ -420,7 +420,8 @@ table.dataTable thead .sorting:after {
 }
 
 .main-menu {
-	background: #393939;
+	background: #262626;
+	border-color: #333;
 	border-right: 1px solid #e5e5e5;
 	position: absolute;
 	top: 0;
@@ -433,7 +434,7 @@ table.dataTable thead .sorting:after {
 	transition: width .05s linear;
 	-webkit-transform: translateZ(0) scale(1, 1);
 	z-index: 1000;
-	margin: 60px 10px;
+	margin: 50px 0px;
     
 }
 

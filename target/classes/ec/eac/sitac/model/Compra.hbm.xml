@@ -97,13 +97,14 @@
             </key>
             <one-to-many class="ec.eac.sitac.model.ComprobanteReembolso" />
         </set>
+        
         <set name="detallesCompras" table="detalles_compra" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_compra" not-null="true" />
             </key>
             <one-to-many class="ec.eac.sitac.model.DetallesCompra" />
         </set>
-        <set name="tiposPago" table="tipo_pago_vs_compra" fetch="select">
+        <set name="tipoPagoVsCompras" table="tipo_pago_vs_compra" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_compra" />
             </key>

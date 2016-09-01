@@ -273,6 +273,27 @@ public class VentaHome {
 			throw re;
 		}
 	}
+	
+	/**
+	 * Inserta los datos de una lista de ventas{@link Venta} en la Base de Datos, 
+	 * si el elemento a insertar ya existe entonces lo actualiza .
+	 *
+	 * @since 2015
+	 */
+	@Transactional
+	public void attachDirty(Set<Venta> ventasList) {
+		log.debug("attaching dirty Venta instance");
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			for (Venta venta : ventasList) {
+				session.saveOrUpdate(venta);
+			}
+			log.debug("attach successful");
+		} catch (RuntimeException re) {
+			log.error("attach failed", re);
+			throw re;
+		}
+	}
 
 	@Transactional
 	public void attachClean(Venta instance) {
@@ -387,7 +408,7 @@ public class VentaHome {
      */
     @Transactional
     public Venta findByAutorizacion(String aut) {
-        String queryString = "SELECT v FROM Venta v WHERE v.codigoAutorizacionComprobante = :aut"; 
+        String queryString = "SELECT v FROM Venta v WHERE v.codigoAutorizacion = :aut"; 
         
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(queryString).setParameter("aut", aut);

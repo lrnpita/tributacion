@@ -35,174 +35,95 @@
 		    </div>
 		  </div>
 		  
-	<div class="well col-sm-6"> 
-
-		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Sueldos y salarios (anual)</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{sueldosYSalarios}" required="required"/>
-		    </div>
-		  </div>
+	<div class="well col-xs-6"> 
+		  <div class="form-group"><label class="col-sm-6 control-label">Sueldos y salarios (Mensual)</label><div class="col-sm-3"><input type="number" class="form-control input-sm" th:field="*{sueldosYSalarios}" required="required"/></div></div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Sobresueldos</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Sobresueldos (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{sobresueldos}" required="required"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Participacion y utilidades</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Participacion y utilidades (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{participacionUtilidades}" required="required"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Ing. con otros empleadores</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Ing. con otros empleadores (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{ingresosOtrosEmpleadores}" required="required"/>
 		    </div>
 		  </div>
 		  
 		 <div class="form-group">
-		    <label class="col-sm-6 control-label">IR asumido por empleador</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">IR asumido por empleador (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{irAsumidoOtrosEmpleadores}" required="required"/>
 		    </div>
 		  </div>
 		  
 		 <div class="form-group">
-		    <label class="col-sm-6 control-label">Decimo tercer sueldo</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Decimo tercer sueldo (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{decimotercerSueldo}" required="required"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Decimo cuarto sueldo</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{decimocuartoSueldo}" required="required"/>
+		    <label class="col-sm-6 control-label">Decimo cuarto sueldo (Anual)</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" th:field="*{decimocuartoSueldo}" required="required" />
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Fondos de reserva</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Fondos de reserva (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{fondosReserva}" required="required"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Salario digno</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Salario digno (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{salarioDigno}" required="required"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="col-sm-6 control-label">Otros ingresos no gravados</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Otros ingresos no gravados (Anual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{otrosIngresosNoGravados}" required="required"/>
 		    </div>
 		  </div>
 		  
 		 <div class="form-group">
-		    <label class="col-sm-6 control-label">Ing. gravados empleador</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" required="required"/>
+		    <label class="col-sm-6 control-label">Ing. gravados empleador (Anual)</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" required="required" id="IngGravadosEmpleador"/>
 		    </div>
 		  </div>
 		  
 		<div class="form-group">
-		    <label class="col-sm-6 control-label">Aporte personal IESS con otros empleadores</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Aporte personal IESS con otros empleadores (Mensual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{iessOtrosEmpleadores}" required="required"/>
 		    </div>
 		  </div>
 		  
 		 <div class="form-group">
-		    <label class="col-sm-6 control-label">Aporte personal IESS</label>
-		    <div class="col-sm-4">
+		    <label class="col-sm-6 control-label">Aporte personal IESS (Mensual)</label>
+		    <div class="col-sm-3">
 		      <input type="number" class="form-control input-sm" th:field="*{aportePersonalEmpleadorActual}" required="required"/>
 		    </div>
 		  </div>		  
 		  
-		</div>
-		
-	<div class="well col-xs-6">
-			<h4>Exoneraciones</h4>
-		   	<div class="col-sm-4 col-sm-offset-4">Anual</div>
-			<div class="col-sm-4">Mensual</div>
-			
-		  <div class="form-group">		    
-		    <label class="col-sm-4 control-label">Por discapacidad</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control input-sm" th:field="*{exoneracionDiscapacidad}" readonly="readonly"/>
-		    </div>
-		    <div class="col-sm-4">
-		    <input type="number" class="form-control input-sm" id="exoneracionDiscapacidadMensual" th:if="${!editandoMovimiento}" value="0.0" readonly="readonly"/>
-		      <input type="number" class="form-control input-sm" id="exoneracionDiscapacidadMensual" th:if="${editandoMovimiento}" th:with="result=${movimiento.exoneracionDiscapacidad / 12}" th:value="${result}" readonly="readonly"/>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label class="col-sm-4 control-label">Por tercera edad</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{exoneracionTerceraE}" readonly="readonly"/>
-		    </div>
-		    <div class="col-sm-4">
-		    <input type="number" class="form-control input-sm" id="exoneracionTerceraEMensual" th:if="${editandoMovimiento}" th:with="result=${movimiento.exoneracionTerceraE / 12}" th:value="${result}" readonly="readonly"/>
-		      <input type="number" class="form-control input-sm" id="exoneracionTerceraEMensual" th:if="${!editandoMovimiento}" value="0.0" readonly="readonly"/>
-		    </div>
-		  </div>
 	</div>
 		
-	<div class="col-sm-6">
-			<div class="form-group">
-		    <label class="col-sm-4 control-label">Base Imp. gravada</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" required="required" th:field="*{baseImponibleGravada}"/>
-		    </div></div>
-		    
-		    <div class="form-group">
-			<label class="col-sm-4 control-label">Imp. a la renta causado</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{impuestoRentaCausado}" required="required"/>
-		    </div></div>	    
-		  
-		   <div class="form-group">
-		    <label class="col-sm-4 control-label">Retencion por otros empleadores</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{retencionOtrosEmpleadores}" required="required"/>
-		    </div></div>
-		  
-		   <div class="form-group">
-		    <label class="col-sm-4 control-label">Ir retenido empleador</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{irAsumidoEmpleadorActual}" required="required"/>
-		    </div></div>
-		    
-		    <div class="form-group">
-		    <label class="col-sm-4 control-label">Retenciones</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{retenciones}" required="required"/>
-		    </div></div>
-		  
-		   <div class="form-group">
-		    <label class="col-sm-4 control-label">Meses trabajados</label>
-		    <div class="col-sm-4">
-		      <input type="number" class="form-control input-sm" th:field="*{mesesTrabajados}" max="12" required="required"/>
-		    </div></div>
-		  
-		  <div class="form-group">
-		    <label class="col-sm-4 control-label">Fecha</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control input-sm datePiker" th:field="*{date}" required="required"/>
-		    </div>
-		  </div>
-  </div>
-		  
 	<div class="well col-sm-6">
 			<h4>Deducción Gastos Personales</h4>
 			<div class="col-sm-4 col-sm-offset-4">Anual</div>
@@ -274,7 +195,82 @@
 		    </div>
 		  </div>
 		  		  		  		    
+	</div>		
+		
+	<div class="well col-xs-6">
+			<h4>Exoneraciones</h4>
+		   	<div class="col-sm-4 col-sm-offset-4">Anual</div>
+			<div class="col-sm-4">Mensual</div>
+			
+		  <div class="form-group">		    
+		    <label class="col-sm-4 control-label">Por discapacidad</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control input-sm" th:field="*{exoneracionDiscapacidad}" readonly="readonly"/>
+		    </div>
+		    <div class="col-sm-4">
+		    <input type="number" class="form-control input-sm" id="exoneracionDiscapacidadMensual" th:if="${!editandoMovimiento}" value="0.0" readonly="readonly"/>
+		      <input type="number" class="form-control input-sm" id="exoneracionDiscapacidadMensual" th:if="${editandoMovimiento}" th:with="result=${movimiento.exoneracionDiscapacidad / 12}" th:value="${result}" readonly="readonly"/>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label class="col-sm-4 control-label">Por tercera edad</label>
+		    <div class="col-sm-4">
+		      <input type="number" class="form-control input-sm" th:field="*{exoneracionTerceraE}" readonly="readonly"/>
+		    </div>
+		    <div class="col-sm-4">
+		    <input type="number" class="form-control input-sm" id="exoneracionTerceraEMensual" th:if="${editandoMovimiento}" th:with="result=${movimiento.exoneracionTerceraE / 12}" th:value="${result}" readonly="readonly"/>
+		      <input type="number" class="form-control input-sm" id="exoneracionTerceraEMensual" th:if="${!editandoMovimiento}" value="0.0" readonly="readonly"/>
+		    </div>
+		  </div>
 	</div>
+		
+	<div class="col-sm-12">
+			<div class="form-group">
+		    <label class="col-sm-3 control-label bg-info">Base Imp. gravada</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" required="required" th:field="*{baseImponibleGravada}"/>
+		    </div></div>
+		    
+		    <div class="form-group">
+			<label class="col-sm-3 control-label bg-info">Imp. a la renta causado</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" th:field="*{impuestoRentaCausado}" required="required"/>
+		    </div></div>	    
+		  
+		   <div class="form-group">
+		    <label class="col-sm-3 control-label">Retencion por otros empleadores (Anual)</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" th:field="*{retencionOtrosEmpleadores}" required="required"/>
+		    </div></div>
+		  
+		   <div class="form-group">
+		    <label class="col-sm-3 control-label">Ir retenido empleador (Anual)</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" th:field="*{irAsumidoEmpleadorActual}" required="required"/>
+		    </div></div>
+		    
+		    <div class="form-group">
+		    <label class="col-sm-3 control-label bg-info">Retenciones (Mensual)</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" th:field="*{retenciones}" required="required"/>
+		    </div></div>
+		  
+		   <div class="form-group">
+		    <label class="col-sm-3 control-label">Meses trabajados</label>
+		    <div class="col-sm-3">
+		      <input type="number" class="form-control input-sm" th:field="*{mesesTrabajados}" max="12" required="required"/>
+		    </div></div>
+		  
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">Fecha</label>
+		    <div class="col-sm-3">
+		      <input type="text" class="form-control input-sm datePiker" th:field="*{date}" required="required"/>
+		    </div>
+		  </div>
+  </div>
+		  
+
   
 	   	<div><input type="hidden" id="editandoMovimiento" name="editandoMovimiento" th:value="${editandoMovimiento}"/>
 	   		<input type="hidden"  id="idMovimieto" name="idMovimiento" th:value="${movimiento.idMovimiento}"/>

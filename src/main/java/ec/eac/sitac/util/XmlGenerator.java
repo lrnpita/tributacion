@@ -411,17 +411,18 @@ public class XmlGenerator{
 				pagoExterior.appendChild(pagExtSujRetNorLeg);
 
 				Element formasDePago = null;
-				if(compra.getTiposPago() != null){
+				if(compra.getTipoPagoVsCompras() != null){
 					formasDePago = document.createElement("formasDePago");
-					for (TipoPagoVsCompra tipoPago : compra.getTiposPago()) {
+					for (TipoPagoVsCompra tipoPago : compra.getTipoPagoVsCompras()) {
 						Element formaPago = document.createElement("formaPago"); formaPago.appendChild(document.createTextNode(tipoPago.getTipoPago().getCodigo()));
 						formasDePago.appendChild(formaPago);
 					}
 				}
 
-				Element estabRetencion1 = document.createElement("estabRetencion1"); estabRetencion1.appendChild(document.createTextNode(compra.getRetencion().getSerieRetencion().substring(0, 2)));
-				Element ptoEmiRetencion1 = document.createElement("ptoEmiRetencion1"); ptoEmiRetencion1.appendChild(document.createTextNode(compra.getRetencion().getSerieRetencion().substring(3, 5)));
-				Element secRetencion1 = document.createElement("secRetencion1"); secRetencion1.appendChild(document.createTextNode(String.valueOf(compra.getRetencion().getSecuenciaRetencion())));
+				Element estabRetencion1 = document.createElement("estabRetencion1"); estabRetencion1.appendChild(document.createTextNode(compra.getRetencion().getSerieRetencion().substring(0, 3)));
+				Element ptoEmiRetencion1 = document.createElement("ptoEmiRetencion1"); ptoEmiRetencion1.appendChild(document.createTextNode(compra.getRetencion().getSerieRetencion().substring(3, 6)));
+				String secuencialRetencion1 = Utility.rellenarCadenaConCeros(String.valueOf(compra.getRetencion().getSecuenciaRetencion()));
+				Element secRetencion1 = document.createElement("secRetencion1"); secRetencion1.appendChild(document.createTextNode(secuencialRetencion1));
 				Element autRetencion1 = document.createElement("autRetencion1"); autRetencion1.appendChild(document.createTextNode(compra.getRetencion().getAutorizacionRetencion()));
 				Element fechaEmiRet1 = document.createElement("fechaEmiRet1"); fechaEmiRet1.appendChild(document.createTextNode(String.valueOf(dt.format(compra.getRetencion().getFechaRetencion()))));
 

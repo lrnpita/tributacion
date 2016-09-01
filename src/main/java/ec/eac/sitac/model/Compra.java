@@ -238,7 +238,7 @@ public class Compra implements java.io.Serializable {
 	 *
 	 * @since 2015
 	 */
-	private Set<TipoPagoVsCompra> tiposPago = new HashSet<TipoPagoVsCompra>(0);
+	private Set<TipoPagoVsCompra> tipoPagoVsCompras = new HashSet<TipoPagoVsCompra>(0);
 
 	public Compra() {
 	}
@@ -296,7 +296,7 @@ public class Compra implements java.io.Serializable {
 		this.secuenciaModificado = secuenciaModificado;
 		this.comprobanteReembolsos = comprobanteReembolsos;
 		this.detallesCompras = detallesCompras;
-		this.tiposPago = tiposPago;
+		this.tipoPagoVsCompras = tiposPago;
 		this.archivoXMLAsociado = archivoXMLAsociado;
 		this.comprobantePago = comprobantePago;
 		this.serieFactura = serieFactura;
@@ -558,13 +558,13 @@ public class Compra implements java.io.Serializable {
 	}
 
 	@JsonIgnore
-	public Set<TipoPagoVsCompra> getTiposPago() {
-		return this.tiposPago;
+	public Set<TipoPagoVsCompra> getTipoPagoVsCompras() {
+		return this.tipoPagoVsCompras;
 	}
 
 	@JsonIgnore
-	public void setTiposPago(Set<TipoPagoVsCompra> tipoPago) {
-		this.tiposPago = tipoPago;
+	public void setTipoPagoVsCompras(Set<TipoPagoVsCompra> tipoPago) {
+		this.tipoPagoVsCompras = tipoPago;
 	}
 
 	public String getArchivoXMLAsociado() {
